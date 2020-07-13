@@ -64,6 +64,10 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 # Application Architecture Diagram
 
+Outlined below is the basic Architecture Diagram of how we plan to structure the application. As you can see, the user will always be interacting with our 'front-end' React application. From there, all data/requests are passed through into our 'back-end' NodeJS API where the proper actions can be executed depending on the request type and route destination. Our Node API interacts with numerous javascript packages to allow for functions such as password encryption, web tokens for authentication and Express for routing requests to the correct files/servers, etc. The included 'mongoose' package is our interface between our NodeAPI/Express routes, and our MongoDB Atlas database described below. Express also handles some data storage by sending and retrieving our users images between Amazon S3 and our server application, for delivery to the user.
+
+![Architecture Diagram](./resources/Application_Architecture_Diagram.png)
+
 # R4 - User Stories
 
 ## Michael
@@ -140,3 +144,50 @@ Her experience with technology stems from working in administration of small bus
 ***“I would like to share photos of my life and of what I do with my activism.  These are the stories of mine which are important to me. I need to be able to tell them to my community, friends and organisations that I am involved with”***
 
 *“I am after something simple that lets me share my images and stories as facebook feels a little too crowded with unrelated content”*
+
+# Wireframes
+
+### Log In
+
+This is the page that users are greeted with upon first visit of the application. Users are required to sign in to their account in order to use certain functions of the application such as posting and commenting.
+
+![Login Page](./resources/Grub_Grub_Wireframes/Login_Page.png)
+
+### Sign Up
+
+This page sports a form for users to create their own account! This allows them to upload photos and share with friends, view other peoples posts, and make comments!
+
+![Signup Page](./resources/Grub_Grub_Wireframes/SignUp_Page.png)
+
+### Home Landing Page
+
+This is the home page of the application, here users are able to enter search queries, view their general feed and change the view layout, and navigate the application with the bottom navbar.
+
+The layout will be available in 2 forms:
+
+**Grid layout**
+
+![Home Page Grid Layout](./resources/Grub_Grub_Wireframes/Home_Page_1.png)
+
+**Linear layout**
+
+![Home Page Linear Layout](./resources/Grub_Grub_Wireframes/Home_Page_2.png)
+
+### New Upload Page
+
+Quite self-explanitory, this is where users are able to upload new photos to share on their profiles! The form takes a new file upload, along with a caption and any tags specified by the user.
+
+![New Upload Page](./resources/Grub_Grub_Wireframes/New_Upload_Page.png)
+
+### Profile View
+
+This is where users can see their own profiles and how they look to other users, as well as access to edit their information if they have the permissions to do so.
+
+![Profile Page](./resources/Grub_Grub_Wireframes/Profile_Page.png)
+
+### Edit Profile Page
+
+This page has forms allowing for the user to change their account information and reset their password if need be.
+
+![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
+
