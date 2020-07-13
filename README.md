@@ -64,6 +64,10 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 # Application Architecture Diagram
 
+Outlined below is the basic Architecture Diagram of how we plan to structure the application. As you can see, the user will always be interacting with our 'front-end' React application. From there, all data/requests are passed through into our 'back-end' NodeJS API where the proper actions can be executed depending on the request type and route destination. Our Node API interacts with numerous javascript packages to allow for functions such as password encryption, web tokens for authentication and Express for routing requests to the correct files/servers, etc. The included 'mongoose' package is our interface between our NodeAPI/Express routes, and our MongoDB Atlas database described below. Express also handles some data storage by sending and retrieving our users images between Amazon S3 and our server application, for delivery to the user.
+
+![Architecture Diagram](./resources/Application_Architecture_Diagram.png)
+
 # R4 - User Stories
 
 > 6.0 to >5.0 pts
