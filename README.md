@@ -85,40 +85,75 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 ### Michael
 
-|:---|:---|
-|![Michael's picture](./resources/michael.png) | 22 year old college graduate with a major in Computer Science, currently backpacking through Europe with his partner|
+![A young man with slightly messy hair, trendy glasses wearing a turtle neck under a thick hoodie](./resources/user_story/michael.jpg)
 
-- Due to my degree, I have an adept level of experience in the technology field.
-- I would like to be able to create a secure account with an encrypted password to protect my personal information from any external entities.
-- Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
+22 year old college graduate with a major in Computer Science, currently backpacking through Europe with his partner
 
-- **Karen**, a 47 year old mother of 3 'angelic' children, freshly returned from arguing with the Branch Manager of her local Woolworths.
+*"Due to my degree, I have an adept level of experience in the technology field."*
 
-  - Due to my priorities in life revolving around fighting employees of local businesses, my experience with technology is limited to recording arguments in case I need evidence in a court case.
-  - I want to be able to quickly and easily change my account information if any of my details change in the future.
-  - Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive, so I can spend more time with my children instead of writing aggressive emails to the app developers.
+***"I would like to be able to create a secure account with an encrypted password to protect my personal information from any external entities."***
 
-- **Alex**, a 32 year old circus clown from Idaho, currently honing his juggling and animal training skills.
+"*Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
+"*
 
-  - My experience in life is entirely made up of the circus, consequently technology can be rather confuddling.
-  - I want to be able to upload photos of my animal training progress and remove them if they prove to be risque for the public eye.
-  - Other platforms sometimes make it tricky to find where to delete my photos when my audience dislikes certain content. I would like manage how my photos are publicly viewed to help me maintain my personal brand without having to resort to deleting them.
+### Karen
 
-- **Anita**, 55 year old empty-nester. Currently travelling around Australia in a caravan with her partner Brian
+![A woman with her blonde hair up and a scowling look piercing through her designer glasses](./resources/user_story/karen.jpg)
 
-  - Her experience with technology stems from working in administration of small businesses prior to hI thought that using avatars would be less problematic than er retirement
-  - She would like to organise her photos from her journey to share with friends and family
-  - She finds other platforms she has used such as flicker and instagram are either too structured or not structured enough, as well as taking to long to do what she wants to do.
+47 year old mother of 3 'angelic' children, freshly returned from arguing with the Branch Manager of her local Woolworths.
 
-- **Serjay**, a 33 year old newly immigrated father of two. He wants to easily share photos of his young family with family back home in India
+*"Due to my priorities in life revolving around fighting employees of local businesses, my experience with technology is limited to recording arguments in case I need evidence in a court case."*
 
-  - Mostly uses facebook and instagram and has never used a dedicated photo album style platform, but is very technically literate due to his skills as a software engineer
-  - He would like to share photos with his family and friends both back in his home country and locally
-  - He bases his platforms of choice on ease of usability for those he wants to share with, many of whom he considers are not that skilled with using complex software
-  - Speed to share and an easy learning curve are what he looks for before attempting to adopt anything
-  - He is wanting something simpler and more powerful than albums or single posts that does not ask too much of his time from his very busy life
+*"I want to be able to quickly and easily change my account information if any of my details change in the future."*
 
-- **Alice**, 48 year old sister-girl from the Northern Territory who is active in social campaigning. She regularly attends demonstrations in the large capital cities and often returns to her 'home country' to see her family and friends
-  - Has only really used facebook
-  - She would like to share photos of her life and of her present day activism activities with both her community, friends and organisations that she is involved with
-  - She is after something simple that lets her share her images and stories as she finds facebook too crowded with unrelated content from her friends
+***"Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive**, so I can spend more time with my children instead of writing aggressive emails to the app developers."*
+
+### Alex
+
+![A Clown in a monochrome costume and makeup and a crown on his head](./resources/user_story/alex.jpg)
+
+32 year old circus clown from Idaho, currently honing his juggling and animal training skills.
+
+*"My experience in life is entirely made up of the circus, consequently technology can be rather confuddling."*
+
+*"I want to be able to upload photos of my animal training progress and remove them if they prove to be risque for the public eye."*
+
+*"Other platforms sometimes make it tricky to find where to delete my photos when my audience dislikes certain content. **I would like manage how my photos are publicly viewed to help me maintain my personal brand without having to resort to deleting them."***
+
+### Anita
+
+![An older woman with purple hair and glasses](./resources/user_story/anita.jpg)
+
+55 year old empty-nester. Currently travelling around Australia in a caravan with her partner Brian
+
+Her experience with technology stems from working in administration of small businesses prior to hI thought that using avatars would be less problematic than er retirement
+
+***“I would like to be able to organise her photos from our journey to share with friends and family”***
+
+*“I find that other platforms I have used such as flickr and instagram are either too structured or not structured enough, as well as taking too long and too much effort to do what I want to do”*
+
+### Sanjay
+
+![A middle aged man with a collared office shirt, some small facial hair around the mouth, darker skin and a pair of glasses with some form of technology added to them](./resources/user_story/sanjay.jpg)
+
+33 year old newly immigrated father of two. He wants to easily share photos of his young family with family back home in India
+
+*“I mostly use facebook and instagram but have never used a dedicated photo album style platform.”*
+
+*“I am very technically literate due to my skills as a software engineer. Speed to sharing and an easy learning curve are what I look for before attempting to adopt anything”*
+
+*“**I like base my platforms of choice on ease of usability for those I want to share my photos with**, many of whom are not that skilled with using complex software”*
+
+*“I am wanting something simpler and more powerful than albums or single posts **that does not ask too much of my time from my very busy family and work  life**”*
+
+### Alice
+
+![An older woman of Aboroginal heritage with neatly pulled back hair, brown eyes and a dark skin tone](resources/user_story/alice.jpg)
+
+48 year old sister-girl from the Northern Territory who is active in social campaigning. She regularly attends demonstrations in the large capital cities and often returns to her 'home country' to see her family and friends
+
+*“I have only really used facebook”*
+
+***“I would like to share photos of my life and of what I do with my activism.  These are the stories of mine which are important to me. I need to be able to tell them to my community, friends and organisations that I am involved with”***
+
+*“I am after something simple that lets me share my images and stories as facebook feels a little too crowded with unrelated content”*
