@@ -127,16 +127,24 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 ### Log In / Sign Up Page
 
+This is the page that users are greeted with upon first visit of the application. Users are required to sign in or create an account in order to use certain functions of the application such as posting and commenting.
+
 ![Signup Page](./resources/Grub_Grub_Wireframes/Login_SignUp.png)
 
 ### Home Landing Page
+
+This is the home page of the application, here users are able to enter search queries, view their general feed and change the view layout, and navigate the application with the bottom navbar.
 
 ![Home Page](./resources/Grub_Grub_Wireframes/Home_Page.png)
 
 ### New Upload Page
 
+Quite self-explanitory, this is where users are able to upload new photos to share on their profiles! The form takes a new file upload, along with a caption and any tags specified by the user.
+
 ![New Upload Page](./resources/Grub_Grub_Wireframes/New_Upload_Page.png)
 
 ### Profile View / Edit Page
+
+This is where users can see their own profiles and how they look to other users, as well as access to edit their information if they have the permissions to do so!
 
 ![Profile Page](./resources/Grub_Grub_Wireframes/Profile_Page.png)
