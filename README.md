@@ -122,3 +122,21 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
   - Has only really used facebook
   - She would like to share photos of her life and of her present day activism activities with both her community, friends and organisations that she is involved with
   - She is after something simple that lets her share her images and stories as she finds facebook too crowded with unrelated content from her friends
+
+# Wireframes
+
+### Log In / Sign Up Page
+
+![Signup Page](./resources/Grub_Grub_Wireframes/Login_SignUp.png)
+
+### Home Landing Page
+
+![Home Page](./resources/Grub_Grub_Wireframes/Home_Page.png)
+
+### New Upload Page
+
+![New Upload Page](./resources/Grub_Grub_Wireframes/New_Upload_Page.png)
+
+### Profile View / Edit Page
+
+![Profile Page](./resources/Grub_Grub_Wireframes/Profile_Page.png)
