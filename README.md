@@ -83,17 +83,20 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 ## User Personas
 
-- **Michael**, a 22 year old college graduate with a major in Computer Science, currently backpacking through Europe with his partner.
+### Michael
 
-  - Due to my degree, I have an adept level of experience in the technology field.
-  - I would like to be able to create a secure account with an encrypted password to protect my personal information from any external entities.
-  - Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
+|:---|:---|
+|![Michael's picture](./resources/michael.png) | 22 year old college graduate with a major in Computer Science, currently backpacking through Europe with his partner|
+
+- Due to my degree, I have an adept level of experience in the technology field.
+- I would like to be able to create a secure account with an encrypted password to protect my personal information from any external entities.
+- Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
 
 - **Karen**, a 47 year old mother of 3 'angelic' children, freshly returned from arguing with the Branch Manager of her local Woolworths.
 
   - Due to my priorities in life revolving around fighting employees of local businesses, my experience with technology is limited to recording arguments in case I need evidence in a court case.
   - I want to be able to quickly and easily change my account information if any of my details change in the future.
-  - Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive, so I can spend more time with my children instead of writing agressive emails to the app developers.
+  - Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive, so I can spend more time with my children instead of writing aggressive emails to the app developers.
 
 - **Alex**, a 32 year old circus clown from Idaho, currently honing his juggling and animal training skills.
 
@@ -103,7 +106,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 - **Anita**, 55 year old empty-nester. Currently travelling around Australia in a caravan with her partner Brian
 
-  - Her experience with technology stems from working in administration of small businesses prior to her retirement
+  - Her experience with technology stems from working in administration of small businesses prior to hI thought that using avatars would be less problematic than er retirement
   - She would like to organise her photos from her journey to share with friends and family
   - She finds other platforms she has used such as flicker and instagram are either too structured or not structured enough, as well as taking to long to do what she wants to do.
 
@@ -115,7 +118,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
   - Speed to share and an easy learning curve are what he looks for before attempting to adopt anything
   - He is wanting something simpler and more powerful than albums or single posts that does not ask too much of his time from his very busy life
 
-- **Brianna**, 48 year old sister-girl from the Northern Territory who is active in social campaigning. She regularly attends demonstrations in the large capital cities and often returns to her 'home country' to see her family and friends
+- **Alice**, 48 year old sister-girl from the Northern Territory who is active in social campaigning. She regularly attends demonstrations in the large capital cities and often returns to her 'home country' to see her family and friends
   - Has only really used facebook
   - She would like to share photos of her life and of her present day activism activities with both her community, friends and organisations that she is involved with
   - She is after something simple that lets her share her images and stories as she finds facebook too crowded with unrelated content from her friends
