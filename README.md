@@ -66,24 +66,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 # R4 - User Stories
 
-> 6.0 to >5.0 pts
-> HD
-> Provides multiple user stories (6 in total, 3 per person) that use ‘persona, what and why’ that outline meaningful features of project. Shows evidence of user story revision and refinement.
-
-## User story outline
-
--Persona
-
-- Name
-- Age
-- Something personal about their life, possibly as to why this application is of importance to them
-- Level of tech experience
-- Task they want to accomplish
-- What their 'pain-point' with existing solutions are
-
-## User Personas
-
-### Michael
+## Michael
 
 ![A young man with slightly messy hair, trendy glasses wearing a turtle neck under a thick hoodie](./resources/user_story/michael.jpg)
 
@@ -96,7 +79,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 "*Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
 "*
 
-### Karen
+## Karen
 
 ![A woman with her blonde hair up and a scowling look piercing through her designer glasses](./resources/user_story/karen.jpg)
 
@@ -108,7 +91,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 ***"Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive**, so I can spend more time with my children instead of writing aggressive emails to the app developers."*
 
-### Alex
+## Alex
 
 ![A Clown in a monochrome costume and makeup and a crown on his head](./resources/user_story/alex.jpg)
 
@@ -120,7 +103,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 *"Other platforms sometimes make it tricky to find where to delete my photos when my audience dislikes certain content. **I would like manage how my photos are publicly viewed to help me maintain my personal brand without having to resort to deleting them."***
 
-### Anita
+## Anita
 
 ![An older woman with purple hair and glasses](./resources/user_story/anita.jpg)
 
@@ -132,7 +115,7 @@ Her experience with technology stems from working in administration of small bus
 
 *“I find that other platforms I have used such as flickr and instagram are either too structured or not structured enough, as well as taking too long and too much effort to do what I want to do”*
 
-### Sanjay
+## Sanjay
 
 ![A middle aged man with a collared office shirt, some small facial hair around the mouth, darker skin and a pair of glasses with some form of technology added to them](./resources/user_story/sanjay.jpg)
 
