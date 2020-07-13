@@ -125,17 +125,31 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 # Wireframes
 
-### Log In / Sign Up Page
+### Log In
 
-This is the page that users are greeted with upon first visit of the application. Users are required to sign in or create an account in order to use certain functions of the application such as posting and commenting.
+This is the page that users are greeted with upon first visit of the application. Users are required to sign in to their account in order to use certain functions of the application such as posting and commenting.
 
-![Signup Page](./resources/Grub_Grub_Wireframes/Login_SignUp.png)
+![Login Page](./resources/Grub_Grub_Wireframes/Login_Page.png)
+
+### Sign Up
+
+This page sports a form for users to create their own account! This allows them to upload photos and share with friends, view other peoples posts, and make comments!
+
+![Signup Page](./resources/Grub_Grub_Wireframes/SignUp_Page.png)
 
 ### Home Landing Page
 
 This is the home page of the application, here users are able to enter search queries, view their general feed and change the view layout, and navigate the application with the bottom navbar.
 
-![Home Page](./resources/Grub_Grub_Wireframes/Home_Page.png)
+The layout will be available in 2 forms:
+
+**Grid layout**
+
+![Home Page Grid Layout](./resources/Grub_Grub_Wireframes/Home_Page_1.png)
+
+**Linear layout**
+
+![Home Page Linear Layout](./resources/Grub_Grub_Wireframes/Home_Page_2.png)
 
 ### New Upload Page
 
@@ -143,8 +157,14 @@ Quite self-explanitory, this is where users are able to upload new photos to sha
 
 ![New Upload Page](./resources/Grub_Grub_Wireframes/New_Upload_Page.png)
 
-### Profile View / Edit Page
+### Profile View
 
-This is where users can see their own profiles and how they look to other users, as well as access to edit their information if they have the permissions to do so!
+This is where users can see their own profiles and how they look to other users, as well as access to edit their information if they have the permissions to do so.
 
 ![Profile Page](./resources/Grub_Grub_Wireframes/Profile_Page.png)
+
+### Edit Profile Page
+
+This page has forms allowing for the user to change their account information and reset their password if need be.
+
+![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
