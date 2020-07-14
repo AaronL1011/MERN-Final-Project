@@ -2,13 +2,19 @@
 
 Created by Evelyn Paplauskas and Aaron Lewis for a Coder Academy final project.
 
-## R1 - Application Description
+## Application Description
+
+> R1 - Application Description
 
 ### Purpose
+
+> R1 - Purpose
 
 To provide a platform for users to share their original content (photos). Currently many photo sharing platforms allow for the sharing and re-posting of images of any sort. While this is fine, certain audiences would prefer a platform to share images they have taken themselves (photographers, family-persons, etc.) This application can serve as a platform to achieve this. While theoretically you will still be able to upload any image, the whole idea is to keep uploads exclusively as original content.
 
 ### Functionality and Features
+
+> R1 - Functionality and Features
 
 This application is being designed as a photo sharing platform for use by anyone wishing to upload and distribute their own original photos. Obviously the platform will need functions to support the creation, retrieval, updating and deletion of User Accounts, as well as CRUD operations and a storage solution for the photos being uploaded by each user.
 
@@ -37,9 +43,13 @@ In a general sense, features we would like to implement include:
 
 ### Target audience
 
+> R1 - Target Audience
+
 The target audience within this application is very broad. Given that _any persons who take their own photos_ are encouraged to be a part of this platform, anyone with a camera of some sorts could be considered part of the target audience. To ensure a safe environment for all users within this application, it may require some Terms and Conditions to be defined to control the specific type of content allowed to be uploaded. For example, imposing restrictions on NSFW content (photos involving nudity, illicit substances or violence) would be required to ensure that any _minors_ or _those who are easily disturbed_ are safe and comfortable within the application.
 
 ### Tech Stack
+
+> R1 - Tech Stack
 
 This application is planned to be split into two main components. The 'Front end' will be for rendering content to the users and handling user interaction, and the 'Back end' will be used for routing HTTP requests, and retrieving/sending the appropriate data between servers as the user interacts with the appliocation.
 
@@ -58,17 +68,23 @@ In regards to the back end, this requires the use of a few more technologies.
 
 # Dataflow Diagram
 
+> R2 - Dataflow Diagram
+
 Below is a Level 1 Dataflow Diagram outlining the flow of information between components at the core functionality of the application. It shows how requests from the User are handled and how data is stored and retrieved from our application storage.
 
 ![Dataflow Diagram](./resources/DataflowDiagram.png)
 
 # Application Architecture Diagram
 
+> R3 - Application Architecture Diagram
+
 Outlined below is the basic Architecture Diagram of how we plan to structure the application. As you can see, the user will always be interacting with our 'front-end' React application. From there, all data/requests are passed through into our 'back-end' NodeJS API where the proper actions can be executed depending on the request type and route destination. Our Node API interacts with numerous javascript packages to allow for functions such as password encryption, web tokens for authentication and Express for routing requests to the correct files/servers, etc. The included 'mongoose' package is our interface between our NodeAPI/Express routes, and our MongoDB Atlas database described below. Express also handles some data storage by sending and retrieving our users images between Amazon S3 and our server application, for delivery to the user.
 
 ![Architecture Diagram](./resources/Application_Architecture_Diagram.png)
 
-# R4 - User Stories
+# User Stories
+
+> R4 - User Stories
 
 ## Michael
 
@@ -147,6 +163,8 @@ _“I am after something simple that lets me share my images and stories as face
 
 # Wireframes
 
+> R5 - Wireframes for multiple standard screen sizes, created using industry standard software
+
 ### Log In
 
 This is the page that users are greeted with upon first visit of the application. Users are required to sign in to their account in order to use certain functions of the application such as posting and commenting.
@@ -192,6 +210,8 @@ This page has forms allowing for the user to change their account information an
 ![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
 
 # Planning Screenshots
+
+> R6 - Screenshots of your Trello board demonstrating use throughout the initial stages of the project
 
 Throughout the developement process, we opted to use Kanban progress tracking in the form of a Trello board. This makes it exceedingly simple to visualise the status of each current task, and to follow who is completing each one. As each task is progressed, it moves between columns, once completed, it is marked as such, and a new task can be commenced. Outlined below, you can see the progression of tasks as we worked through the first section of the assignment.
 
