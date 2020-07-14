@@ -194,3 +194,14 @@ This page has forms allowing for the user to change their account information an
 
 ![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
 
+<<<<<<< HEAD
+# Planning Screenshots
+
+Throughout the developement process, we opted to use Kanban progress tracking in the form of a Trello board. This makes it exceedingly simple to visualise the status of each current task, and to follow who is completing each one. As each task is progressed, it moves between columns, once completed, it is marked as such, and a new task can be commenced. Outlined below, you can see the progression of tasks as we worked through the first section of the assignment.
+
+![First screenshot of trello board](./resources/screenshots/screenshot-1.png)
+![Second screenshot of trello board](./resources/screenshots/screenshot-2.png)
+![Third screenshot of trello board](./resources/screenshots/screenshot-3.png)
+![Fourth screenshot of trello board](./resources/screenshots/screenshot-4.png)
+=======
+>>>>>>> 97884eec98a8e3f685f19e146516d2a75da27a3d
