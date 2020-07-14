@@ -79,12 +79,12 @@ Outlined below is the basic Architecture Diagram of how we plan to structure the
 
 22 year old college graduate with a major in Computer Science, currently backpacking through Europe with his partner
 
-*"Due to my degree, I have an adept level of experience in the technology field."*
+_"Due to my degree, I have an adept level of experience in the technology field."_
 
-***"I would like to be able to create a secure account with an encrypted password to protect my personal information from any external entities."***
+**_"I would like to be able to create a secure account with an encrypted password to protect my personal information from any external entities."_**
 
-"*Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
-"*
+"_Security is a crucial point of interest in every application that hosts any form of personal information. Many applications aren't very transparent with the level of security used to protect my information, so I would like to be informed on the methods used within this application.
+"_
 
 ## Karen
 
@@ -92,11 +92,11 @@ Outlined below is the basic Architecture Diagram of how we plan to structure the
 
 47 year old mother of 3 'angelic' children, freshly returned from arguing with the Branch Manager of her local Woolworths.
 
-*"Due to my priorities in life revolving around fighting employees of local businesses, my experience with technology is limited to recording arguments in case I need evidence in a court case."*
+_"Due to my priorities in life revolving around fighting employees of local businesses, my experience with technology is limited to recording arguments in case I need evidence in a court case."_
 
-*"I want to be able to quickly and easily change my account information if any of my details change in the future."*
+_"I want to be able to quickly and easily change my account information if any of my details change in the future."_
 
-***"Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive**, so I can spend more time with my children instead of writing aggressive emails to the app developers."*
+**\*"Some current applications make it too complicated to find where to edit my information, which quite frankly I find confusing and irritating. I would prefer this process to be very simple and intuitive**, so I can spend more time with my children instead of writing aggressive emails to the app developers."\*
 
 ## Alex
 
@@ -104,11 +104,11 @@ Outlined below is the basic Architecture Diagram of how we plan to structure the
 
 32 year old circus clown from Idaho, currently honing his juggling and animal training skills.
 
-*"My experience in life is entirely made up of the circus, consequently technology can be rather confuddling."*
+_"My experience in life is entirely made up of the circus, consequently technology can be rather confuddling."_
 
-*"I want to be able to upload photos of my animal training progress and remove them if they prove to be risque for the public eye."*
+_"I want to be able to upload photos of my animal training progress and remove them if they prove to be risque for the public eye."_
 
-*"Other platforms sometimes make it tricky to find where to delete my photos when my audience dislikes certain content. **I would like manage how my photos are publicly viewed to help me maintain my personal brand without having to resort to deleting them."***
+\*"Other platforms sometimes make it tricky to find where to delete my photos when my audience dislikes certain content. **I would like manage how my photos are publicly viewed to help me maintain my personal brand without having to resort to deleting them."\***
 
 ## Anita
 
@@ -118,9 +118,9 @@ Outlined below is the basic Architecture Diagram of how we plan to structure the
 
 Her experience with technology stems from working in administration of small businesses prior to hI thought that using avatars would be less problematic than er retirement
 
-***“I would like to be able to organise her photos from our journey to share with friends and family”***
+**_“I would like to be able to organise her photos from our journey to share with friends and family”_**
 
-*“I find that other platforms I have used such as flickr and instagram are either too structured or not structured enough, as well as taking too long and too much effort to do what I want to do”*
+_“I find that other platforms I have used such as flickr and instagram are either too structured or not structured enough, as well as taking too long and too much effort to do what I want to do”_
 
 ## Sanjay
 
@@ -128,13 +128,13 @@ Her experience with technology stems from working in administration of small bus
 
 33 year old newly immigrated father of two. He wants to easily share photos of his young family with family back home in India
 
-*“I mostly use facebook and instagram but have never used a dedicated photo album style platform.”*
+_“I mostly use facebook and instagram but have never used a dedicated photo album style platform.”_
 
-*“I am very technically literate due to my skills as a software engineer. Speed to sharing and an easy learning curve are what I look for before attempting to adopt anything”*
+_“I am very technically literate due to my skills as a software engineer. Speed to sharing and an easy learning curve are what I look for before attempting to adopt anything”_
 
-*“**I like base my platforms of choice on ease of usability for those I want to share my photos with**, many of whom are not that skilled with using complex software”*
+_“**I like base my platforms of choice on ease of usability for those I want to share my photos with**, many of whom are not that skilled with using complex software”_
 
-*“I am wanting something simpler and more powerful than albums or single posts **that does not ask too much of my time from my very busy family and work  life**”*
+_“I am wanting something simpler and more powerful than albums or single posts **that does not ask too much of my time from my very busy family and work life**”_
 
 ### Alice
 
@@ -142,11 +142,11 @@ Her experience with technology stems from working in administration of small bus
 
 48 year old sister-girl from the Northern Territory who is active in social campaigning. She regularly attends demonstrations in the large capital cities and often returns to her 'home country' to see her family and friends
 
-*“I have only really used facebook”*
+_“I have only really used facebook”_
 
-***“I would like to share photos of my life and of what I do with my activism.  These are the stories of mine which are important to me. I need to be able to tell them to my community, friends and organisations that I am involved with”***
+**_“I would like to share photos of my life and of what I do with my activism. These are the stories of mine which are important to me. I need to be able to tell them to my community, friends and organisations that I am involved with”_**
 
-*“I am after something simple that lets me share my images and stories as facebook feels a little too crowded with unrelated content”*
+_“I am after something simple that lets me share my images and stories as facebook feels a little too crowded with unrelated content”_
 
 # Wireframes
 
@@ -194,7 +194,6 @@ This page has forms allowing for the user to change their account information an
 
 ![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
 
-<<<<<<< HEAD
 # Planning Screenshots
 
 Throughout the developement process, we opted to use Kanban progress tracking in the form of a Trello board. This makes it exceedingly simple to visualise the status of each current task, and to follow who is completing each one. As each task is progressed, it moves between columns, once completed, it is marked as such, and a new task can be commenced. Outlined below, you can see the progression of tasks as we worked through the first section of the assignment.
@@ -203,5 +202,3 @@ Throughout the developement process, we opted to use Kanban progress tracking in
 ![Second screenshot of trello board](./resources/screenshots/screenshot-2.png)
 ![Third screenshot of trello board](./resources/screenshots/screenshot-3.png)
 ![Fourth screenshot of trello board](./resources/screenshots/screenshot-4.png)
-=======
->>>>>>> 97884eec98a8e3f685f19e146516d2a75da27a3d
