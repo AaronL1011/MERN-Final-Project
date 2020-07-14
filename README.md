@@ -20,7 +20,7 @@ This application is being designed as a photo sharing platform for use by anyone
 
 Due to this being a photo-sharing platform, we will need to support file upload and storage. We are hoping to achieve this by utilizing an Amazon S3 Storage Bucket to send and retrieve any data associated to a user.
 
-Users should also be able to modify any of their own photographs, but not each others. This implies the use of some permissions and authentication. We will be able to achieve this with the use of JSON Web Tokens and pre-flight checks of the users token/permissions in relation to any action they are trying to execute.
+Users should also be able to modify any of their content on the plaform and visibility to other users, but not each others. This implies the use of some permissions and authentication. We will be able to achieve this with the use of JSON Web Tokens and pre-flight checks of the users token/permissions in relation to any action they are trying to execute.
 
 In a general sense, features we would like to implement include:
 
@@ -40,12 +40,15 @@ In a general sense, features we would like to implement include:
   - Ability to share collections via a link for posting on social media platforms
   - Allowing users to follow a user
   - Ability to comment on images publicly and provide feedback privately
+  - Reporting of the abuse/violation of Terms of Service
 
 ### Target audience
 
 > R1 - Target Audience
 
-The target audience within this application is very broad. Given that _any persons who take their own photos_ are encouraged to be a part of this platform, anyone with a camera of some sorts could be considered part of the target audience. To ensure a safe environment for all users within this application, it may require some Terms and Conditions to be defined to control the specific type of content allowed to be uploaded. For example, imposing restrictions on NSFW content (photos involving nudity, illicit substances or violence) would be required to ensure that any _minors_ or _those who are easily disturbed_ are safe and comfortable within the application.
+The target audience within this application is very broad. Given that _any persons who take their own photos_ are encouraged to be a part of this platform, anyone with a camera of some sorts could be considered part of the target audience.
+
+To ensure a safe environment for all users within this application, it may require some Terms and Conditions to be defined to control the specific type of content allowed to be uploaded. For example, imposing restrictions on NSFW content (photos involving nudity, illicit substances or violence) would be required to ensure that any _minors_ or _those who are easily disturbed_ are safe and comfortable within the application.
 
 ### Tech Stack
 
@@ -64,7 +67,7 @@ In regards to the back end, this requires the use of a few more technologies.
 - ExpressJS: A Javascript Package to implement HTTP request routing so we are able to direct each request to the corresponding destinations.
 - MongoDB Atlas: A cloud based NoSQL database solution to allow data persistance of the majority of data within our application (ie Users, Post information, Comments etc.)
 - Amazon S3: This is a seperate data storage solution which will be used for holding all of the images uploaded to our application. S3 is much more supportive of larger data sizes, and given each photo uploaded will likely be around a 3-5Mb file size, this will be very neccesary for the operation of our application.
-- Heroku: Another hosting platform to be used for deploying our RESTful API for access by our application in a production environment.
+- Heroku: An hosting platform to be used for deploying our RESTful API for access by our application in a production environment.
 
 # Dataflow Diagram
 
