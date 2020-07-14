@@ -184,7 +184,7 @@ This page sports a form for users to create their own account! This allows them 
 
 This is the home page of the application, here users are able to enter search queries, view their general feed and change the view layout, and navigate the application with the bottom navbar.
 
-The layout will be available in 2 forms:
+The layout will be available in 2 forms: Grid View and Linear. Selecting the layout will be accomplished by using the selector below the search bar  
 
 **Grid layout**
 
@@ -196,7 +196,7 @@ The layout will be available in 2 forms:
 
 ### New Upload Page
 
-Quite self-explanitory, this is where users are able to upload new photos to share on their profiles! The form takes a new file upload, along with a caption and any tags specified by the user.
+From this form screen users are able to upload new photos to share on their profiles. The form takes a new file upload, along with a caption and any tags specified by the user.
 
 ![New Upload Page](./resources/Grub_Grub_Wireframes/New_Upload_Page.png)
 
@@ -208,7 +208,7 @@ This is where users can see their own profiles and how they look to other users,
 
 ### Edit Profile Page
 
-This page has forms allowing for the user to change their account information and reset their password if need be.
+This page has forms allowing for the user to change their account details and reset their password if need be.
 
 ![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
 
