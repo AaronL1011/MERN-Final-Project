@@ -9,8 +9,7 @@ const UserSchema = mongoose.Schema({
     type: [String]
   },
   posts: {
-    type: [String],
-    required: true
+    type: [String]
   },
   visibility: {
     type: String,

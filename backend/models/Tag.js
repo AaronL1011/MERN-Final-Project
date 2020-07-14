@@ -6,11 +6,11 @@ const TagSchema = mongoose.Schema({
     required: true
   },
   posts: {
-    type: String,
+    type: [String],
     required: true
   },
   images: {
-    type: String,
+    type: [String],
     required: true
   }
 });
