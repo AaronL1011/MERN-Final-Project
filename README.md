@@ -75,7 +75,7 @@ In regards to the back end, this requires the use of a few more technologies.
 
 Below is a Level 1 Dataflow Diagram outlining the flow of information between components at the core functionality of the application. It shows how requests from the User are handled and how data is stored and retrieved from our application storage.
 
-![Dataflow Diagram](./resources/DataflowDiagram.png)
+![Dataflow Diagram](./docs/DataflowDiagram.png)
 
 # Application Architecture Diagram
 
@@ -83,7 +83,7 @@ Below is a Level 1 Dataflow Diagram outlining the flow of information between co
 
 Outlined below is the basic Architecture Diagram of how we plan to structure the application. As you can see, the user will always be interacting with our 'front-end' React application. From there, all data/requests are passed through into our 'back-end' NodeJS API where the proper actions can be executed depending on the request type and route destination. Our Node API interacts with numerous javascript packages to allow for functions such as password encryption, web tokens for authentication and Express for routing requests to the correct files/servers, etc. The included 'mongoose' package is our interface between our NodeAPI/Express routes, and our MongoDB Atlas database described below. Express also handles some data storage by sending and retrieving our users images between Amazon S3 and our server application, for delivery to the user.
 
-![Architecture Diagram](./resources/Application_Architecture_Diagram.png)
+![Architecture Diagram](./docs/Application_Architecture_Diagram.png)
 
 # User Stories
 
@@ -91,7 +91,7 @@ Outlined below is the basic Architecture Diagram of how we plan to structure the
 
 ## Michael
 
-![A young man with slightly messy hair, trendy glasses wearing a turtle neck under a thick hoodie](./resources/user_story/michael.jpg)
+![A young man with slightly messy hair, trendy glasses wearing a turtle neck under a thick hoodie](./docs/user_story/michael.jpg)
 
 22 year old college graduate with a major in Computer Science, currently backpacking through Europe with his partner
 
@@ -104,7 +104,7 @@ _"Due to my degree, I have an adept level of experience in the technology field.
 
 ## Karen
 
-![A woman with her blonde hair up and a scowling look piercing through her designer glasses](./resources/user_story/karen.jpg)
+![A woman with her blonde hair up and a scowling look piercing through her designer glasses](./docs/user_story/karen.jpg)
 
 47 year old mother of 3 'angelic' children, freshly returned from arguing with the Branch Manager of her local Woolworths.
 
@@ -116,7 +116,7 @@ _"I want to be able to quickly and easily change my account information if any o
 
 ## Alex
 
-![A Clown in a monochrome costume and makeup and a crown on his head](./resources/user_story/alex.jpg)
+![A Clown in a monochrome costume and makeup and a crown on his head](./docs/user_story/alex.jpg)
 
 32 year old circus clown from Idaho, currently honing his juggling and animal training skills.
 
@@ -128,7 +128,7 @@ _"I want to be able to upload photos of my animal training progress and remove t
 
 ## Anita
 
-![An older woman with purple hair and glasses](./resources/user_story/anita.jpg)
+![An older woman with purple hair and glasses](./docs/user_story/anita.jpg)
 
 55 year old empty-nester. Currently travelling around Australia in a caravan with her partner Brian
 
@@ -140,7 +140,7 @@ _“I find that other platforms I have used such as flickr and instagram are eit
 
 ## Sanjay
 
-![A middle aged man with a collared office shirt, some small facial hair around the mouth, darker skin and a pair of glasses with some form of technology added to them](./resources/user_story/sanjay.jpg)
+![A middle aged man with a collared office shirt, some small facial hair around the mouth, darker skin and a pair of glasses with some form of technology added to them](./docs/user_story/sanjay.jpg)
 
 33 year old newly immigrated father of two. He wants to easily share photos of his young family with family back home in India
 
@@ -154,7 +154,7 @@ _“I am wanting something simpler and more powerful than albums or single posts
 
 ### Alice
 
-![An older woman of Aboroginal heritage with neatly pulled back hair, brown eyes and a dark skin tone](resources/user_story/alice.jpg)
+![An older woman of Aboroginal heritage with neatly pulled back hair, brown eyes and a dark skin tone](docs/user_story/alice.jpg)
 
 48 year old sister-girl from the Northern Territory who is active in social campaigning. She regularly attends demonstrations in the large capital cities and often returns to her 'home country' to see her family and friends
 
@@ -172,45 +172,45 @@ _“I am after something simple that lets me share my images and stories as face
 
 This is the page that users are greeted with upon first visit of the application. Users are required to sign in to their account in order to use certain functions of the application such as posting and commenting.
 
-![Login Page](./resources/Grub_Grub_Wireframes/Login_Page.png)
+![Login Page](./docs/Grub_Grub_Wireframes/Login_Page.png)
 
 ### Sign Up
 
 This page sports a form for users to create their own account! This allows them to upload photos and share with friends, view other peoples posts, and make comments!
 
-![Signup Page](./resources/Grub_Grub_Wireframes/SignUp_Page.png)
+![Signup Page](./docs/Grub_Grub_Wireframes/SignUp_Page.png)
 
 ### Home Landing Page
 
 This is the home page of the application, here users are able to enter search queries, view their general feed and change the view layout, and navigate the application with the bottom navbar.
 
-The layout will be available in 2 forms: Grid View and Linear. Selecting the layout will be accomplished by using the selector below the search bar  
+The layout will be available in 2 forms: Grid View and Linear. Selecting the layout will be accomplished by using the selector below the search bar
 
 **Grid layout**
 
-![Home Page Grid Layout](./resources/Grub_Grub_Wireframes/Home_Page_1.png)
+![Home Page Grid Layout](./docs/Grub_Grub_Wireframes/Home_Page_1.png)
 
 **Linear layout**
 
-![Home Page Linear Layout](./resources/Grub_Grub_Wireframes/Home_Page_2.png)
+![Home Page Linear Layout](./docs/Grub_Grub_Wireframes/Home_Page_2.png)
 
 ### New Upload Page
 
 From this form screen users are able to upload new photos to share on their profiles. The form takes a new file upload, along with a caption and any tags specified by the user.
 
-![New Upload Page](./resources/Grub_Grub_Wireframes/New_Upload_Page.png)
+![New Upload Page](./docs/Grub_Grub_Wireframes/New_Upload_Page.png)
 
 ### Profile View
 
 This is where users can see their own profiles and how they look to other users, as well as access to edit their information if they have the permissions to do so.
 
-![Profile Page](./resources/Grub_Grub_Wireframes/Profile_Page.png)
+![Profile Page](./docs/Grub_Grub_Wireframes/Profile_Page.png)
 
 ### Edit Profile Page
 
 This page has forms allowing for the user to change their account details and reset their password if need be.
 
-![Edit Profile Page](./resources/Grub_Grub_Wireframes/Edit_Profile_Page.png)
+![Edit Profile Page](./docs/Grub_Grub_Wireframes/Edit_Profile_Page.png)
 
 # Planning Screenshots
 
@@ -218,7 +218,7 @@ This page has forms allowing for the user to change their account details and re
 
 Throughout the developement process, we opted to use Kanban progress tracking in the form of a Trello board. This makes it exceedingly simple to visualise the status of each current task, and to follow who is completing each one. As each task is progressed, it moves between columns, once completed, it is marked as such, and a new task can be commenced. Outlined below, you can see the progression of tasks as we worked through the first section of the assignment.
 
-![First screenshot of trello board](./resources/screenshots/screenshot-1.png)
-![Second screenshot of trello board](./resources/screenshots/screenshot-2.png)
-![Third screenshot of trello board](./resources/screenshots/screenshot-3.png)
-![Fourth screenshot of trello board](./resources/screenshots/screenshot-4.png)
+![First screenshot of trello board](./docs/screenshots/screenshot-1.png)
+![Second screenshot of trello board](./docs/screenshots/screenshot-2.png)
+![Third screenshot of trello board](./docs/screenshots/screenshot-3.png)
+![Fourth screenshot of trello board](./docs/screenshots/screenshot-4.png)
