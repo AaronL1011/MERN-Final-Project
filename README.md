@@ -212,6 +212,12 @@ This page has forms allowing for the user to change their account details and re
 
 ![Edit Profile Page](./docs/Grub_Grub_Wireframes/Edit_Profile_Page.png)
 
+## Sitemap / Relationships
+
+Outlined below are the relationships between each page. Most pages can be access from one another with the exception of Sign Up and Edit Profile, due to the navigation bar at the bottom of the screen.
+
+![Sitemap](./docs/Sitemap.png)
+
 # Planning Screenshots
 
 > R6 - Screenshots of your Trello board demonstrating use throughout the initial stages of the project
