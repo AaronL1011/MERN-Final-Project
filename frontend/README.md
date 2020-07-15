@@ -41,17 +41,31 @@ Unless specified, these components are basic building blocks of the UI for the a
 
 ### Home Landing Page
 
-| Component  | Material UI       | Notes                                                                                                   |
-| :--------- | :---------------- | :------------------------------------------------------------------------------------------------------ |
-| Page UI    | Container         | Top level component                                                                                     |
-| Top menu   | App Bar           | <li> Hamburger menu icon <li> Application Title                                                         |
-| Search bar | Textfield         | <li> Uses Autocomplete <li> Has toggle options for "Grid" and "Newsfeed" with icons |  |
-| Nav Footer | Bottom Navigation | Maximum 5 actions                                                                                       |
+| Component  | Material UI       | Notes               |
+| :--------- | :---------------- | :------------------ |
+| Page UI    | Container         | Top level component |  |
+| Search bar | Custom Component  |                     |
+| Nav Footer | Bottom Navigation | Actions: <li> Home <li> New Upload <li> Profile <li> Hamburger Menu  |
+
+### Application Menu
+
+### Search Bar
+
+| Component      | Material UI | Options                                                                 |
+| :------------- | :---------- | :---------------------------------------------------------------------- |
+| Dialog UI      | Container   |                                                                         |
+| Input          | Textfield   | Autocomplete                                                            |
+| Search Options | Button Group  | <li> Uses Autocomplete <li> Has toggle "Grid" and "Newsfeed" with icons |
+
+#### Notes
+
+- Search is carried out on 'enter' being pressed (keycode '13')
+- Possibly will need some form of submit button for users unaware of pressing enter  
 
 ### Newsfeed (Linear) Layout
 
 ### New Upload Page
 
-### Profile View
+### Profile View / Edit Profile
 
-### Edit Profile
+By defalut provides view of a user profile. When the user profile is that of the current user, options to edit the profile appear.
