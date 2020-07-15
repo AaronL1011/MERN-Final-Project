@@ -5,6 +5,8 @@ const app = express();
 const cors = require('cors');
 
 const uploadRoute = require('./routes/image-upload');
+const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts');
 
 // Allow passing JSON objects and Cross Origin Resource Sharing
 app.use(express.json());
@@ -13,6 +15,8 @@ app.use(cors());
 
 // Initial routes
 app.use('/', uploadRoute);
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 app.get('/', (req, res) => {
   res.send('Root directory');
 });
