@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const uploadRoute = require('./routes/image-upload');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
 
 // Allow passing JSON objects and Cross Origin Resource Sharing
@@ -16,6 +17,7 @@ app.use(cors());
 // Initial routes
 app.use('/', uploadRoute);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.get('/', (req, res) => {
   res.send('Root directory');
@@ -24,7 +26,7 @@ app.get('/', (req, res) => {
 // Initialise database connection
 mongoose.connect(
   process.env.DB_CONNECTION,
-  { useUnifiedTopology: true, useNewUrlParser: true },
+  { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false },
   () => {
     console.log('Database connected okay.');
   }
