@@ -1,68 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Grup Grup Front End
 
-## Available Scripts
+A React framework based front-end for the 'Grup Grup' application.
 
-In the project directory, you can run:
+## Material UI (Google)
 
-### `yarn start`
+The [Material UI](https://material-ui.com/) library is utilised to make standardised UI components.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Component Breakdown
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Base Components
 
-### `yarn test`
+Unless specified, these components are basic building blocks of the UI for the application.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Component     | Material UI | Options set as default |
+| :------------ | :---------- | :--------------------- |
+| Dialog UI     | Container   |                        |
+| Text Input    | Textfield   | Variant: Outlined      |
+| Dialog Button | Button      | Variant: Outlined      |
+| Link          | Link        | Variant: Inherit       |
 
-### `yarn build`
+### Login Dialog
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Component   | Material UI | Options        |
+| :---------- | :---------- | :------------- |
+| Dialog UI   | Container   |                |
+| Email Input | Textfield   | Required       |
+| Password    | Textfield   | Type: Password |
+| Login       | Button      |                |
+| Signup Link | Link        |                |
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Sign Up Dialog
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Component        | Material UI | Options  |
+| :--------------- | :---------- | :------- |
+| Parent UI        | Container   |          |
+| Email Input      | Textfield   | Required |
+| Password         | Textfield   | Required |
+| Confirm Password | Textfield   | Required |
+| Login            | Button      |          |
 
-### `yarn eject`
+### Home Landing Page
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| Component         | Material UI       | Notes                                                                                                                                             |
+| :---------------- | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Page UI           | Container         | Top level component                                                                                                                               |
+| Search bar        | Custom Component  |                                                                                                                                                   |
+| Content Container | Grid List         | <li>Single column layout is achieved by setting column number to '1' <li> Multicolumn layout is created by increasing columns based on page width |
+| Content Card      | Grid List Tile    | Small and large cards as a gateway to individual pieces of content                                                                                |
+| Nav Footer        | Bottom Navigation | Actions: <li> Home <li> New Upload <li> Profile <li> Hamburger Menu                                                                               |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Application Menu
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+| Component | Material UI | Notes                         |
+| :-------- | :---------- | :---------------------------- |
+| Menu      | Menu        | Holds customised menu options |
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Note:** See [demo](https://material-ui.com/components/menus/#customized-menus)
 
-## Learn More
+### Search Bar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Component      | Material UI   | Options                                                                                                                      |
+| :------------- | :------------ | :--------------------------------------------------------------------------------------------------------------------------- |
+| Parent         | Container     |                                                                                                                              |
+| Input          | Textfield     | Autocomplete                                                                                                                 |
+| Search Options | Toggle Button | [Exclusive selection](https://material-ui.com/components/toggle-button/#exclusive-selection) for "Grid" and "Newsfeed" icons |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Note:**
 
-### Code Splitting
+- Search is carried out on 'enter' being pressed (keycode '13')
+- Possibly will need some form of submit button for users unaware of pressing enter
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### New Upload Page
 
-### Analyzing the Bundle Size
+| Component       | Material UI                                                                                   | Notes                                               |
+| :-------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------- |
+| Parent          | [Long Scrolling Dialogue](https://material-ui.com/components/dialogs/#scrolling-long-content) | Comes up from bottom of screen and holds all fields |
+| Image Thumbnail | Custom Component | 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Profile View / Edit Profile
 
-### Making a Progressive Web App
+By default provides view of a user profile. When the user profile is that of the current user, options to edit the profile appear.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+| Component | Material UI | Notes |
+| :-------- | :---------- | :---- |
