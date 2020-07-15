@@ -125,3 +125,42 @@ DELETE - /api/users/:id
   "id": "Id of deleted user"
 }
 ```
+
+## Posts
+
+### Create Post
+
+### Retrieve/Modify Post(s)
+
+PUT - /api/posts/:id
+
+**Request format:**
+All fields are optional, mongoose will apply changes to any valid fields.
+Requires the JWT of the user who created the post.
+
+> `PUT http://localhost:3000/api/posts/5f0e9862e3368b517f36e363`
+
+```
+headers: {
+  "auth-token": "insert JWT here"
+},
+data: {
+  "caption": "This is updating the caption"
+}
+```
+
+**Response format:**
+
+```
+{
+    "comments": [],
+    "tags": [],
+    "images": [
+        "imageID"
+    ],
+    "_id": "5f0e9862e3368b517f36e363",
+    "caption": "This is updating the caption",
+    "date": "2020-07-15T05:47:14.005Z",
+    "__v": 0
+}
+```
