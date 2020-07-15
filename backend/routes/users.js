@@ -30,26 +30,29 @@ router.get('/:id', async (req, res) => {
 
 // Update user information - PRIVATE ROUTE
 router.put('/:id', verify, async (req, res) => {
-  const updatedUser = await User.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (error, user) => {
-      if (error) {
-        return res.status(500).send(error);
+  if (req.user._id === req.params.id) {
+    await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+      (error, user) => {
+        if (error) {
+          return res.status(500).send(error);
+        }
+        return res.status(200).json(user);
       }
-      return res.json(user);
-    }
-  ).catch(error, () => {
-    return res.status(500).send(error);
-  });
-  res.json(updatedUser);
+    ).catch((error) => {
+      return res.status(500).send(error);
+    });
+  } else {
+    return res.status(402).send('Unauthorized');
+  }
 });
 
 // Delete a user by their ID - PRIVATE ROUTE
 router.delete('/:id', verify, async (req, res) => {
-  try {
-    const deletedUser = User.findByIdAndRemove(req.params.id, (error, user) => {
+  if (req.user._id === req.params.id) {
+    await User.findByIdAndRemove(req.params.id, (error, user) => {
       if (error) {
         return res.status(500).send(error);
       }
@@ -59,10 +62,12 @@ router.delete('/:id', verify, async (req, res) => {
         id: user._id
       };
 
-      return res.status(200).send(response);
+      return res.status(200).json(response);
+    }).catch((error) => {
+      return res.status(500).send(error);
     });
-  } catch (error) {
-    return res.status(500).send('Server error');
+  } else {
+    return res.status(402).send('Unauthorized');
   }
 });
 
