@@ -339,7 +339,7 @@ body: {
 
 ### Retrieve / Modify Tags
 
-GET - /api/images
+GET - /api/tags
 
 > `GET http://localhost:3000/api/tags/`
 
