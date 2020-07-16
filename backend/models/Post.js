@@ -11,20 +11,6 @@ const PostSchema = mongoose.Schema({
     type: [String],
     required: true
   },
-  comments: {
-    userID: {
-      type: String,
-      required: true
-    },
-    username: {
-      type: String,
-      required: true
-    },
-    text: {
-      type: String,
-      required: true
-    }
-  },
   date: {
     type: Date,
     default: Date.now
