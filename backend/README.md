@@ -83,10 +83,10 @@ All fields are optional, mongoose will apply changes to any valid fields
 > `PUT http://localhost:3000/api/users/5f0e52be2d7aa9d738cd0a8a`
 
 ```
-"headers": {
+headers: {
   "auth-token": "insert JWT here"
 },
-"data": {
+body: {
   "username": "Jonothan Doe",
   "email": "johnnyboy@email.com",
 }
@@ -144,7 +144,7 @@ Requires the JWT of the user who created the post.
 headers: {
   "auth-token": "insert JWT here"
 },
-data: {
+body: {
   "caption": "This is updating the caption"
 }
 ```
@@ -162,5 +162,133 @@ data: {
     "caption": "This is updating the caption",
     "date": "2020-07-15T05:47:14.005Z",
     "__v": 0
+}
+```
+
+## Images
+
+### Create new Image
+
+POST - /api/images/
+
+**Request format:**
+All fields are optional, mongoose will apply changes to any valid fields.
+Requires the JWT of the user who created the post.
+
+> `PUT http://localhost:3000/api/images/`
+
+```
+headers: {
+  "auth-token": "insert JWT here"
+},
+body: {
+  "url": "url for s3 image location",
+  "tags": ["array", "of", "tags"],
+  "posts": ["array", "of", "post", "IDs"],
+  "visibility": "3"
+}
+```
+
+**Response format:**
+
+```
+{
+    "tags": [],
+    "posts": [],
+    "_id": "5f0fa7af68fb54de33e2061b",
+    "url": "http://someurl.com/someotherstuff",
+    "visibility": "1",
+    "__v": 0
+}
+```
+
+### Retrieve / Modify Images
+
+GET - /api/images
+
+> `GET http://localhost:3000/api/images/`
+
+**Response format:**
+
+```
+[
+    {
+        "tags": [],
+        "posts": [],
+        "_id": "5f0fa7af68fb54de33e2061b",
+        "url": "http://someurl.com/someotherstuff",
+        "visibility": "1",
+        "__v": 0
+    }
+]
+```
+
+GET - /api/images/:id
+
+> `GET http://localhost:3000/api/images/5f0fa7af68fb54de33e2061b`
+
+**Response format:**
+
+```
+{
+    "tags": [],
+    "posts": [],
+    "_id": "5f0fa7af68fb54de33e2061b",
+    "url": "http://someurl.com/someotherstuff",
+    "visibility": "1",
+    "__v": 0
+}
+```
+
+PUT - /api/images/:id
+
+**Request format:**
+All fields are optional, mongoose will apply changes to any valid fields.
+Requires the JWT of the user who created the image.
+
+> `PUT http://localhost:3000/api/images/5f0fa7af68fb54de33e2061b`
+
+```
+headers: {
+  "auth-token": "insert JWT here"
+},
+body: {
+  "tags": ["New tag"]
+}
+```
+
+**Response format:**
+
+```
+{
+    "tags": [
+        "New tag"
+    ],
+    "posts": [],
+    "_id": "5f0fa7af68fb54de33e2061b",
+    "url": "http://someurl.com/someotherstuff",
+    "visibility": "1",
+    "__v": 0
+}
+```
+
+DELETE - /api/images/:id
+
+> `DELETE http://localhost:3000/api/images/5f0fa7af68fb54de33e2061b`
+
+**Request format:**
+
+```
+"headers": {
+  "auth-token": "insert JWT here"
+}
+```
+
+**Response format:**
+
+```
+{
+  "message": "Image successfully deleted",
+  "id": "5f0fa7af68fb54de33e2061b"
 }
 ```

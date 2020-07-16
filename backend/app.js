@@ -8,6 +8,7 @@ const uploadRoute = require('./routes/image-upload');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
+const imageRoutes = require('./routes/images');
 
 // Allow passing JSON objects and Cross Origin Resource Sharing
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use('/', uploadRoute);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/images', imageRoutes);
 app.get('/', (req, res) => {
   res.send('Root directory');
 });
