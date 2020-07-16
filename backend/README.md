@@ -427,7 +427,3 @@ DELETE - /api/tags/:tagName
 }
 
 ```
-
-```
-
-```

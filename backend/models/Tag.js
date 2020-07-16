@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const TagSchema = mongoose.Schema({
   tag: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   posts: {
     type: [String],
