@@ -70,13 +70,13 @@ Displayed in the application header
 
 Displayed in the application header.
 
-| Component    | Material UI                                       | Notes                                                                                 |
-| :----------- | :------------------------------------------------ | :------------------------------------------------------------------------------------ |
-| Container    | [Card](https://material-ui.com/components/cards/) |                                                                                       |
-| Display Name | Typography                                        | <li>Variant: h1 <li> Located at top of card                                           |
-| Avatar       | Cardmedia                                         | <li>Max width 50% <li> Left aligned                                                   |
-| Actions      | CardActions                                       | <li> Icon for email/messaging <li> If user's own profile, link to edit profile action |
-| Bio          | Typography                                        | <li> Variant: body2 <li> Color: textSecondary <li> component: p                       |
+| Component       | Material UI                                       | Notes                                                                                 |
+| :-------------- | :------------------------------------------------ | :------------------------------------------------------------------------------------ |
+| Container       | [Card](https://material-ui.com/components/cards/) |                                                                                       |
+| Display Name    | Typography                                        | <li>Variant: h1 <li> Located at top of card                                           |
+| Profile Picture | Cardmedia                                         | <li>Max width 50% <li> Left aligned                                                   |
+| Actions         | CardActions                                       | <li> Icon for email/messaging <li> If user's own profile, link to edit profile action |
+| Bio             | Typography                                        | <li> Variant: body2 <li> Color: textSecondary <li> component: p                       |
 
 ### Content Cards
 
@@ -95,13 +95,13 @@ Used for posts and individual images
 
 Full application width cards containing hero image (or possibly carousel) from content
 
-| Component | Material UI    | Options                                     |
-| :-------- | :------------- | :------------------------------------------ |
-| Container | Card           |                                             |
-| Hero      | CardMedia      | Can be nominated image or carousel          |
-| Tag List  | CardActionArea | <li>Each tag is clickable to trigger a search for that tag <li> Search results could include username of the card owner to show their content with the same tag before showing other content with same tag |
-|Display Name | Link | Clicking link goes to userprofile |
-| Description | Typography | <li> Variant: body1 <li> Color: textSecondary <li> component: p|
+| Component    | Material UI    | Options                                                                                                                                                                                                    |
+| :----------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Container    | Card           |                                                                                                                                                                                                            |
+| Hero         | CardMedia      | Can be nominated image or carousel                                                                                                                                                                         |
+| Tag List     | CardActionArea | <li>Each tag is clickable to trigger a search for that tag <li> Search results could include username of the card owner to show their content with the same tag before showing other content with same tag |
+| Display Name | Link           | Clicking link goes to userprofile                                                                                                                                                                          |
+| Description  | Typography     | <li> Variant: body1 <li> Color: textSecondary <li> component: p                                                                                                                                            |
 
 ### Application Menu
 
@@ -109,17 +109,38 @@ Accessed from the bottom navigation bar
 
 | Component | Material UI                                                        | Notes                         |
 | :-------- | :----------------------------------------------------------------- | :---------------------------- |
-| Container      | [Menu](https://material-ui.com/components/menus/#customized-menus) | Holds customised menu options |
-| Option
+| Container | [Menu](https://material-ui.com/components/menus/#customized-menus) | Holds customised menu options |
+| Option    |                                                                    | Passed in as a prop           |
 
 ### Edit Profile
 
 Dialogue accesed from the menu (or by the user viewing their own profile annd using link)
 
-| Component | Material UI | Notes |
-| :-------- | :---------- | :---- |
-| 
+| Component            | Material UI   | Notes                                               |
+| :------------------- | :------------ | :-------------------------------------------------- |
+| Container            | Drawer        | Rises from bottom and is scrollable                 |
+| Heading              | Typography    | <li>Variant: h1 <li> Located at top of drawer       |
+| Sections for Editing | AccordianMenu | Contains sections for 'about' and 'update password' |
 
+#### Profile 'About' Section
+
+| Component       | Material UI     | Notes                                                  |
+| :-------------- | :-------------- | :----------------------------------------------------- |
+| Display Name    | Textfield       | Only required when blank                               |
+| Email           | Textfield       |                                                        |
+| Bio             | Textfield       | <li>Almost as container<li> Character limit counter(?) |
+| Profile Picture |                 | <li>Styled Image <li> Updates on Load(?)               |
+| Upload Button   | (Dialog) Button |                                                        |
+| Update Button   | (Dialog) Button |
+
+#### Change Password Section
+
+| Component            | Material UI       | Notes    |
+| :------------------- | :---------------- | :------- |
+| Previous Password    | Textfield         | Required |
+| New Password         | Textfield         | Required |
+| Confirm New Password | Textfield         | Required |
+| Save changes         | (Dialogue) Button |          |
 
 ### New Upload Page
 
@@ -127,7 +148,6 @@ Dialogue accesed from the menu (or by the user viewing their own profile annd us
 | :-------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------- |
 | Parent          | [Long Scrolling Dialogue](https://material-ui.com/components/dialogs/#scrolling-long-content) | Comes up from bottom of screen and holds all fields |
 | Image Thumbnail | Custom Component                                                                              |
-
 
 ## Optional Extra Components
 
