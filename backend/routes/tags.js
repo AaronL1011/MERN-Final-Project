@@ -56,15 +56,16 @@ router.get('/:tagName', async (req, res) => {
 // Update tag by name
 router.put('/:tagName', verify, async (req, res) => {
   try {
-    const tagByName = await Tag.find({ tag: req.params.tagName.toLowerCase() });
-    if (tagByName.length === 0) {
+    const tagsByName = await Tag.find({
+      tag: req.params.tagName.toLowerCase()
+    });
+    if (tagsByName.length === 0) {
       return res
         .status(404)
         .send('Tag does not exist, please check the name and try again');
     }
-    // console.log(tagByName[0]);
     await Tag.findByIdAndUpdate(
-      tagByName[0]._id,
+      tagsByName[0]._id,
       req.body,
       { new: true },
       (error, tag) => {
