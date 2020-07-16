@@ -5,45 +5,53 @@ const verify = require('../utils/verify-token');
 // Get all users
 router.get('/', async (req, res) => {
   try {
-    users = await User.find();
-    if (!users) {
-      return res.status(400).send('Unable to find users.');
-    }
+    await User.find()
+      .then((users) => {
+        return res.status(200).send(users);
+      })
+      .catch(() => {
+        return res
+          .status(404)
+          .send('Users not found, please check and try again');
+      });
   } catch (error) {
-    return res.status(500).send('Server error');
+    return res.status(500).send('Internal server error.');
   }
-  res.json(users);
 });
 
 // Get a user by id
 router.get('/:id', async (req, res) => {
   try {
-    user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(400).send('User not found');
-    }
+    await User.findById(req.params.id)
+      .then((user) => {
+        return res.status(200).send(user);
+      })
+      .catch(() => {
+        return res
+          .status(404)
+          .send('User doesnt exist, please check and try again');
+      });
   } catch (error) {
-    return res.status(500).send('Server error');
+    return res.status(500).send('Internal server error.');
   }
-  res.json(user);
 });
 
 // Update user information - PRIVATE ROUTE
 router.put('/:id', verify, async (req, res) => {
   if (req.user._id === req.params.id) {
-    await User.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-      (error, user) => {
-        if (error) {
-          return res.status(500).send(error);
-        }
-        return res.status(200).json(user);
-      }
-    ).catch((error) => {
-      return res.status(500).send(error);
-    });
+    try {
+      await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .then((user) => {
+          return res.status(200).send(user);
+        })
+        .catch(() => {
+          return res
+            .status(404)
+            .send('User not found, please check and try again');
+        });
+    } catch (error) {
+      return res.status(500).send('Internal server error.');
+    }
   } else {
     return res.status(402).send('Unauthorized');
   }

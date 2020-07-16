@@ -5,27 +5,36 @@ const User = require('../models/User');
 
 // Get all posts - PUBLIC ROUTE
 router.get('/', async (req, res) => {
-  const posts = await Post.find().catch((error) => {
-    if (error) {
-      return res
-        .status(400)
-        .send('Something went wrong, please refresh and try again');
-    }
-  });
-  res.status(200).send(posts);
+  try {
+    await Post.find()
+      .then((posts) => {
+        return res.status(200).send(posts);
+      })
+      .catch(() => {
+        return res
+          .status(400)
+          .send('Posts dont exist, please check and try again.');
+      });
+  } catch (error) {
+    return res.status(500).send('Internal server error.');
+  }
 });
 
 // Get a post - PUBLIC ROUTE
 router.get('/:id', async (req, res) => {
-  const post = await Post.findById(req.params.id).catch((error) => {
-    if (error) {
-      return res
-        .status(404)
-        .send('This post doesnt exist. Please check and try again.');
-    }
-  });
-
-  res.status(200).send(post);
+  try {
+    await Post.findById(req.params.id)
+      .then((post) => {
+        return res.status(200).send(post);
+      })
+      .catch(() => {
+        return res
+          .status(404)
+          .send('This post doesnt exist, please check and try again.');
+      });
+  } catch (error) {
+    return res.status(500).send('Internal server error.');
+  }
 });
 
 // Create a post - PRIVATE ROUTE
@@ -39,15 +48,23 @@ router.post('/', verify, async (req, res) => {
     tags: req.body.tags
   });
 
-  const current_user = await User.findById(req.user._id);
-
   try {
-    await post.save();
-    await current_user.update({ posts: [post._id, ...current_user.posts] });
-    res.status(200).send(post);
+    const current_user = await User.findById(req.user._id);
+
+    await post
+      .save()
+      .then((post) => {
+        current_user.updateOne({ posts: [post._id, ...current_user.posts] });
+        return post;
+      })
+      .then((post) => {
+        res.status(200).send(post);
+      })
+      .catch((error) => {
+        return res.status(400).send(error.message);
+      });
   } catch (error) {
-    res.status(500).send('Something went wrong, please try again!');
-    console.log(error);
+    res.status(500).send('Internal server error.');
   }
 });
 
@@ -56,21 +73,19 @@ router.put('/:id', verify, async (req, res) => {
   const current_user = await User.findById(req.user._id);
 
   if (current_user.posts.includes(req.params.id)) {
-    await Post.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-      (error, post) => {
-        if (error) {
-          return res.status(500).send(error);
-        }
-        return res.status(200).json(post);
-      }
-    ).catch((error) => {
-      return res.status(500).send(error);
-    });
+    try {
+      await Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .then((post) => {
+          return res.status(200).json(post);
+        })
+        .catch((error) => {
+          return res.status(400).send(error.message);
+        });
+    } catch (error) {
+      return res.status(500).send('Internal server error.');
+    }
   } else {
-    return res.status(401).send('Only the post author can make changes!');
+    return res.status(401).send('Unauthorized.');
   }
 });
 
