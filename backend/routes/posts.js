@@ -2,7 +2,6 @@ const router = require('express').Router();
 const verify = require('../utils/verify-token');
 const Post = require('../models/Post');
 const User = require('../models/User');
-const Image = require('../models/Image');
 
 // Get all posts - PUBLIC ROUTE
 router.get('/', async (req, res) => {
@@ -47,10 +46,8 @@ router.post('/', verify, async (req, res) => {
     await current_user.update({ posts: [post._id, ...current_user.posts] });
     res.status(200).send('Post created and saved to User');
   } catch (error) {
-    if (error) {
-      res.status(500).send('Server error');
-      console.log(error);
-    }
+    res.status(500).send('Server error');
+    console.log(error);
   }
 });
 
