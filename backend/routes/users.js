@@ -52,20 +52,24 @@ router.put('/:id', verify, async (req, res) => {
 // Delete a user by their ID - PRIVATE ROUTE
 router.delete('/:id', verify, async (req, res) => {
   if (req.user._id === req.params.id) {
-    await User.findByIdAndRemove(req.params.id, (error, user) => {
-      if (error) {
-        return res.status(500).send(error);
-      }
+    try {
+      await User.findByIdAndRemove(req.params.id)
+        .then((user) => {
+          const response = {
+            message: 'User successfully deleted',
+            id: user._id
+          };
 
-      const response = {
-        message: 'User successfully deleted',
-        id: user._id
-      };
-
-      return res.status(200).json(response);
-    }).catch((error) => {
-      return res.status(500).send(error);
-    });
+          return res.status(200).json(response);
+        })
+        .catch(() => {
+          return res
+            .status(404)
+            .send('This user doesnt exist, please check and try again.');
+        });
+    } catch (error) {
+      res.status(500).send('Internal server error.');
+    }
   } else {
     return res.status(402).send('Unauthorized');
   }

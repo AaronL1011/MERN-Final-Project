@@ -5,7 +5,6 @@ const verify = require('../utils/verify-token');
 // Create new Tag
 router.post('/', verify, async (req, res) => {
   const tagExists = await Tag.find({ tag: req.body.tag.toLowerCase() }).exec();
-  console.log(tagExists);
   if (tagExists.length > 0) {
     return res
       .status(400)
@@ -43,8 +42,8 @@ router.get('/', async (req, res) => {
 router.get('/:tagName', async (req, res) => {
   try {
     const tag = await Tag.find({ tag: req.params.tagName.toLowerCase() });
-    if (tag) {
-      return res.status(200).send(tag);
+    if (tag.length > 0) {
+      return res.status(200).send(tag[0]);
     } else {
       return res.status(404).send('Tag not found, check name and try again');
     }
@@ -85,20 +84,24 @@ router.put('/:tagName', verify, async (req, res) => {
 
 // Delete tag by ID
 router.delete('/:id', verify, async (req, res) => {
-  await Tag.findByIdAndRemove(req.params.id, (error, tag) => {
-    if (error) {
-      return res.status(500).send(error);
-    }
+  try {
+    await Tag.findByIdAndRemove(req.params.id)
+      .then((tag) => {
+        const response = {
+          message: 'Tag successfully deleted',
+          id: tag._id
+        };
 
-    const response = {
-      message: 'Tag successfully deleted',
-      id: tag._id
-    };
-
-    return res.status(200).json(response);
-  }).catch((error) => {
-    return res.status(500).send(error);
-  });
+        return res.status(200).json(response);
+      })
+      .catch(() => {
+        return res
+          .status(404)
+          .send('This tag doesnt exist, please check and try again.');
+      });
+  } catch (error) {
+    res.status(500).send('Internal server error.');
+  }
 });
 
 module.exports = router;

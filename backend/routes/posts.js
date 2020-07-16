@@ -44,9 +44,9 @@ router.post('/', verify, async (req, res) => {
   try {
     await post.save();
     await current_user.update({ posts: [post._id, ...current_user.posts] });
-    res.status(200).send('Post created and saved to User');
+    res.status(200).send(post);
   } catch (error) {
-    res.status(500).send('Server error');
+    res.status(500).send('Something went wrong, please try again!');
     console.log(error);
   }
 });
@@ -70,7 +70,7 @@ router.put('/:id', verify, async (req, res) => {
       return res.status(500).send(error);
     });
   } else {
-    return res.status(402).send('Unauthorized');
+    return res.status(401).send('Only the post author can make changes!');
   }
 });
 
@@ -79,22 +79,28 @@ router.delete('/:id', verify, async (req, res) => {
   const current_user = await User.findById(req.user._id);
 
   if (current_user.posts.includes(req.params.id)) {
-    await Post.findByIdAndRemove(req.params.id, (error, post) => {
-      if (error) {
-        return res.status(500).send(error);
-      }
+    try {
+      await Post.findByIdAndRemove(req.params.id)
+        .then((post) => {
+          const response = {
+            message: 'Post successfully deleted',
+            id: post._id
+          };
 
-      const response = {
-        message: 'Post successfully deleted',
-        id: post._id
-      };
-
-      return res.status(200).json(response);
-    }).catch((error) => {
-      return res.status(500).send(error);
-    });
+          return res.status(200).json(response);
+        })
+        .catch(() => {
+          return res
+            .status(404)
+            .send('This post doesnt exist, please check and try again.');
+        });
+    } catch (error) {
+      res.status(500).send('Internal server error.');
+    }
   } else {
-    return res.status(402).send('Unauthorized');
+    return res
+      .status(401)
+      .send('Either you are not authorized, or this post doesnt exist.');
   }
 });
 
