@@ -39,8 +39,6 @@ router.get('/:id', async (req, res) => {
 
 // Create a post - PRIVATE ROUTE
 router.post('/', verify, async (req, res) => {
-  // TODO - Implement logic to upload an array of images, create Image objects with the returned URLS, and
-  // create Post object with the Id's of the newly created Image objects.
 
   const post = new Post({
     images: req.body.images,
