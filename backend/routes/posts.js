@@ -39,7 +39,6 @@ router.get('/:id', async (req, res) => {
 
 // Create a post - PRIVATE ROUTE
 router.post('/', verify, async (req, res) => {
-
   const post = new Post({
     images: req.body.images,
     caption: req.body.caption,
