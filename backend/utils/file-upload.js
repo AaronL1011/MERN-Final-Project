@@ -1,6 +1,7 @@
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const { uuid } = require('uuidv4');
 require('dotenv').config();
 
 aws.config.update({
@@ -26,10 +27,10 @@ const upload = multer({
     bucket: 'grupgrup-images',
     acl: 'public-read',
     metadata: function (req, file, cb) {
-      cb(null, { fieldName: 'Testing_Metadata' });
+      cb(null, { fieldName: file.fieldname });
     },
     key: function (req, file, cb) {
-      cb(null, Date.now().toString());
+      cb(null, uuid());
     }
   })
 });

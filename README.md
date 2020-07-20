@@ -89,6 +89,20 @@ Outlined below is the basic Architecture Diagram of how we plan to structure the
 
 > R4 - User Stories
 
+## Initial User Stories
+
+As a first pass for our user stories, we originally went with a very generic list of stories, mainly to briefly describe some hypothetical needs from our applications users:
+
+**As a user**, I would like to be able to post photos to my profile so my peers can view my content.
+
+**As a user**, I would like to be able to change my account settings easily, in case any of my information changes in the future.
+
+**As a user**, I would like to be able to impose access rights so I can control who can view my photos.
+
+**As a user**, I would like my account and person information to be secure from malicious attack.
+
+While the premise behind these simple stories is accurate, we decided to revise and expand on the user stories by creating unique personas of potential future users of our application. This allowed us to further explore exactly what requirements are requested by our users, and also some context as to why these features are important to them.
+
 ## Michael
 
 ![A young man with slightly messy hair, trendy glasses wearing a turtle neck under a thick hoodie](./docs/user_story/michael.jpg)
@@ -211,6 +225,12 @@ This is where users can see their own profiles and how they look to other users,
 This page has forms allowing for the user to change their account details and reset their password if need be.
 
 ![Edit Profile Page](./docs/Grub_Grub_Wireframes/Edit_Profile_Page.png)
+
+## Sitemap / Relationships
+
+Outlined below are the relationships between each page. Most pages can be access from one another with the exception of Sign Up and Edit Profile, due to the navigation bar at the bottom of the screen.
+
+![Sitemap](./docs/Sitemap.png)
 
 # Planning Screenshots
 
