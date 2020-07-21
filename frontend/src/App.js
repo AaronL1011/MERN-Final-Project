@@ -1,13 +1,9 @@
 import React from 'react';
-import BottomNav from './components/BottomNav';
-import { Container } from '@material-ui/core';
+import Login from './components/Login';
+import './App.css';
 
 function App() {
-  return (
-    <Container maxWidth='sm'>
-      <BottomNav />
-    </Container>
-  );
+  return <Login />;
 }
 
 export default App;
