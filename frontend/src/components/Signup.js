@@ -5,9 +5,11 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 
-const Login = () => {
+const Signup = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [errorMessage, setError] = useState('');
 
@@ -15,21 +17,24 @@ const Login = () => {
     const config = {
       'Content-Type': 'application/json'
     };
-    const body = { email, password };
+    const body = { username, email, password };
     console.log(body);
     try {
-      setLoading(true);
-      setError('');
-      const response = await axios.post(
-        'http://grupgrup-backend.herokuapp.com/api/auth/login',
-        body,
-        config
-      );
+      if (password === confirmPassword) {
+        setLoading(true);
+        setError('');
+        const response = await axios.post(
+          'http://grupgrup-backend.herokuapp.com/api/auth/signup',
+          body,
+          config
+        );
 
-      if (response.data.token) {
-        localStorage.setItem('jwt', response.data.token);
-        // console.log(response.data.token);
-        setLoading(false);
+        if (response.data.token) {
+          localStorage.setItem('jwt', response.data.token);
+          setLoading(false);
+        }
+      } else {
+        setError('Please check that your passwords match');
       }
     } catch (error) {
       setError(error.response.data);
@@ -53,6 +58,25 @@ const Login = () => {
               GrupGrup <CameraAltIcon fontSize={'large'} />
             </h1>
             {errorMessage && <Alert severity='error'>{errorMessage}</Alert>}
+          </Grid>
+          <Grid
+            item
+            container
+            alignItems='center'
+            justify='center'
+            xs={11}
+            sm={6}
+            lg={3}
+            xl={2}
+          >
+            <TextField
+              id='email-field'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              label='Username'
+              variant='outlined'
+              fullWidth
+            />
           </Grid>
           <Grid
             item
@@ -104,8 +128,28 @@ const Login = () => {
             lg={3}
             xl={2}
           >
+            <TextField
+              id='password-field'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              label='Confirm Password'
+              type='password'
+              variant='outlined'
+              fullWidth
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            alignItems='center'
+            justify='center'
+            xs={11}
+            sm={6}
+            lg={3}
+            xl={2}
+          >
             <Button onClick={() => handleLogin()} variant='outlined' fullWidth>
-              Log In
+              Create Account
             </Button>
           </Grid>
           <Grid
@@ -118,8 +162,8 @@ const Login = () => {
             lg={3}
             xl={2}
           >
-            <Link to='/signup' style={styles.link}>
-              Create an Account
+            <Link to='/login' style={styles.link}>
+              Have an account? Log In
             </Link>
           </Grid>
         </Grid>
@@ -147,4 +191,4 @@ const styles = {
   }
 };
 
-export default Login;
+export default Signup;
