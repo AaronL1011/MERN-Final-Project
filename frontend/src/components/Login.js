@@ -142,7 +142,7 @@ const Login = () => {
 
 const styles = {
   link: {
-    color: 'black',
+    color: '#696969',
     textDecoration: 'none'
   }
 };

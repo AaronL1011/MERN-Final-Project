@@ -70,7 +70,7 @@ const Signup = () => {
             xl={2}
           >
             <TextField
-              id='email-field'
+              id='username-field'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               label='Username'
@@ -129,7 +129,7 @@ const Signup = () => {
             xl={2}
           >
             <TextField
-              id='password-field'
+              id='confirm-password-field'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               label='Confirm Password'
@@ -186,7 +186,7 @@ const Signup = () => {
 
 const styles = {
   link: {
-    color: 'black',
+    color: '#696969',
     textDecoration: 'none'
   }
 };
