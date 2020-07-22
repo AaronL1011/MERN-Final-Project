@@ -17,7 +17,9 @@ const NavigationBar = () => {
   const isOpen = Boolean(anchorElement);
 
   const handleChange = (event, value) => {
-    setCurrentPage(value);
+    if (value !== 'menu') {
+      setCurrentPage(value);
+    }
   };
 
   const onMenuClick = (event) => {
