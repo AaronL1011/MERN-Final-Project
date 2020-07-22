@@ -4,6 +4,7 @@ import Login from './components/Login';
 import './App.css';
 import Signup from './components/Signup';
 import EditProfile from './components/EditProfile';
+import NewUpload from './components/NewUpload';
 import { userContext } from './AppContext';
 import setAuthToken from './utils/setAuthToken';
 
@@ -17,6 +18,7 @@ const App = () => {
       <Route exact path='/login' component={Login} />
       <Route exact path='/signup' component={Signup} />
       <Route exact path='/editprofile' component={EditProfile} />
+      <Route exact path='/upload' component={NewUpload} />
     </Router>
   );
 };
