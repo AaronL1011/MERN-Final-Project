@@ -7,6 +7,6 @@ body {
 
 #root {
   height: 100%;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: flex-start; */
 }
