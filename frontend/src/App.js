@@ -5,6 +5,7 @@ import './App.css';
 import Signup from './components/Signup';
 import { userContext } from './AppContext';
 import setAuthToken from './utils/setAuthToken';
+import Searchbar from './components/Searchbar';
 
 if (localStorage.jwt) {
   setAuthToken(localStorage.jwt);
@@ -13,8 +14,9 @@ if (localStorage.jwt) {
 const App = () => {
   return (
     <Router>
-      <Route exact path='/login' component={Login} />
-      <Route exact path='/signup' component={Signup} />
+      <Route exact path="/search" component={Searchbar} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/signup" component={Signup} />
     </Router>
   );
 };
