@@ -6,9 +6,7 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Box,
   Grid,
-  CircularProgress,
   TextField,
   Button
 } from '@material-ui/core';
