@@ -44,7 +44,7 @@ const NavigationBar = () => {
         <MenuItem onClick={menuExit}>Something Else</MenuItem>
         <MenuItem onClick={menuExit}>Logout</MenuItem>
       </Menu>
-      <Grid item xs={11} sm={8} md={6} lg={4} xl={3}>
+      <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
         <BottomNavigation
           value={currentPage}
           onChange={(event, value) => handleChange(event, value)}
