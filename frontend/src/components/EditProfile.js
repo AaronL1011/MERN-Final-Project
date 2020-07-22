@@ -12,6 +12,20 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Alert from '@material-ui/lab/Alert';
 
 const EditProfile = () => {
+  const placeholder = require('../img/placeholder.jpg');
+  const [file, setFile] = useState(placeholder);
+
+  const handleImage = (input) => {
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        setFile(e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
   return (
     <>
       <Box mt={4}>
@@ -19,6 +33,40 @@ const EditProfile = () => {
           <Grid item container alignItems='center' direction='column'>
             <Typography variant='h4'>Edit Profile</Typography>
           </Grid>
+          <Grid
+            item
+            container
+            alignItems='center'
+            justify='center'
+            xs={11}
+            sm={6}
+            lg={3}
+            xl={2}
+          >
+            <img alt='profile picture' src={file} style={styles.profilepic} />
+          </Grid>
+          <Grid
+            item
+            container
+            // alignItems='center'
+            // justify='center'
+            direction='column'
+            xs={11}
+            sm={6}
+            lg={3}
+            xl={2}
+          >
+            <Typography variant='subtitle1'>Profile Picture:</Typography>&nbsp;
+            <input
+              type='file'
+              name='profile-picture'
+              id='picture-upload'
+              onChange={(e) => handleImage(e.target)}
+            />
+          </Grid>
+          <br />
+          <br />
+          <br />
           <Grid
             item
             container
@@ -69,24 +117,6 @@ const EditProfile = () => {
               variant='outlined'
               fullWidth
               multiline
-            />
-          </Grid>
-          <Grid
-            item
-            container
-            alignItems='center'
-            justify='center'
-            xs={11}
-            sm={6}
-            lg={3}
-            xl={2}
-          >
-            <Typography variant='subtitle1'>Profile Picture:</Typography>&nbsp;
-            <input
-              type='file'
-              name='profile-picture'
-              id='picture-upload'
-              value=''
             />
           </Grid>
           <Grid
@@ -188,6 +218,13 @@ const EditProfile = () => {
       </Box>
     </>
   );
+};
+
+const styles = {
+  profilepic: {
+    height: '300px',
+    borderRadius: '50%'
+  }
 };
 
 export default EditProfile;
