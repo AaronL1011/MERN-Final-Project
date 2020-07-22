@@ -83,6 +83,7 @@ const Signup = () => {
                 label='Username'
                 variant='outlined'
                 fullWidth
+                required
               />
             </Grid>
             <Grid
@@ -103,6 +104,7 @@ const Signup = () => {
                 type='email'
                 variant='outlined'
                 fullWidth
+                required
               />
             </Grid>
             <Grid
@@ -123,6 +125,7 @@ const Signup = () => {
                 type='password'
                 variant='outlined'
                 fullWidth
+                required
               />
             </Grid>
             <Grid

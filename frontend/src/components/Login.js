@@ -79,6 +79,7 @@ const Login = () => {
                 type='email'
                 variant='outlined'
                 fullWidth
+                required
               />
             </Grid>
             <Grid
