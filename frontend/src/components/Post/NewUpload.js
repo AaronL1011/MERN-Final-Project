@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 const NewUpload = () => {
-  const placeHolder = require('../img/placeholder.jpg');
+  const placeHolder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeHolder);
 
   const getImage = (input) => {
