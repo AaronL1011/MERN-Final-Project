@@ -45,17 +45,7 @@ const EditProfile = () => {
           >
             <img alt='profile picture' src={file} style={styles.profilepic} />
           </Grid>
-          <Grid
-            item
-            container
-            // alignItems='center'
-            // justify='center'
-            direction='column'
-            xs={11}
-            sm={6}
-            lg={3}
-            xl={2}
-          >
+          <Grid item container direction='column' xs={11} sm={6} lg={3} xl={2}>
             <Typography variant='subtitle1'>Profile Picture:</Typography>&nbsp;
             <input
               type='file'
