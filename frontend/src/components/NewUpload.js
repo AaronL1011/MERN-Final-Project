@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -14,11 +14,26 @@ import {
 } from '@material-ui/core';
 
 const NewUpload = () => {
+  const placeHolder = require('../img/placeholder.jpg');
+  const [file, setFile] = useState(placeHolder);
+
+  const getImage = (input) => {
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        setFile(e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
   return (
     <Card style={styles.root}>
       <CardHeader title='New Image Upload'></CardHeader>
       <CardMedia
-        image={require('../img/saladwoman.jpg')}
+        id='previewImage'
+        image={file}
         component='img'
         title='salad woman'
         style={{
@@ -33,7 +48,8 @@ const NewUpload = () => {
               type='file'
               name='profile-picture'
               id='picture-upload'
-              value=''
+              multiple
+              onChange={(e) => getImage(e.target)}
             />
           </Grid>
           <Grid item container>
