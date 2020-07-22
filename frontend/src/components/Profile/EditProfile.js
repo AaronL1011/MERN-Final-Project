@@ -12,7 +12,7 @@ import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Alert from '@material-ui/lab/Alert';
 
 const EditProfile = () => {
-  const placeholder = require('../img/placeholder.jpg');
+  const placeholder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeholder);
 
   const handleImage = (input) => {
