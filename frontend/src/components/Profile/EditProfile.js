@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {
   Typography,
@@ -29,22 +29,24 @@ const EditProfile = () => {
     }
   };
 
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
     try {
-      const deletedUser = axios.delete(
+      const deletedUser = await axios.delete(
         'http://grupgrup-backend.herokuapp.com/api/users/delete',
         {
           headers: { 'auth-token': userData.token }
         }
       );
 
-      console.log(`${deletedUser.id} deleted.`);
+      console.log(`${deletedUser.data.username} deleted.`);
       setUserData({
         token: undefined,
         user: undefined
       });
       localStorage.setItem('jwt', '');
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
