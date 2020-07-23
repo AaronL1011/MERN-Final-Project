@@ -8,12 +8,12 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Alert from '@material-ui/lab/Alert';
 
 const EditProfile = () => {
   const placeholder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeholder);
+  const [user, setUser] = useState({});
 
   const handleImage = (input) => {
     if (input.files && input.files[0]) {
@@ -28,7 +28,7 @@ const EditProfile = () => {
 
   return (
     <>
-      <Box mt={4}>
+      <Box mt={4} mb={10}>
         <Grid container direction='column' alignItems='center' spacing={2}>
           <Grid item container alignItems='center' direction='column'>
             <Typography variant='h4'>Edit Profile</Typography>
