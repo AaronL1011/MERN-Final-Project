@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import {
   Box,
   Grid,
@@ -10,19 +10,20 @@ import {
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
+import UserContext from '../../context/UserContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [errorMessage, setError] = useState('');
+  const { userData, setUserData } = useContext(UserContext);
 
   const handleLogin = async () => {
     const config = {
       'Content-Type': 'application/json'
     };
     const body = { email, password };
-    console.log(body);
     try {
       setLoading(true);
       setError('');
@@ -32,11 +33,12 @@ const Login = () => {
         config
       );
 
-      if (response.data.token) {
-        localStorage.setItem('jwt', response.data.token);
-        // console.log(response.data.token);
-        setLoading(false);
-      }
+      setUserData({
+        token: response.data.token,
+        user: response.data.user
+      });
+      localStorage.setItem('jwt', response.data.token);
+      setLoading(false);
     } catch (error) {
       setError(error.response.data);
       console.log(error.response.data);
@@ -46,6 +48,7 @@ const Login = () => {
 
   return (
     <>
+      {userData.user && <Redirect to='/' />}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid

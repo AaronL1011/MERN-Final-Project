@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import {
   Typography,
   Box,
@@ -9,11 +9,14 @@ import {
   Button
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import axios from 'axios';
+import UserContext from '../../context/UserContext';
 
 const EditProfile = () => {
   const placeholder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeholder);
   const [user, setUser] = useState({});
+  const { userData, setUserData } = useContext(UserContext);
 
   const handleImage = (input) => {
     if (input.files && input.files[0]) {
@@ -26,8 +29,29 @@ const EditProfile = () => {
     }
   };
 
+  const deleteAccount = async () => {
+    try {
+      const deletedUser = await axios.delete(
+        'http://grupgrup-backend.herokuapp.com/api/users/delete',
+        {
+          headers: { 'auth-token': userData.token }
+        }
+      );
+
+      console.log(`${deletedUser.data.username} deleted.`);
+      setUserData({
+        token: undefined,
+        user: undefined
+      });
+      localStorage.setItem('jwt', '');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
+      {!userData.user && <Redirect to='/' />}
       <Box mt={4} mb={10}>
         <Grid container direction='column' alignItems='center' spacing={2}>
           <Grid item container alignItems='center' direction='column'>
@@ -192,6 +216,25 @@ const EditProfile = () => {
           >
             <Button variant='outlined' color='primary' fullWidth>
               Change Password
+            </Button>
+          </Grid>
+          <Grid
+            item
+            container
+            alignItems='center'
+            justify='center'
+            xs={11}
+            sm={6}
+            lg={3}
+            xl={2}
+          >
+            <Button
+              onClick={() => deleteAccount()}
+              variant='outlined'
+              color='secondary'
+              fullWidth
+            >
+              Delete Account
             </Button>
           </Grid>
           <Grid
