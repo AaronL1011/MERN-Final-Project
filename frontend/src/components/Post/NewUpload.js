@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import UserContext from '../../context/UserContext';
 import {
   Card,
   CardHeader,
@@ -10,10 +11,16 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
+import axios from 'axios';
 
 const NewUpload = () => {
+  const { userData } = useContext(UserContext);
   const placeHolder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeHolder);
+  const [caption, setCaption] = useState('');
+  const [tags, setTags] = useState('');
+  const [visibility, setVisibility] = useState('');
+  const [files, setFiles] = useState(null);
 
   const getImage = (input) => {
     if (input.files && input.files[0]) {
@@ -24,6 +31,36 @@ const NewUpload = () => {
 
       reader.readAsDataURL(input.files[0]);
     }
+  };
+
+  const createNewPost = async () => {
+    let postFormData = new FormData();
+    postFormData.set('caption', caption);
+    postFormData.set('tags', tags);
+    postFormData.set('visibility', visibility);
+
+    postFormData.append('images', files);
+
+    const config = {
+      'Content-Type': 'multipart/form-data',
+      'auth-token': userData.token
+    };
+    axios
+      .post(
+        'http://grupgrup-backend.herokuapp.com/image-upload',
+        postFormData,
+        {
+          headers: config
+        }
+      )
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
   };
 
   return (
@@ -46,8 +83,10 @@ const NewUpload = () => {
               type='file'
               name='profile-picture'
               id='picture-upload'
-              multiple
-              onChange={(e) => getImage(e.target)}
+              onChange={(e) => {
+                getImage(e.target);
+                setFiles(e.target.files[0]);
+              }}
             />
           </Grid>
           <Grid item container>
@@ -55,6 +94,8 @@ const NewUpload = () => {
               id='caption-field'
               label='Caption'
               variant='outlined'
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
               fullWidth
               multiline
             />
@@ -63,15 +104,33 @@ const NewUpload = () => {
             <TextField
               id='tags-field'
               label='Tags'
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
               variant='outlined'
               fullWidth
             />
             <Typography variant='caption'>Comma seperated tags</Typography>
           </Grid>
+          <Grid item container>
+            <TextField
+              id='visibility-field'
+              label='Visibility'
+              value={visibility}
+              onChange={(e) => setVisibility(e.target.value)}
+              variant='outlined'
+              fullWidth
+            />
+            <Typography variant='caption'>0, 1, 2 or 3</Typography>
+          </Grid>
         </Grid>
       </CardContent>
       <CardActions>
-        <Button variant='outlined' size='small' color='primary'>
+        <Button
+          onClick={() => createNewPost()}
+          variant='outlined'
+          size='small'
+          color='primary'
+        >
           Post!
         </Button>
       </CardActions>
