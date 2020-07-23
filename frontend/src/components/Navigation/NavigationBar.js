@@ -87,7 +87,8 @@ const styles = {
   navBox: {
     width: '100%',
     position: 'fixed',
-    bottom: '30px'
+    bottom: '30px',
+    zIndex: '10'
   },
   bottomNav: {
     width: '100%',
