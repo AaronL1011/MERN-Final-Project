@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import {
   Box,
   Grid,
@@ -10,6 +10,7 @@ import {
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
+import UserContext from '../../context/UserContext';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -18,27 +19,30 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [errorMessage, setError] = useState('');
+  const { userData, setUserData } = useContext(UserContext);
 
   const handleLogin = async () => {
     const config = {
       'Content-Type': 'application/json'
     };
-    const body = { username, email, password };
-    console.log(body);
+    const newUser = { username, email, password };
+    console.log(newUser);
     try {
       if (password === confirmPassword) {
         setLoading(true);
         setError('');
         const response = await axios.post(
           'http://grupgrup-backend.herokuapp.com/api/auth/signup',
-          body,
+          newUser,
           config
         );
 
-        if (response.data.token) {
-          localStorage.setItem('jwt', response.data.token);
-          setLoading(false);
-        }
+        setUserData({
+          token: response.data.token,
+          user: response.data.user
+        });
+        localStorage.setItem('jwt', response.data.token);
+        setLoading(false);
       } else {
         setError('Please check that your passwords match');
       }
@@ -51,6 +55,7 @@ const Signup = () => {
 
   return (
     <>
+      {userData.user && <Redirect to='/' />}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid
