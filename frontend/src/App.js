@@ -8,7 +8,6 @@ import Mainpage from './components/Landing/Mainpage';
 import EditProfile from './components/Profile/EditProfile';
 import NewUpload from './components/Post/NewUpload';
 import NavigationBar from './components/Navigation/NavigationBar';
-import setAuthToken from './utils/setAuthToken';
 import UserContext from './context/UserContext';
 
 const App = () => {
