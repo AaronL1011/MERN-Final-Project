@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <>
-      {userData.user && <Redirect to='/' />}
+      {userData.user && <Redirect to='/editprofile' />}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid
