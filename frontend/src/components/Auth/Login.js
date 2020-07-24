@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import {
   Box,
   Grid,
@@ -13,6 +14,7 @@ import axios from 'axios';
 import UserContext from '../../context/UserContext';
 
 const Login = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
@@ -28,20 +30,21 @@ const Login = () => {
       setLoading(true);
       setError('');
       const response = await axios.post(
-        'http://grupgrup-backend.herokuapp.com/api/auth/login',
+        'https://grupgrup-backend.herokuapp.com/api/auth/login',
         body,
         config
       );
 
+      enqueueSnackbar(`You're logged in!`, {
+        variant: 'success'
+      });
       setUserData({
         token: response.data.token,
         user: response.data.user
       });
       localStorage.setItem('jwt', response.data.token);
-      setLoading(false);
     } catch (error) {
       setError(error.response.data);
-      console.log(error.response.data);
       setLoading(false);
     }
   };

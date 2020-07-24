@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useSnackbar } from 'notistack';
 import { Link, Redirect } from 'react-router-dom';
 import {
   Box,
@@ -19,6 +20,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [errorMessage, setError] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
 
   const handleLogin = async () => {
@@ -26,23 +28,24 @@ const Signup = () => {
       'Content-Type': 'application/json'
     };
     const newUser = { username, email, password };
-    console.log(newUser);
     try {
       if (password === confirmPassword) {
         setLoading(true);
         setError('');
         const response = await axios.post(
-          'http://grupgrup-backend.herokuapp.com/api/auth/signup',
+          'https://grupgrup-backend.herokuapp.com/api/auth/signup',
           newUser,
           config
         );
 
+        enqueueSnackbar(`You've successfully signed up!`, {
+          variant: 'success'
+        });
         setUserData({
           token: response.data.token,
           user: response.data.user
         });
         localStorage.setItem('jwt', response.data.token);
-        setLoading(false);
       } else {
         setError('Please check that your passwords match');
       }
