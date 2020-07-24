@@ -1,14 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import {
   Typography,
   Box,
   Grid,
   CircularProgress,
   TextField,
-  Button
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import UserContext from '../../context/UserContext';
 
@@ -16,7 +21,7 @@ const EditProfile = () => {
   useEffect(() => {
     async function getUserFormValues() {
       const userFormData = await axios.get(
-        `http://grupgrup-backend.herokuapp.com/api/users/${userData.user.id}`,
+        `http://grupgrup-backend.herokuapp.com/api/users/${userData.user.id}/profile`,
         {
           headers: {
             'auth-token': userData.token
@@ -28,8 +33,8 @@ const EditProfile = () => {
         email: userFormData.data.email,
         bio: userFormData.data.bio
       });
-      if (userFormData.data.profile_picture) {
-        const userProfilePicture = userFormData.data.profile_picture;
+      if (userFormData.data.profilePicture) {
+        const userProfilePicture = userFormData.data.profilePicture;
         setFile(userProfilePicture);
       }
       setIsLoading(false);
@@ -44,6 +49,8 @@ const EditProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userFormValues, setUserFormValues] = useState({});
   const { userData, setUserData } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
+  const [open, setOpen] = useState(false);
   const { username, email, bio, picture } = userFormValues;
 
   const handleImage = (input) => {
@@ -72,8 +79,9 @@ const EditProfile = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
-        alert('Your details have been updated!');
+        enqueueSnackbar('Your details have been saved!', {
+          variant: 'success'
+        });
       })
       .catch((error) => console.log(error));
   };
@@ -87,7 +95,12 @@ const EditProfile = () => {
         }
       );
 
-      console.log(`${deletedUser.data.username} deleted.`);
+      enqueueSnackbar(
+        `We're sad to see you go. Your account has been deleted.`,
+        {
+          variant: 'info'
+        }
+      );
       setUserData({
         token: undefined,
         user: undefined
@@ -96,6 +109,10 @@ const EditProfile = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleDialogClick = () => {
+    setOpen(!open);
   };
 
   return (
@@ -107,6 +124,28 @@ const EditProfile = () => {
         </Box>
       ) : (
         <Box mt={4} mb={10}>
+          <Dialog open={open} onClose={handleDialogClick}>
+            <DialogTitle>Delete Account</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Are you sure you want to delete your account? This is permanent!
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={handleDialogClick} color='primary'>
+                Cancel
+              </Button>
+              <Button
+                onClick={() => {
+                  handleDialogClick();
+                  deleteAccount();
+                }}
+                color='primary'
+              >
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Grid container direction='column' alignItems='center' spacing={2}>
             <Grid item container alignItems='center' direction='column'>
               <Typography variant='h4'>Edit Profile</Typography>
@@ -306,7 +345,7 @@ const EditProfile = () => {
               xl={2}
             >
               <Button
-                onClick={() => deleteAccount()}
+                onClick={handleDialogClick}
                 variant='outlined'
                 color='secondary'
                 fullWidth

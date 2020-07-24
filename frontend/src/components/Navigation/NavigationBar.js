@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import {
   Menu,
   MenuItem,
@@ -13,6 +14,7 @@ import Fade from '@material-ui/core/Fade';
 import UserContext from '../../context/UserContext';
 
 const NavigationBar = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState('home');
   const [anchorElement, setAnchorElement] = useState('');
@@ -47,6 +49,9 @@ const NavigationBar = () => {
       user: undefined
     });
     localStorage.setItem('jwt', '');
+    enqueueSnackbar(`You're logged out!`, {
+      variant: 'info'
+    });
   };
 
   return (
