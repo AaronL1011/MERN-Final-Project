@@ -55,7 +55,7 @@ const App = () => {
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/editprofile' component={EditProfile} />
             <Route exact path='/upload' component={NewUpload} />
-            <Route exact path='/profile' component={ProfilePage} />
+            <Route exact path='/profile/:userId' component={ProfilePage} />
           </Switch>
 
           <NavigationBar />

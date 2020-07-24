@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Grid, Card, Button, Typography } from '@material-ui/core';
+import { Card, Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import UserContext from '../../context/UserContext';
@@ -41,7 +41,6 @@ const useStyles = makeStyles({
 
 const ProfileCard = ({ userProfile }) => {
   const { userData } = useContext(UserContext);
-
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -54,7 +53,7 @@ const ProfileCard = ({ userProfile }) => {
       <CardActionArea className={classes.actionArea}>
         <CardContent className={classes.content}>
           <CardActions>
-            {userData.user.id === userProfile.id ? (
+            {userData.user && userData.user.id === userProfile.id ? (
               <Button color='primary' component={Link} to='/editprofile'>
                 Edit Profile
               </Button>
@@ -68,7 +67,7 @@ const ProfileCard = ({ userProfile }) => {
               </Button>
             )}
           </CardActions>
-          <Typography variant='h4' component='h2' whiteSpace='wrap'>
+          <Typography variant='h4' component='h2'>
             {userProfile.username}
           </Typography>
           <Typography variant='body1' color='textPrimary' component='p'>
