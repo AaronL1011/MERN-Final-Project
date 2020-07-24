@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   Typography,
@@ -50,6 +50,7 @@ const EditProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userFormValues, setUserFormValues] = useState({});
   const { userData, setUserData } = useContext(UserContext);
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const { username, email, bio, picture } = userFormValues;
@@ -103,7 +104,7 @@ const EditProfile = () => {
         enqueueSnackbar('Your details have been saved!', {
           variant: 'success'
         });
-        setIsLoading(false);
+        history.push('/profile');
       })
       .catch((error) => console.log(error));
   };
@@ -171,6 +172,14 @@ const EditProfile = () => {
           <Grid container direction='column' alignItems='center' spacing={2}>
             <Grid item container alignItems='center' direction='column'>
               <Typography variant='h4'>Edit Profile</Typography>
+              <Button
+                component={Link}
+                color='primary'
+                to='/profile'
+                size={'small'}
+              >
+                Return to Profile
+              </Button>
             </Grid>
             <Grid
               item

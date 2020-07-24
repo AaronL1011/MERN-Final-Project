@@ -125,7 +125,7 @@ const NavigationBar = () => {
           />
           <BottomNavigationAction
             component={Link}
-            to='/editprofile'
+            to='/profile'
             label='Profile'
             value='profile'
             icon={<Person />}
