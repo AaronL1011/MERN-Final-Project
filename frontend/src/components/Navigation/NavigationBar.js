@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Menu,
   MenuItem,
@@ -10,11 +10,14 @@ import {
 import { Home, Publish, Person } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import Fade from '@material-ui/core/Fade';
+import UserContext from '../../context/UserContext';
 
 const NavigationBar = () => {
+  const { userData, setUserData } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState('home');
   const [anchorElement, setAnchorElement] = useState('');
   const isOpen = Boolean(anchorElement);
+  const history = useHistory();
 
   const handleChange = (event, value) => {
     if (value !== 'menu') {
@@ -30,20 +33,71 @@ const NavigationBar = () => {
     setAnchorElement(null);
   };
 
+  const login = () => {
+    history.push('/login');
+  };
+
+  const signup = () => {
+    history.push('/signup');
+  };
+
+  const logout = () => {
+    setUserData({
+      token: undefined,
+      user: undefined
+    });
+    localStorage.setItem('jwt', '');
+  };
+
   return (
     <Grid container style={styles.navBox} justify='center'>
-      <Menu
-        id='fade-menu'
-        anchorEl={anchorElement}
-        keepMounted
-        open={isOpen}
-        onClose={menuExit}
-        TransitionComponent={Fade}
-      >
-        <MenuItem onClick={menuExit}>Something</MenuItem>
-        <MenuItem onClick={menuExit}>Something Else</MenuItem>
-        <MenuItem onClick={menuExit}>Logout</MenuItem>
-      </Menu>
+      {userData.user ? (
+        <Menu
+          id='fade-menu'
+          anchorEl={anchorElement}
+          keepMounted
+          open={isOpen}
+          onClose={menuExit}
+          TransitionComponent={Fade}
+        >
+          <MenuItem onClick={menuExit}>About</MenuItem>
+          <MenuItem
+            onClick={() => {
+              logout();
+              menuExit();
+            }}
+          >
+            Logout
+          </MenuItem>
+        </Menu>
+      ) : (
+        <Menu
+          id='fade-menu'
+          anchorEl={anchorElement}
+          keepMounted
+          open={isOpen}
+          onClose={menuExit}
+          TransitionComponent={Fade}
+        >
+          <MenuItem onClick={menuExit}>About</MenuItem>
+          <MenuItem
+            onClick={() => {
+              login();
+              menuExit();
+            }}
+          >
+            Login
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              signup();
+              menuExit();
+            }}
+          >
+            Sign Up
+          </MenuItem>
+        </Menu>
+      )}
       <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
         <BottomNavigation
           value={currentPage}
