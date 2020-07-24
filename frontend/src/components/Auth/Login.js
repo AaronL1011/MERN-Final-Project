@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <>
-      {userData.user && <Redirect to='/editprofile' />}
+      {userData.user && <Redirect to={`/profile/${userData.user.id}`} />}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid
@@ -131,6 +131,7 @@ const Login = () => {
               container
               alignItems='center'
               justify='center'
+              direction='column'
               xs={11}
               sm={6}
               lg={3}
@@ -138,6 +139,10 @@ const Login = () => {
             >
               <Link to='/signup' style={styles.link}>
                 Create an Account
+              </Link>
+              <br />
+              <Link to='/' style={styles.link}>
+                Return Home
               </Link>
             </Grid>
           </Grid>

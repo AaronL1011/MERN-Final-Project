@@ -20,6 +20,9 @@ const NavigationBar = () => {
   const [anchorElement, setAnchorElement] = useState('');
   const isOpen = Boolean(anchorElement);
   const history = useHistory();
+  const userProfileLink = userData.user
+    ? `/profile/${userData.user.id}`
+    : '/login';
 
   const handleChange = (event, value) => {
     if (value !== 'menu') {
@@ -125,7 +128,7 @@ const NavigationBar = () => {
           />
           <BottomNavigationAction
             component={Link}
-            to='/editprofile'
+            to={userProfileLink}
             label='Profile'
             value='profile'
             icon={<Person />}
