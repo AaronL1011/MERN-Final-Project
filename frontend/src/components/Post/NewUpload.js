@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useSnackbar } from 'notistack';
 import UserContext from '../../context/UserContext';
 import {
   Card,
@@ -14,6 +15,7 @@ import {
 import axios from 'axios';
 
 const NewUpload = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const { userData } = useContext(UserContext);
   const placeHolder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeHolder);
@@ -54,12 +56,16 @@ const NewUpload = () => {
         }
       )
       .then(function (response) {
-        //handle success
+        enqueueSnackbar(`Post successfuly created!`, {
+          variant: 'success'
+        });
         console.log(response);
       })
       .catch(function (response) {
-        //handle error
-        console.log(response);
+        enqueueSnackbar(`Something went wrong!`, {
+          variant: 'error'
+        });
+        console.log(response.message);
       });
   };
 
