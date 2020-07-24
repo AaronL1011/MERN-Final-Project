@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, Button, Typography } from '@material-ui/core';
+import { Card, Button, Typography, Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import UserContext from '../../context/UserContext';
@@ -15,7 +15,9 @@ const useStyles = makeStyles({
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignContent: 'center',
-    maxWidth: '100%'
+    maxWidth: '100%',
+    paddingTop: 10,
+    paddingBottom: 10
   },
   actionArea: {
     display: 'flex',
@@ -24,11 +26,8 @@ const useStyles = makeStyles({
     maxWidth: 600
   },
   profile_pic: {
-    flexGrow: 1,
-    maxWidth: 300,
-    alignSelf: 'center',
-    borderRadius: '50%',
-    margin: 5
+    width: 200,
+    height: 200
   },
   content: {
     flexWrap: 'wrap',
@@ -44,11 +43,10 @@ const ProfileCard = ({ userProfile }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardMedia
+      <Avatar
         className={classes.profile_pic}
-        component='img'
         alt=''
-        image={userProfile.profilePicture}
+        src={userProfile.profilePicture}
       />
       <CardActionArea className={classes.actionArea}>
         <CardContent className={classes.content}>
