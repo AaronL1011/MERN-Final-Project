@@ -34,7 +34,9 @@ const EditProfile = () => {
       }
       setIsLoading(false);
     }
-    getUserFormValues();
+    if (userData.user) {
+      getUserFormValues();
+    }
   }, []);
 
   const placeholder = require('../../img/placeholder.jpg');
@@ -98,7 +100,7 @@ const EditProfile = () => {
 
   return (
     <>
-      {!userData.user && <Redirect to='/' />}
+      {!userData.user && <Redirect to='/login' />}
       {isLoading ? (
         <Box style={styles.spinnerBox}>
           <CircularProgress />
