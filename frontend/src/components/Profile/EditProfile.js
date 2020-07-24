@@ -46,6 +46,7 @@ const EditProfile = () => {
 
   const placeholder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeholder);
+  const [profilePic, setProfilePic] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userFormValues, setUserFormValues] = useState({});
   const { userData, setUserData } = useContext(UserContext);
@@ -68,6 +69,26 @@ const EditProfile = () => {
     setUserFormValues({ ...userFormValues, [e.target.name]: e.target.value });
 
   const onSubmit = async () => {
+    setIsLoading(true);
+    if (profilePic) {
+      let profilePicFormData = new FormData();
+      profilePicFormData.append('image', profilePic);
+      const config = {
+        'Content-Type': 'multipart/form-data',
+        'auth-token': userData.token
+      };
+      await axios
+        .post(
+          'http://grupgrup-backend.herokuapp.com/profile-pic-upload',
+          profilePicFormData,
+          {
+            headers: config
+          }
+        )
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error));
+    }
+
     await axios
       .put(
         `http://grupgrup-backend.herokuapp.com/api/users/update`,
@@ -82,6 +103,7 @@ const EditProfile = () => {
         enqueueSnackbar('Your details have been saved!', {
           variant: 'success'
         });
+        setIsLoading(false);
       })
       .catch((error) => console.log(error));
   };
@@ -177,7 +199,10 @@ const EditProfile = () => {
                 type='file'
                 name='profile-picture'
                 id='picture-upload'
-                onChange={(e) => handleImage(e.target)}
+                onChange={(e) => {
+                  handleImage(e.target);
+                  setProfilePic(e.target.files[0]);
+                }}
               />
             </Grid>
             <br />
