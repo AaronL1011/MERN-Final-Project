@@ -69,7 +69,7 @@ const NewUpload = ({ toggleModal }) => {
         toggleModal();
       })
       .catch(function (response) {
-        enqueueSnackbar(`Something went wrong!`, {
+        enqueueSnackbar(`You need to log in to post!`, {
           variant: 'error'
         });
         console.log(response.message);

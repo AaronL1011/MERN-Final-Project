@@ -66,7 +66,7 @@ const Signup = () => {
 
   return (
     <>
-      {userData.user && <Redirect to={`/profile/${userData.user.url}`} />}
+      {/* {userData.user && <Redirect to={`/profile/${userData.user.url}`} />} */}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid

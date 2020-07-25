@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
-import './App.css';
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
-import Mainpage from './components/Landing/Mainpage';
-import EditProfile from './components/Profile/EditProfile';
-import ProfilePage from './components/Profile/ProfilePage';
-import NavigationBar from './components/Navigation/NavigationBar';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import PrivateRoute from './utils/PrivateRoute';
+import PublicRoute from './utils/PublicRoute';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import Mainpage from './components/landing/Mainpage';
+import EditProfile from './components/profile/EditProfile';
+import ProfilePage from './components/profile/ProfilePage';
+import NavigationBar from './components/layout/NavigationBar';
 import UserContext from './context/UserContext';
-import UploadModal from './components/Post/UploadModal';
+import UploadModal from './components/post/UploadModal';
+import { checkLoggedIn } from './utils/auth';
+import './App.css';
 
 const App = () => {
   const [userData, setUserData] = useState({
@@ -19,32 +21,14 @@ const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const checkLoggedIn = async () => {
-      let token = localStorage.getItem('jwt');
-      if (token === null) {
-        localStorage.setItem('jwt', '');
-        token = '';
-      }
-      const tokenResponse = await axios.post(
-        'http://grupgrup-backend.herokuapp.com/api/users/tokenIsValid',
-        null,
-        { headers: { 'auth-token': token } }
-      );
-      // console.log(tokenResponse.data);
-      if (tokenResponse.data) {
-        const userResponse = await axios.get(
-          'http://grupgrup-backend.herokuapp.com/api/users/user',
-          { headers: { 'auth-token': token } }
-        );
-        // console.log(userResponse.data);
-        setUserData({
-          token,
-          user: userResponse.data
-        });
+    const userLoggedIn = async () => {
+      const user = await checkLoggedIn();
+      if (user) {
+        setUserData(user);
       }
     };
 
-    checkLoggedIn();
+    userLoggedIn();
   }, []);
 
   const handleModalState = () => setModalOpen(!modalOpen);
@@ -54,12 +38,30 @@ const App = () => {
       <Router>
         <UserContext.Provider value={{ userData, setUserData }}>
           <Switch>
-            <Route exact path='/' component={Mainpage} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={Signup} />
-            <Route exact path='/editprofile' component={EditProfile} />
-            <Route exact path='/upload' component={UploadModal} />
-            <Route exact path='/profile/:profileUrl' component={ProfilePage} />
+            <PublicRoute
+              restriced={false}
+              exact
+              path='/'
+              component={Mainpage}
+            />
+            <PublicRoute
+              restriced={true}
+              exact
+              path='/login'
+              component={Login}
+            />
+            <PublicRoute
+              restriced={true}
+              exact
+              path='/signup'
+              component={Signup}
+            />
+            <PrivateRoute exact path='/editprofile' component={EditProfile} />
+            <PrivateRoute
+              exact
+              path='/profile/:profileUrl'
+              component={ProfilePage}
+            />
           </Switch>
           <UploadModal
             modalState={modalOpen}
