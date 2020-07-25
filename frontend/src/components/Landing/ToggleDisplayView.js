@@ -5,6 +5,8 @@ import ViewDayIcon from "@material-ui/icons/ViewDay";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 
 const ToggleDisplayView = () => {
+  // TODO Raise state and function of toggle
+  // The state and helper function needs to be raised to a higher level (Mainpage.js) so the toggle state can be passed to other components
   const [displayView, setDisplayView] = useState("single");
 
   const handleDisplayView = (event, newDisplayView) => {
