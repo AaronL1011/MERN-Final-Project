@@ -32,7 +32,7 @@ const EditProfile = () => {
   useEffect(() => {
     async function getUserFormValues() {
       const userFormData = await axios.get(
-        `http://grupgrup-backend.herokuapp.com/api/users/${userData.user.id}/profile`,
+        `http://grupgrup-backend.herokuapp.com/api/users/profile/${userData.user.url}`,
         {
           headers: {
             'auth-token': userData.token
@@ -89,28 +89,39 @@ const EditProfile = () => {
         .then((response) => console.log(response.data))
         .catch((error) => console.log(error));
     }
-
-    await axios
-      .put(
-        `http://grupgrup-backend.herokuapp.com/api/users/update`,
-        userFormValues,
-        {
-          headers: {
-            'auth-token': userData.token
+    try {
+      await axios
+        .put(
+          `http://grupgrup-backend.herokuapp.com/api/users/update`,
+          userFormValues,
+          {
+            headers: {
+              'auth-token': userData.token
+            }
           }
-        }
-      )
-      .then(() => {
-        enqueueSnackbar('Your details have been saved!', {
-          variant: 'success'
+        )
+        .then(() => {
+          enqueueSnackbar('Your details have been saved!', {
+            variant: 'success'
+          });
+          history.push(`/profile/${userData.user.url}`);
+        })
+        .catch((error) => {
+          enqueueSnackbar(error.response.data, {
+            variant: 'error'
+          });
+          console.log(error.response.data);
+          setIsLoading(false);
         });
-        history.push('/profile');
-      })
-      .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   };
 
   const deleteAccount = async () => {
     try {
+      setIsLoading(true);
       await axios
         .delete('http://grupgrup-backend.herokuapp.com/api/users/delete', {
           headers: { 'auth-token': userData.token }
@@ -179,7 +190,7 @@ const EditProfile = () => {
               <Button
                 component={Link}
                 color='primary'
-                to={`/profile/${userData.user.id}`}
+                to={`/profile/${userData.user.url}`}
                 size={'small'}
               >
                 Return to Profile
@@ -195,7 +206,7 @@ const EditProfile = () => {
               lg={3}
               xl={2}
             >
-              <img alt='profile picture' src={file} style={styles.profilepic} />
+              <img alt='profile preview' src={file} style={styles.profilepic} />
             </Grid>
             <Grid
               item
