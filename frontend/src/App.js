@@ -6,6 +6,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Mainpage from './components/Landing/Mainpage';
 import EditProfile from './components/Profile/EditProfile';
+import ProfilePage from './components/Profile/ProfilePage';
 import NewUpload from './components/Post/NewUpload';
 import NavigationBar from './components/Navigation/NavigationBar';
 import UserContext from './context/UserContext';
@@ -28,12 +29,13 @@ const App = () => {
         null,
         { headers: { 'auth-token': token } }
       );
-
+      console.log(tokenResponse.data);
       if (tokenResponse.data) {
         const userResponse = await axios.get(
           'http://grupgrup-backend.herokuapp.com/api/users/user',
           { headers: { 'auth-token': token } }
         );
+        console.log(userResponse.data);
         setUserData({
           token,
           user: userResponse.data
@@ -54,6 +56,7 @@ const App = () => {
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/editprofile' component={EditProfile} />
             <Route exact path='/upload' component={NewUpload} />
+            <Route exact path='/profile/:profileUrl' component={ProfilePage} />
           </Switch>
 
           <NavigationBar />

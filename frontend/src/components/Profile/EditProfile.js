@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   Typography,
@@ -18,10 +18,21 @@ import axios from 'axios';
 import UserContext from '../../context/UserContext';
 
 const EditProfile = () => {
+  const placeholder = require('../../img/placeholder.jpg');
+  const [file, setFile] = useState(placeholder);
+  const [profilePic, setProfilePic] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userFormValues, setUserFormValues] = useState({});
+  const { userData, setUserData } = useContext(UserContext);
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
+  const [open, setOpen] = useState(false);
+  const { username, email, bio } = userFormValues;
+
   useEffect(() => {
     async function getUserFormValues() {
       const userFormData = await axios.get(
-        `http://grupgrup-backend.herokuapp.com/api/users/${userData.user.id}/profile`,
+        `http://grupgrup-backend.herokuapp.com/api/users/profile/${userData.user.url}`,
         {
           headers: {
             'auth-token': userData.token
@@ -42,17 +53,7 @@ const EditProfile = () => {
     if (userData.user) {
       getUserFormValues();
     }
-  }, []);
-
-  const placeholder = require('../../img/placeholder.jpg');
-  const [file, setFile] = useState(placeholder);
-  const [profilePic, setProfilePic] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [userFormValues, setUserFormValues] = useState({});
-  const { userData, setUserData } = useContext(UserContext);
-  const { enqueueSnackbar } = useSnackbar();
-  const [open, setOpen] = useState(false);
-  const { username, email, bio, picture } = userFormValues;
+  }, [userData.token, userData.user]);
 
   const handleImage = (input) => {
     if (input.files && input.files[0]) {
@@ -88,46 +89,61 @@ const EditProfile = () => {
         .then((response) => console.log(response.data))
         .catch((error) => console.log(error));
     }
-
-    await axios
-      .put(
-        `http://grupgrup-backend.herokuapp.com/api/users/update`,
-        userFormValues,
-        {
-          headers: {
-            'auth-token': userData.token
+    try {
+      await axios
+        .put(
+          `http://grupgrup-backend.herokuapp.com/api/users/update`,
+          userFormValues,
+          {
+            headers: {
+              'auth-token': userData.token
+            }
           }
-        }
-      )
-      .then((response) => {
-        enqueueSnackbar('Your details have been saved!', {
-          variant: 'success'
+        )
+        .then(() => {
+          enqueueSnackbar('Your details have been saved!', {
+            variant: 'success'
+          });
+          history.push(`/profile/${userData.user.url}`);
+        })
+        .catch((error) => {
+          enqueueSnackbar(error.response.data, {
+            variant: 'error'
+          });
+          console.log(error.response.data);
+          setIsLoading(false);
         });
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   };
 
   const deleteAccount = async () => {
     try {
-      const deletedUser = await axios.delete(
-        'http://grupgrup-backend.herokuapp.com/api/users/delete',
-        {
+      setIsLoading(true);
+      await axios
+        .delete('http://grupgrup-backend.herokuapp.com/api/users/delete', {
           headers: { 'auth-token': userData.token }
-        }
-      );
-
-      enqueueSnackbar(
-        `We're sad to see you go. Your account has been deleted.`,
-        {
-          variant: 'info'
-        }
-      );
-      setUserData({
-        token: undefined,
-        user: undefined
-      });
-      localStorage.setItem('jwt', '');
+        })
+        .then(() => {
+          enqueueSnackbar(
+            `We're sad to see you go. Your account has been deleted.`,
+            {
+              variant: 'info'
+            }
+          );
+          setUserData({
+            token: undefined,
+            user: undefined
+          });
+          localStorage.setItem('jwt', '');
+        })
+        .catch((error) => {
+          enqueueSnackbar(error.message, {
+            variant: 'error'
+          });
+        });
     } catch (error) {
       console.log(error);
     }
@@ -171,6 +187,14 @@ const EditProfile = () => {
           <Grid container direction='column' alignItems='center' spacing={2}>
             <Grid item container alignItems='center' direction='column'>
               <Typography variant='h4'>Edit Profile</Typography>
+              <Button
+                component={Link}
+                color='primary'
+                to={`/profile/${userData.user.url}`}
+                size={'small'}
+              >
+                Return to Profile
+              </Button>
             </Grid>
             <Grid
               item
@@ -182,7 +206,7 @@ const EditProfile = () => {
               lg={3}
               xl={2}
             >
-              <img alt='profile picture' src={file} style={styles.profilepic} />
+              <img alt='profile preview' src={file} style={styles.profilepic} />
             </Grid>
             <Grid
               item

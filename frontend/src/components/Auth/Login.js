@@ -9,7 +9,6 @@ import {
   Button
 } from '@material-ui/core';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import UserContext from '../../context/UserContext';
 
@@ -18,7 +17,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const [errorMessage, setError] = useState('');
   const { userData, setUserData } = useContext(UserContext);
 
   const handleLogin = async () => {
@@ -28,7 +26,6 @@ const Login = () => {
     const body = { email, password };
     try {
       setLoading(true);
-      setError('');
       const response = await axios.post(
         'https://grupgrup-backend.herokuapp.com/api/auth/login',
         body,
@@ -44,14 +41,16 @@ const Login = () => {
       });
       localStorage.setItem('jwt', response.data.token);
     } catch (error) {
-      setError(error.response.data);
+      enqueueSnackbar(error.response.data, {
+        variant: 'error'
+      });
       setLoading(false);
     }
   };
 
   return (
     <>
-      {userData.user && <Redirect to='/editprofile' />}
+      {userData.user && <Redirect to={`/profile/${userData.user.url}`} />}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid
@@ -65,7 +64,6 @@ const Login = () => {
               <h1>
                 GrupGrup <CameraAltIcon fontSize={'large'} />
               </h1>
-              {errorMessage && <Alert severity='error'>{errorMessage}</Alert>}
             </Grid>
             <Grid
               item
@@ -131,6 +129,7 @@ const Login = () => {
               container
               alignItems='center'
               justify='center'
+              direction='column'
               xs={11}
               sm={6}
               lg={3}
@@ -138,6 +137,10 @@ const Login = () => {
             >
               <Link to='/signup' style={styles.link}>
                 Create an Account
+              </Link>
+              <br />
+              <Link to='/' style={styles.link}>
+                Return Home
               </Link>
             </Grid>
           </Grid>
