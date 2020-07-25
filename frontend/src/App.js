@@ -29,13 +29,13 @@ const App = () => {
         null,
         { headers: { 'auth-token': token } }
       );
-      console.log(tokenResponse.data);
+      // console.log(tokenResponse.data);
       if (tokenResponse.data) {
         const userResponse = await axios.get(
           'http://grupgrup-backend.herokuapp.com/api/users/user',
           { headers: { 'auth-token': token } }
         );
-        console.log(userResponse.data);
+        // console.log(userResponse.data);
         setUserData({
           token,
           user: userResponse.data
