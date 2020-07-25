@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Fade from '@material-ui/core/Fade';
 import UserContext from '../../context/UserContext';
 
-const NavigationBar = () => {
+const NavigationBar = ({ modalToggle }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState('home');
@@ -25,7 +25,7 @@ const NavigationBar = () => {
     : '/login';
 
   const handleChange = (event, value) => {
-    if (value !== 'menu') {
+    if (value !== 'menu' || value !== 'new-upload') {
       setCurrentPage(value);
     }
   };
@@ -120,8 +120,7 @@ const NavigationBar = () => {
             icon={<Home />}
           />
           <BottomNavigationAction
-            component={Link}
-            to='/upload'
+            onClick={modalToggle}
             label='New Upload'
             value='new-upload'
             icon={<Publish />}

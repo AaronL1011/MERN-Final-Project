@@ -8,13 +8,14 @@ import {
   CardContent,
   CardActions,
   Typography,
+  CircularProgress,
   Grid,
   TextField,
   Button
 } from '@material-ui/core';
 import axios from 'axios';
 
-const NewUpload = () => {
+const NewUpload = ({ toggleModal }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { userData } = useContext(UserContext);
   const placeHolder = require('../../img/placeholder.jpg');
@@ -23,6 +24,7 @@ const NewUpload = () => {
   const [tags, setTags] = useState('');
   const [visibility, setVisibility] = useState('');
   const [files, setFiles] = useState(null);
+  const [isPosting, setIsPosting] = useState(false);
 
   const getImage = (input) => {
     if (input.files && input.files[0]) {
@@ -36,6 +38,7 @@ const NewUpload = () => {
   };
 
   const createNewPost = async () => {
+    setIsPosting(true);
     let postFormData = new FormData();
     postFormData.set('caption', caption);
     postFormData.set('tags', tags);
@@ -60,12 +63,14 @@ const NewUpload = () => {
           variant: 'success'
         });
         console.log(response);
+        toggleModal();
       })
       .catch(function (response) {
         enqueueSnackbar(`Something went wrong!`, {
           variant: 'error'
         });
         console.log(response.message);
+        setIsPosting(false);
       });
   };
 
@@ -131,14 +136,18 @@ const NewUpload = () => {
         </Grid>
       </CardContent>
       <CardActions>
-        <Button
-          onClick={() => createNewPost()}
-          variant='outlined'
-          size='small'
-          color='primary'
-        >
-          Post!
-        </Button>
+        {isPosting ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            onClick={() => createNewPost()}
+            variant='outlined'
+            size='small'
+            color='primary'
+          >
+            Post!
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
