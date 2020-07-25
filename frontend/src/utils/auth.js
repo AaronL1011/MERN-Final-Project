@@ -26,3 +26,23 @@ export const checkLoggedIn = async () => {
 
   return null;
 };
+
+export const handleLogin = async (email, password) => {
+  const config = {
+    'Content-Type': 'application/json'
+  };
+  const body = { email, password };
+  try {
+    const response = await axios.post(
+      'https://grupgrup-backend.herokuapp.com/api/auth/login',
+      body,
+      config
+    );
+
+    localStorage.setItem('jwt', response.data.token);
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data);
+    return error.response.data;
+  }
+};

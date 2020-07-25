@@ -5,6 +5,7 @@ import axios from 'axios';
 import UserContext from '../../context/UserContext';
 import Spinner from '../layout/Spinner';
 import LoginForm from './LoginForm';
+import { handleLogin } from '../../utils/auth';
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -12,35 +13,25 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
-  const handleLogin = async () => {
-    const config = {
-      'Content-Type': 'application/json'
-    };
-    const body = { email, password };
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        'https://grupgrup-backend.herokuapp.com/api/auth/login',
-        body,
-        config
-      );
-
+  const attemptLogin = async () => {
+    setLoading(true);
+    const response = await handleLogin(email, password);
+    if (response.user) {
       enqueueSnackbar(`You're logged in!`, {
         variant: 'success'
       });
       setUserData({
-        token: response.data.token,
-        user: response.data.user
+        token: response.token,
+        user: response.user
       });
-      localStorage.setItem('jwt', response.data.token);
-      history.push(`/profile/${response.data.user.url}`);
-    } catch (error) {
-      console.log(error);
-      // enqueueSnackbar(error, {
-      //   variant: 'error'
-      // });
+      history.push(`/profile/${response.user.url}`);
+    } else {
+      console.log(response);
+      enqueueSnackbar(response, {
+        variant: 'error'
+      });
       setLoading(false);
     }
   };
@@ -54,7 +45,7 @@ const Login = () => {
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
-          handleLogin={handleLogin}
+          handleLogin={attemptLogin}
         />
       ) : (
         <Spinner />
