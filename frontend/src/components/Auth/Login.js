@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import axios from 'axios';
 import UserContext from '../../context/UserContext';
 import Spinner from '../layout/Spinner';
 import LoginForm from './LoginForm';
