@@ -25,7 +25,7 @@ const NavigationBar = ({ modalToggle }) => {
     : '/login';
 
   const handleChange = (event, value) => {
-    if (value !== 'menu' || value !== 'new-upload') {
+    if (value !== 'menu' && value !== 'new-upload') {
       setCurrentPage(value);
     }
   };
