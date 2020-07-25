@@ -24,7 +24,7 @@ const NavigationBar = ({ modalToggle }) => {
     ? `/profile/${userData.user.url}`
     : '/login';
 
-  const handleChange = (event, value) => {
+  const handleChange = () => {
     switch (window.location.pathname) {
       case '/':
         setCurrentPage('home');

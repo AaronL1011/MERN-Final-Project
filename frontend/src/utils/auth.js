@@ -46,3 +46,33 @@ export const handleLogin = async (email, password) => {
     return error.response.data;
   }
 };
+
+export const handleCreateAccount = async (
+  username,
+  email,
+  profileUrl,
+  password
+) => {
+  const config = {
+    'Content-Type': 'application/json'
+  };
+  const newUser = {
+    username,
+    email,
+    profile_url: profileUrl,
+    password
+  };
+  try {
+    const response = await axios.post(
+      'https://grupgrup-backend.herokuapp.com/api/auth/signup',
+      newUser,
+      config
+    );
+
+    localStorage.setItem('jwt', response.data.token);
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data);
+    return error.response.data;
+  }
+};

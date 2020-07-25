@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import Spinner from '../layout/Spinner';
 import SignupForm from './SignupForm';
-import axios from 'axios';
 import UserContext from '../../context/UserContext';
+import { handleCreateAccount } from '../../utils/auth';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -14,48 +14,38 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
-  const handleCreateAccount = async () => {
-    const config = {
-      'Content-Type': 'application/json'
-    };
-    const newUser = {
-      username,
-      email,
-      profile_url: profileUrl,
-      password
-    };
-    try {
-      if (password === confirmPassword) {
-        setLoading(true);
-        const response = await axios.post(
-          'https://grupgrup-backend.herokuapp.com/api/auth/signup',
-          newUser,
-          config
-        );
-
+  const attemptUserCreate = async () => {
+    if (password === confirmPassword) {
+      setLoading(true);
+      const response = await handleCreateAccount(
+        username,
+        email,
+        profileUrl,
+        password
+      );
+      if (response.user) {
         enqueueSnackbar(`You've successfully signed up!`, {
           variant: 'success'
         });
         setUserData({
-          token: response.data.token,
-          user: response.data.user
+          token: response.token,
+          user: response.user
         });
-        localStorage.setItem('jwt', response.data.token);
-        history.push(`/profile/${response.data.user.url}`);
+        history.push(`/profile/${response.user.url}`);
       } else {
-        enqueueSnackbar(`Please check that your passwords match!`, {
+        console.log(response);
+        enqueueSnackbar(response, {
           variant: 'error'
         });
+        setLoading(false);
       }
-    } catch (error) {
-      enqueueSnackbar(error.response.data, {
+    } else {
+      enqueueSnackbar(`Please check that your passwords match!`, {
         variant: 'error'
       });
-      console.log(error.response.data);
-      setLoading(false);
     }
   };
 
@@ -74,7 +64,7 @@ const Signup = () => {
           setPassword={setPassword}
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
-          handleCreateAccount={handleCreateAccount}
+          attemptUserCreate={attemptUserCreate}
         />
       ) : (
         <Spinner />

@@ -14,7 +14,7 @@ const SignupForm = ({
   setPassword,
   confirmPassword,
   setConfirmPassword,
-  handleCreateAccount
+  attemptUserCreate
 }) => {
   return (
     <Box height='100%' display='flex' alignItems='center'>
@@ -146,7 +146,7 @@ const SignupForm = ({
           xl={2}
         >
           <Button
-            onClick={() => handleCreateAccount()}
+            onClick={() => attemptUserCreate()}
             variant='outlined'
             fullWidth
           >
