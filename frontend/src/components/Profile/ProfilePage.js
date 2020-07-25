@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Spinner from '../layout/Spinner';
 import ProfileCard from './ProfileCard';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import UserContext from '../../context/UserContext';
 
 const ProfilePage = () => {
   const params = useParams();

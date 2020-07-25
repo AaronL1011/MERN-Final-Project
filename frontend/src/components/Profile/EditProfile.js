@@ -3,7 +3,6 @@ import { useHistory, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import Spinner from '../layout/Spinner';
 import EditProfileForm from './EditProfileForm';
-import axios from 'axios';
 import {
   getUserProfile,
   submitProfileUpdate,

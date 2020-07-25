@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
 import Login from './components/auth/Login';
@@ -57,11 +57,7 @@ const App = () => {
               component={Signup}
             />
             <PrivateRoute exact path='/editprofile' component={EditProfile} />
-            <PrivateRoute
-              exact
-              path='/profile/:profileUrl'
-              component={ProfilePage}
-            />
+            <Route exact path='/profile/:profileUrl' component={ProfilePage} />
           </Switch>
           <UploadModal
             modalState={modalOpen}

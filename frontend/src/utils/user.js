@@ -27,7 +27,7 @@ export const submitProfileUpdate = async (
     if (profilePic) {
       let profilePicFormData = new FormData();
       profilePicFormData.append('image', profilePic);
-      const imageResponse = await axios.post(
+      await axios.post(
         'http://grupgrup-backend.herokuapp.com/profile-pic-upload',
         profilePicFormData,
         {
