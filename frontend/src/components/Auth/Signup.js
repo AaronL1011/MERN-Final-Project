@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { handleCreateAccount } from '../../utils/auth';
+
 import Spinner from '../layout/Spinner';
 import SignupForm from './SignupForm';
 import UserContext from '../../context/UserContext';
-import { handleCreateAccount } from '../../utils/auth';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
