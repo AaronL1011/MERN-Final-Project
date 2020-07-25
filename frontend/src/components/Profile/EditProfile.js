@@ -23,11 +23,17 @@ const EditProfile = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [userFormValues, setUserFormValues] = useState({});
+  const [passwordFormValues, setPasswordFormValues] = useState({});
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const { username, email, bio } = userFormValues;
+  const {
+    new_password,
+    confirm_password,
+    current_password
+  } = passwordFormValues;
 
   useEffect(() => {
     async function getUserFormValues() {
@@ -68,6 +74,12 @@ const EditProfile = () => {
 
   const onChange = (e) =>
     setUserFormValues({ ...userFormValues, [e.target.name]: e.target.value });
+
+  const onPasswordChange = (e) =>
+    setPasswordFormValues({
+      ...passwordFormValues,
+      [e.target.name]: e.target.value
+    });
 
   const onSubmit = async () => {
     setIsLoading(true);
@@ -113,6 +125,49 @@ const EditProfile = () => {
           console.log(error.response.data);
           setIsLoading(false);
         });
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    setIsLoading(true);
+    try {
+      if (new_password === confirm_password) {
+        const data = {
+          current_password,
+          new_password
+        };
+        await axios
+          .put(
+            `http://grupgrup-backend.herokuapp.com/api/users/update-password`,
+            data,
+            {
+              headers: {
+                'auth-token': userData.token
+              }
+            }
+          )
+          .then(() => {
+            enqueueSnackbar('Your new password has been saved!', {
+              variant: 'success'
+            });
+            setPasswordFormValues({});
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            enqueueSnackbar(error.response.data, {
+              variant: 'error'
+            });
+            setIsLoading(false);
+          });
+      } else {
+        enqueueSnackbar(`Please check that your passwords match!`, {
+          variant: 'error'
+        });
+        setIsLoading(false);
+      }
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -326,7 +381,10 @@ const EditProfile = () => {
               xl={2}
             >
               <TextField
+                value={new_password}
+                onChange={onPasswordChange}
                 id='new-password-field'
+                name='new_password'
                 label='New Password'
                 type='password'
                 variant='outlined'
@@ -344,7 +402,10 @@ const EditProfile = () => {
               xl={2}
             >
               <TextField
-                id='conf-new-password-field'
+                value={confirm_password}
+                onChange={onPasswordChange}
+                id='confirm-password-field'
+                name='confirm_password'
                 label='Confirm New Password'
                 type='password'
                 variant='outlined'
@@ -362,7 +423,10 @@ const EditProfile = () => {
               xl={2}
             >
               <TextField
-                id='og-password-field'
+                value={current_password}
+                onChange={onPasswordChange}
+                id='current-password-field'
+                name='current_password'
                 label='Current Password'
                 type='password'
                 variant='outlined'
@@ -379,7 +443,12 @@ const EditProfile = () => {
               lg={3}
               xl={2}
             >
-              <Button variant='outlined' color='primary' fullWidth>
+              <Button
+                onClick={handleChangePassword}
+                variant='outlined'
+                color='primary'
+                fullWidth
+              >
                 Change Password
               </Button>
             </Grid>
