@@ -10,20 +10,20 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const userID = params.userId;
+    const profileURL = params.profileUrl;
 
     const getUserProfile = async () => {
       const userProfileInfo = await axios.get(
-        `http://grupgrup-backend.herokuapp.com/api/users/${userID}/profile`
+        `http://grupgrup-backend.herokuapp.com/api/users/profile/${profileURL}`
       );
 
       setUserProfile(userProfileInfo.data);
       setIsLoading(false);
     };
-    if (userID) {
+    if (profileURL) {
       getUserProfile();
     }
-  }, [params.userId]);
+  }, [params.profileUrl]);
 
   return (
     <div>

@@ -35,6 +35,7 @@ const App = () => {
           'http://grupgrup-backend.herokuapp.com/api/users/user',
           { headers: { 'auth-token': token } }
         );
+        console.log(userResponse.data);
         setUserData({
           token,
           user: userResponse.data
@@ -55,7 +56,7 @@ const App = () => {
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/editprofile' component={EditProfile} />
             <Route exact path='/upload' component={NewUpload} />
-            <Route exact path='/profile/:userId' component={ProfilePage} />
+            <Route exact path='/profile/:profileUrl' component={ProfilePage} />
           </Switch>
 
           <NavigationBar />

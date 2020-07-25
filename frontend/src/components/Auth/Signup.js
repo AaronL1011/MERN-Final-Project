@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useSnackbar } from 'notistack';
 import { Link, Redirect } from 'react-router-dom';
 import {
+  Typography,
   Box,
   Grid,
   CircularProgress,
@@ -9,17 +10,16 @@ import {
   Button
 } from '@material-ui/core';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import UserContext from '../../context/UserContext';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [profileUrl, setProfileUrl] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const [errorMessage, setError] = useState('');
   const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
 
@@ -27,11 +27,15 @@ const Signup = () => {
     const config = {
       'Content-Type': 'application/json'
     };
-    const newUser = { username, email, password };
+    const newUser = {
+      username,
+      email,
+      profile_url: profileUrl,
+      password
+    };
     try {
       if (password === confirmPassword) {
         setLoading(true);
-        setError('');
         const response = await axios.post(
           'https://grupgrup-backend.herokuapp.com/api/auth/signup',
           newUser,
@@ -47,10 +51,14 @@ const Signup = () => {
         });
         localStorage.setItem('jwt', response.data.token);
       } else {
-        setError('Please check that your passwords match');
+        enqueueSnackbar(`Please check that your passwords match!`, {
+          variant: 'error'
+        });
       }
     } catch (error) {
-      setError(error.response.data);
+      enqueueSnackbar(error.response.data, {
+        variant: 'error'
+      });
       console.log(error.response.data);
       setLoading(false);
     }
@@ -58,7 +66,7 @@ const Signup = () => {
 
   return (
     <>
-      {userData.user && <Redirect to='/' />}
+      {userData.user && <Redirect to={`/profile/${userData.user.url}`} />}
       {!isLoading ? (
         <Box height='100%' display='flex' alignItems='center'>
           <Grid
@@ -72,7 +80,6 @@ const Signup = () => {
               <h1>
                 GrupGrup <CameraAltIcon fontSize={'large'} />
               </h1>
-              {errorMessage && <Alert severity='error'>{errorMessage}</Alert>}
             </Grid>
             <Grid
               item
@@ -114,6 +121,29 @@ const Signup = () => {
                 fullWidth
                 required
               />
+            </Grid>
+            <Grid
+              item
+              container
+              alignItems='center'
+              justify='center'
+              xs={11}
+              sm={6}
+              lg={3}
+              xl={2}
+            >
+              <TextField
+                id='profile-url-field'
+                value={profileUrl}
+                onChange={(e) => setProfileUrl(e.target.value)}
+                label='Profile URL'
+                variant='outlined'
+                fullWidth
+                required
+              />
+              <Typography variant='caption'>
+                This is permanent! (www.grupgrup.com/profile/'profileURL')
+              </Typography>
             </Grid>
             <Grid
               item

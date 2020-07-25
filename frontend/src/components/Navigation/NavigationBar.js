@@ -21,7 +21,7 @@ const NavigationBar = () => {
   const isOpen = Boolean(anchorElement);
   const history = useHistory();
   const userProfileLink = userData.user
-    ? `/profile/${userData.user.id}`
+    ? `/profile/${userData.user.url}`
     : '/login';
 
   const handleChange = (event, value) => {
