@@ -77,7 +77,7 @@ export const deleteAccount = async (token) => {
     const response = await axios.delete(
       'http://grupgrup-backend.herokuapp.com/api/users/delete',
       {
-        headers: { 'auth-token': '123' }
+        headers: { 'auth-token': token }
       }
     );
 
