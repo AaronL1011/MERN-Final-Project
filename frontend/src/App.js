@@ -7,15 +7,16 @@ import Signup from './components/Auth/Signup';
 import Mainpage from './components/Landing/Mainpage';
 import EditProfile from './components/Profile/EditProfile';
 import ProfilePage from './components/Profile/ProfilePage';
-import NewUpload from './components/Post/NewUpload';
 import NavigationBar from './components/Navigation/NavigationBar';
 import UserContext from './context/UserContext';
+import UploadModal from './components/Post/UploadModal';
 
 const App = () => {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined
   });
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -46,6 +47,8 @@ const App = () => {
     checkLoggedIn();
   }, []);
 
+  const handleModalState = () => setModalOpen(!modalOpen);
+
   return (
     <>
       <Router>
@@ -55,11 +58,14 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/editprofile' component={EditProfile} />
-            <Route exact path='/upload' component={NewUpload} />
+            <Route exact path='/upload' component={UploadModal} />
             <Route exact path='/profile/:profileUrl' component={ProfilePage} />
           </Switch>
-
-          <NavigationBar />
+          <UploadModal
+            modalState={modalOpen}
+            handleModalChange={handleModalState}
+          />
+          <NavigationBar modalToggle={handleModalState} />
         </UserContext.Provider>
       </Router>
     </>
