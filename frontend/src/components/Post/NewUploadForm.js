@@ -43,8 +43,10 @@ const NewUpload = ({ toggleModal }) => {
   const attemptCreatePost = async () => {
     setIsPosting(true);
     let postFormData = new FormData();
-    postFormData.set('caption', caption);
-    postFormData.set('tags', tags);
+    if (caption !== '') postFormData.set('caption', caption);
+    if (tags !== '') postFormData.set('tags', tags);
+    postFormData.set('displayName', userData.user.username);
+    postFormData.set('authorID', userData.user.id);
     postFormData.set('visibility', visibility);
     postFormData.append('images', files);
 
