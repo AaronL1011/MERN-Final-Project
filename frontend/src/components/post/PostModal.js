@@ -1,8 +1,8 @@
 import React from 'react';
-import NewUploadForm from './NewUpload';
+import ModalPostCard from './ModalPostCard';
 import { Modal } from '@material-ui/core';
 
-const UploadModal = ({ modalState, handleModalChange, handleRefresh }) => {
+const PostModal = ({ modalState, handleModalChange, modalContent }) => {
   return (
     <Modal
       open={modalState}
@@ -11,12 +11,12 @@ const UploadModal = ({ modalState, handleModalChange, handleRefresh }) => {
       aria-describedby='simple-modal-description'
       // style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
     >
-      <NewUploadForm
-        toggleModal={handleModalChange}
-        handleRefresh={handleRefresh}
+      <ModalPostCard
+        postContent={modalContent}
+        handleModalChange={handleModalChange}
       />
     </Modal>
   );
 };
 
-export default UploadModal;
+export default PostModal;

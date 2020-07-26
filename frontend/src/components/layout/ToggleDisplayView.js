@@ -1,17 +1,20 @@
 import React, { useState, useContext } from 'react';
-import { Box, Grid, Container, Typography } from '@material-ui/core';
+import { Box, Grid, Container } from '@material-ui/core';
 import PostCardLarge from '../post/PostCardLarge';
 import PostCardSmall from '../post/PostCardSmall';
+import PostModal from '../post/PostModal';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ViewDayIcon from '@material-ui/icons/ViewDay';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import UserContext from '../../context/UserContext';
 
-const ToggleDisplayView = ({ posts, defaultView }) => {
+const ToggleDisplayView = ({ posts, defaultView, handleRefresh }) => {
   // TODO Raise state and function of toggle
   // The state and helper function needs to be raised to a higher level (Mainpage.js) so the toggle state can be passed to other components
   const [displayView, setDisplayView] = useState(defaultView);
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
   const { userData } = useContext(UserContext);
 
   const handleDisplayView = (event, newDisplayView) => {
@@ -19,6 +22,12 @@ const ToggleDisplayView = ({ posts, defaultView }) => {
       setDisplayView(newDisplayView);
     }
   };
+
+  const handleModal = (post) => {
+    setModalContent(post);
+    setModalState(!modalState);
+  };
+
   return (
     <Container style={{ marginBottom: 100 }}>
       <Box
@@ -49,19 +58,36 @@ const ToggleDisplayView = ({ posts, defaultView }) => {
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      <Grid item container justify='center' spacing={2} fullWidth>
+      {modalContent !== null && (
+        <PostModal
+          modalState={modalState}
+          handleModalChange={handleModal}
+          modalContent={modalContent}
+        />
+      )}
+      <Grid item container justify='center' spacing={2}>
         {displayView === 'single' ? (
-          posts.map((post) => {
+          posts.map((post, index) => {
             if (post.visibility === '0') {
               return (
-                <Grid item style={{ width: '100%' }}>
-                  <PostCardLarge postContent={post} />
+                <Grid key={index} item style={{ width: '100%' }}>
+                  <PostCardLarge
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    userData={userData}
+                    handleRefresh={handleRefresh}
+                  />
                 </Grid>
               );
             } else if (post.visibility === '1' && userData.user) {
               return (
-                <Grid item style={{ width: '100%' }}>
-                  <PostCardLarge postContent={post} />
+                <Grid key={index} item style={{ width: '100%' }}>
+                  <PostCardLarge
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    userData={userData}
+                    handleRefresh={handleRefresh}
+                  />
                 </Grid>
               );
             } else if (
@@ -69,10 +95,17 @@ const ToggleDisplayView = ({ posts, defaultView }) => {
               post.authorID === userData.user
             ) {
               return (
-                <Grid item style={{ width: '100%' }}>
-                  <PostCardLarge postContent={post} />
+                <Grid key={index} item style={{ width: '100%' }}>
+                  <PostCardLarge
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    userData={userData}
+                    handleRefresh={handleRefresh}
+                  />
                 </Grid>
               );
+            } else {
+              return null;
             }
           })
         ) : (
@@ -85,16 +118,36 @@ const ToggleDisplayView = ({ posts, defaultView }) => {
               flexWrap: 'wrap'
             }}
           >
-            {posts.map((post) => {
+            {posts.map((post, index) => {
               if (post.visibility === '0') {
-                return <PostCardSmall postContent={post} />;
+                return (
+                  <PostCardSmall
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    key={index}
+                  />
+                );
               } else if (post.visibility === '1' && userData.user) {
-                return <PostCardSmall postContent={post} />;
+                return (
+                  <PostCardSmall
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    key={index}
+                  />
+                );
               } else if (
                 post.visibility === '2' &&
                 post.authorID === userData.user
               ) {
-                return <PostCardSmall postContent={post} />;
+                return (
+                  <PostCardSmall
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    key={index}
+                  />
+                );
+              } else {
+                return null;
               }
             })}
           </Box>

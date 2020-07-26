@@ -1,27 +1,33 @@
 import axios from 'axios';
 
+const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
+
 export const createNewPost = async (formData, config) => {
   try {
-    const response = await axios.post(
-      'https://grupgrup-backend.herokuapp.com/image-upload',
-      formData,
-      {
-        headers: config
-      }
-    );
-    console.log(response);
+    const response = await axios.post(apiUrl + `/image-upload`, formData, {
+      headers: config
+    });
     return response.data;
   } catch (error) {
-    console.log(error.response.data);
-    return error.response.data.error;
+    console.log(error);
+    return error;
   }
 };
 
 export const getAllPosts = async () => {
   try {
-    const response = await axios.get(
-      'https://grupgrup-backend.herokuapp.com/api/posts'
-    );
+    const response = await axios.get(apiUrl + `/posts`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.res);
+    return error;
+  }
+};
+
+export const getUserPosts = async (id) => {
+  try {
+    const response = await axios.get(apiUrl + `/users/${id}/posts`);
 
     return response.data;
   } catch (error) {
@@ -30,13 +36,31 @@ export const getAllPosts = async () => {
   }
 };
 
-export const getUserPosts = async (id) => {
+export const deletePost = async (id, token) => {
+  const config = {
+    headers: {
+      'auth-token': token
+    }
+  };
   try {
-    const response = await axios.get(
-      `https://grupgrup-backend.herokuapp.com/api/users/${id}/posts`
-    );
+    const response = await axios.delete(apiUrl + `/posts/${id}`, config);
 
-    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const updatePost = async (id, token, data) => {
+  const config = {
+    headers: {
+      'auth-token': token
+    }
+  };
+  try {
+    const response = await axios.put(apiUrl + `/posts/${id}`, data, config);
+
     return response.data;
   } catch (error) {
     console.log(error);

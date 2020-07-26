@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { handleCreateAccount } from '../../utils/auth';
 
@@ -15,7 +15,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
 
   const attemptUserCreate = async () => {
@@ -52,7 +52,7 @@ const Signup = () => {
 
   return (
     <>
-      {/* {userData.user && <Redirect to={`/profile/${userData.user.url}`} />} */}
+      {userData.user && <Redirect to={`/profile/${userData.user.url}`} />}
       {!isLoading ? (
         <SignupForm
           username={username}

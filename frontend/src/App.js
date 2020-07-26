@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './utils/PrivateRoute';
-import PublicRoute from './utils/PublicRoute';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import Mainpage from './components/landing/Mainpage';
@@ -38,26 +37,15 @@ const App = () => {
       <Router>
         <UserContext.Provider value={{ userData, setUserData }}>
           <Switch>
-            <PublicRoute
-              restriced={false}
-              exact
-              path='/'
-              component={Mainpage}
-            />
-            <PublicRoute
-              restriced={true}
-              exact
-              path='/login'
-              component={Login}
-            />
-            <PublicRoute
-              restriced={true}
-              exact
-              path='/signup'
-              component={Signup}
-            />
+            <Route exact path='/' component={Mainpage} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signup' component={Signup} />
             <PrivateRoute exact path='/editprofile' component={EditProfile} />
-            <Route exact path='/profile/:profileUrl' component={ProfilePage} />
+            <PrivateRoute
+              exact
+              path='/profile/:profileUrl'
+              component={ProfilePage}
+            />
           </Switch>
           <UploadModal
             modalState={modalOpen}
