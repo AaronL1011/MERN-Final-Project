@@ -9,7 +9,7 @@ import ViewDayIcon from '@material-ui/icons/ViewDay';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import UserContext from '../../context/UserContext';
 
-const ToggleDisplayView = ({ posts, defaultView }) => {
+const ToggleDisplayView = ({ posts, defaultView, handleRefresh }) => {
   // TODO Raise state and function of toggle
   // The state and helper function needs to be raised to a higher level (Mainpage.js) so the toggle state can be passed to other components
   const [displayView, setDisplayView] = useState(defaultView);
@@ -71,13 +71,23 @@ const ToggleDisplayView = ({ posts, defaultView }) => {
             if (post.visibility === '0') {
               return (
                 <Grid key={index} item style={{ width: '100%' }}>
-                  <PostCardLarge postContent={post} />
+                  <PostCardLarge
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    userData={userData}
+                    handleRefresh={handleRefresh}
+                  />
                 </Grid>
               );
             } else if (post.visibility === '1' && userData.user) {
               return (
                 <Grid key={index} item style={{ width: '100%' }}>
-                  <PostCardLarge postContent={post} />
+                  <PostCardLarge
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    userData={userData}
+                    handleRefresh={handleRefresh}
+                  />
                 </Grid>
               );
             } else if (
@@ -86,7 +96,12 @@ const ToggleDisplayView = ({ posts, defaultView }) => {
             ) {
               return (
                 <Grid key={index} item style={{ width: '100%' }}>
-                  <PostCardLarge postContent={post} />
+                  <PostCardLarge
+                    postContent={post}
+                    openModal={() => handleModal(post)}
+                    userData={userData}
+                    handleRefresh={handleRefresh}
+                  />
                 </Grid>
               );
             } else {

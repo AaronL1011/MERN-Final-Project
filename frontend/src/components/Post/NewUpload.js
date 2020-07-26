@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import { createNewPost } from '../../utils/post';
 
-const NewUpload = ({ toggleModal }) => {
+const NewUpload = ({ toggleModal, handleRefresh }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { userData } = useContext(UserContext);
   const placeHolder = require('../../img/placeholder.jpg');
@@ -41,33 +41,39 @@ const NewUpload = ({ toggleModal }) => {
   };
 
   const attemptCreatePost = async () => {
-    setIsPosting(true);
-    let postFormData = new FormData();
-    if (caption !== '') postFormData.set('caption', caption);
-    if (tags !== '') postFormData.set('tags', tags);
-    postFormData.set('displayName', userData.user.username);
-    postFormData.set('authorID', userData.user.id);
-    postFormData.set('visibility', visibility);
-    postFormData.append('images', files);
+    if (userData.user) {
+      setIsPosting(true);
+      let postFormData = new FormData();
+      if (caption !== '') postFormData.set('caption', caption);
+      if (tags !== '') postFormData.set('tags', tags);
+      postFormData.set('displayName', userData.user.username);
+      postFormData.set('authorID', userData.user.id);
+      postFormData.set('visibility', visibility);
+      postFormData.append('images', files);
 
-    const config = {
-      'Content-Type': 'multipart/form-data',
-      'auth-token': userData.token
-    };
+      const config = {
+        'Content-Type': 'multipart/form-data',
+        'auth-token': userData.token
+      };
 
-    const response = await createNewPost(postFormData, config);
+      const response = await createNewPost(postFormData, config);
 
-    if (response.images) {
-      enqueueSnackbar(`Post successfuly created!`, {
-        variant: 'success'
-      });
-      console.log(response);
-      toggleModal();
+      if (response.images) {
+        enqueueSnackbar(`Post successfuly created!`, {
+          variant: 'success'
+        });
+        handleRefresh();
+        toggleModal();
+      } else {
+        enqueueSnackbar('Make sure you have an image attached!', {
+          variant: 'error'
+        });
+        setIsPosting(false);
+      }
     } else {
-      enqueueSnackbar(response, {
+      enqueueSnackbar(`You need to log in to create a post!`, {
         variant: 'error'
       });
-      setIsPosting(false);
     }
   };
 

@@ -7,15 +7,21 @@ import ToggleDisplayView from '../layout/ToggleDisplayView';
 
 const Mainpage = () => {
   const [posts, setPosts] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   useEffect(() => {
     const awaitForPosts = async () => {
       const response = await getAllPosts();
 
-      setPosts(response);
+      setPosts(response.reverse());
     };
 
     awaitForPosts();
-  }, []);
+  }, [refresh]);
 
   return (
     <Container style={{ paddingTop: '30px' }}>
@@ -32,7 +38,13 @@ const Mainpage = () => {
           <Searchbar />
         </Grid>
         <Grid item>
-          {posts && <ToggleDisplayView posts={posts} defaultView={'single'} />}
+          {posts && (
+            <ToggleDisplayView
+              posts={posts}
+              defaultView={'single'}
+              handleRefresh={handleRefresh}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>

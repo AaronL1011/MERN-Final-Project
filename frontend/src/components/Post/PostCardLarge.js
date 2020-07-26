@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
+import { deletePost } from '../../utils/post';
+import {
+  Box,
+  Button,
+  Card,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@material-ui/core';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import TagChips from './TagChips';
-
-// Test build data
-// const postContent = {
-//   tags: ['cat', 'balls', 'joe'],
-//   username: 'Joe Dane',
-//   images: [
-//     'https://grupgrup-images.s3.ap-southeast-2.amazonaws.com/80b2487b-a0e3-426c-814f-02650d06f5d9'
-//   ],
-//   _id: '5f1979c3242a680017c04cee',
-//   caption: "This is a photo of my cat, Joe. He's... eccentric.",
-//   visibility: '3',
-//   date: '2020-07-23T11:51:31.362Z',
-//   __v: 0
-// };
 
 // Styling
 const useStyles = makeStyles({
@@ -44,28 +41,93 @@ const arrayToChipData = (array) => {
   return output;
 };
 
-const PostCardLarge = ({ postContent }) => {
+const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
+  const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleDialogClick = () => {
+    setOpen(!open);
+  };
+
+  const onDelete = async () => {
+    const response = await deletePost(postContent._id, userData.token);
+    if (response.id) {
+      enqueueSnackbar(response.message, {
+        variant: 'success'
+      });
+      handleRefresh();
+    } else {
+      enqueueSnackbar('Hmmm... Something went wrong!', {
+        variant: 'error'
+      });
+    }
+  };
+
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component='img'
-          image={postContent.images[0]}
-          width='100%'
-          style={{ maxHeight: '50vh' }}
-        ></CardMedia>
-        <CardContent className={classes.caption}>
-          {postContent.tags && (
-            <TagChips tagsArray={arrayToChipData(postContent.tags)} />
-          )}
-          <Typography>{postContent.displayName}</Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
-            {postContent.caption}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <>
+      <Dialog open={open} onClose={handleDialogClick}>
+        <DialogTitle>Delete Post</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this post? This is permanent!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleDialogClick} color='primary'>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleDialogClick();
+              onDelete();
+            }}
+            color='primary'
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Card className={classes.root}>
+        <CardActionArea onClick={openModal}>
+          <CardMedia
+            component='img'
+            image={postContent.images[0]}
+            width='100%'
+            style={{ maxHeight: '50vh' }}
+          ></CardMedia>
+          <CardContent className={classes.caption}>
+            {postContent.tags && (
+              <TagChips tagsArray={arrayToChipData(postContent.tags)} />
+            )}
+            <Typography>{postContent.displayName}</Typography>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {postContent.caption}
+            </Typography>
+            {userData.user && userData.user.id === postContent.authorID && (
+              <Box
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                  paddingTop: 10
+                }}
+              >
+                <Button
+                  variant='outlined'
+                  color='secondary'
+                  onClick={handleDialogClick}
+                >
+                  Delete
+                </Button>
+                <Button variant='outlined' color='primary'>
+                  Edit
+                </Button>
+              </Box>
+            )}
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </>
   );
 };
 

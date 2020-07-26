@@ -2,27 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
-  Button,
   Typography
 } from '@material-ui/core';
 import TagChips from './TagChips';
-
-// Test build data
-// const postContent = {
-//   tags: ['cat', 'balls', 'joe'],
-//   username: 'Joe Dane',
-//   images: [
-//     'https://grupgrup-images.s3.ap-southeast-2.amazonaws.com/80b2487b-a0e3-426c-814f-02650d06f5d9'
-//   ],
-//   _id: '5f1979c3242a680017c04cee',
-//   caption: "This is a photo of my cat, Joe. He's... eccentric.",
-//   visibility: '3',
-//   date: '2020-07-23T11:51:31.362Z',
-//   __v: 0
-// };
 
 // Styling
 const useStyles = makeStyles({
@@ -81,24 +67,6 @@ const ModalPostCard = ({ postContent, handleModalChange }) => {
             <Typography variant='body2' color='textSecondary' component='p'>
               {postContent.caption}
             </Typography>
-            <Box
-              style={{
-                display: 'flex',
-                justifyContent: 'space-evenly',
-                paddingTop: 10
-              }}
-            >
-              <Button
-                variant='outlined'
-                color='secondary'
-                onClick={() => alert('Yes')}
-              >
-                Delete
-              </Button>
-              <Button variant='outlined' color='primary'>
-                Edit
-              </Button>
-            </Box>
           </CardContent>
         </CardActionArea>
       </Card>

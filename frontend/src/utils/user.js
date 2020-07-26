@@ -1,15 +1,14 @@
 import axios from 'axios';
 
+const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
+
 export const getUserProfile = async (url, token) => {
   try {
-    const response = await axios.get(
-      `https://grupgrup-backend.herokuapp.com/api/users/profile/${url}`,
-      {
-        headers: {
-          'auth-token': token
-        }
+    const response = await axios.get(apiUrl + `/users/profile/${url}`, {
+      headers: {
+        'auth-token': token
       }
-    );
+    });
 
     return response.data;
   } catch (error) {
@@ -27,24 +26,16 @@ export const submitProfileUpdate = async (
     if (profilePic) {
       let profilePicFormData = new FormData();
       profilePicFormData.append('image', profilePic);
-      await axios.post(
-        'https://grupgrup-backend.herokuapp.com/profile-pic-upload',
-        profilePicFormData,
-        {
-          headers: config
-        }
-      );
+      await axios.post(apiUrl + `/profile-pic-upload`, profilePicFormData, {
+        headers: config
+      });
       console.log('Profile picture updated');
     }
-    const response = await axios.put(
-      `https://grupgrup-backend.herokuapp.com/api/users/update`,
-      formData,
-      {
-        headers: {
-          'auth-token': token
-        }
+    const response = await axios.put(apiUrl + `/users/update`, formData, {
+      headers: {
+        'auth-token': token
       }
-    );
+    });
 
     return response.data;
   } catch (error) {
@@ -56,7 +47,7 @@ export const submitProfileUpdate = async (
 export const handleChangePassword = async (bodyData, token) => {
   try {
     const response = await axios.put(
-      `https://grupgrup-backend.herokuapp.com/api/users/update-password`,
+      apiUrl + `users/update-password`,
       bodyData,
       {
         headers: {
@@ -74,12 +65,9 @@ export const handleChangePassword = async (bodyData, token) => {
 
 export const deleteAccount = async (token) => {
   try {
-    const response = await axios.delete(
-      'https://grupgrup-backend.herokuapp.com/api/users/delete',
-      {
-        headers: { 'auth-token': token }
-      }
-    );
+    const response = await axios.delete(apiUrl + `/users/delete`, {
+      headers: { 'auth-token': token }
+    });
 
     localStorage.setItem('jwt', '');
     return response.data;
