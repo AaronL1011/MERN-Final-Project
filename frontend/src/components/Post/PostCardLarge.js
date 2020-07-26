@@ -12,6 +12,7 @@ import {
   DialogContentText,
   DialogTitle
 } from '@material-ui/core';
+import EditPostModal from './EditPostModal';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -44,9 +45,14 @@ const arrayToChipData = (array) => {
 const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   const handleDialogClick = () => {
     setOpen(!open);
+  };
+
+  const handleEditModalState = () => {
+    setEditModalOpen(!editModalOpen);
   };
 
   const onDelete = async () => {
@@ -62,6 +68,25 @@ const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
       });
     }
   };
+
+  // const onEdit = async () => {
+  //   const response = await updatePost(
+  //     postContent._id,
+  //     userData.token,
+  //     postData
+  //   );
+
+  //   if (response._id) {
+  //     enqueueSnackbar(response.message, {
+  //       variant: 'success'
+  //     });
+  //     handleRefresh();
+  //   } else {
+  //     enqueueSnackbar('Hmmm... Something went wrong!', {
+  //       variant: 'error'
+  //     });
+  //   }
+  // };
 
   const classes = useStyles();
   return (
@@ -119,7 +144,11 @@ const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
                 >
                   Delete
                 </Button>
-                <Button variant='outlined' color='primary'>
+                <Button
+                  variant='outlined'
+                  color='primary'
+                  onClick={handleEditModalState}
+                >
                   Edit
                 </Button>
               </Box>
@@ -127,6 +156,17 @@ const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
           </CardContent>
         </CardActionArea>
       </Card>
+      <EditPostModal
+        modalState={editModalOpen}
+        handleModalChange={handleEditModalState}
+        currentDetails={{
+          id: postContent._id,
+          tags: postContent.tags,
+          caption: postContent.caption,
+          visibility: postContent.visibility
+        }}
+        handleRefresh={handleRefresh}
+      />
     </>
   );
 };

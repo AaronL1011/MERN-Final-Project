@@ -37,13 +37,29 @@ export const getUserPosts = async (id) => {
 };
 
 export const deletePost = async (id, token) => {
-  const data = {
+  const config = {
     headers: {
       'auth-token': token
     }
   };
   try {
-    const response = await axios.delete(apiUrl + `/posts/${id}`, data);
+    const response = await axios.delete(apiUrl + `/posts/${id}`, config);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const updatePost = async (id, token, data) => {
+  const config = {
+    headers: {
+      'auth-token': token
+    }
+  };
+  try {
+    const response = await axios.put(apiUrl + `/posts/${id}`, data, config);
 
     return response.data;
   } catch (error) {
