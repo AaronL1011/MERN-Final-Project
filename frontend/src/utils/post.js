@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createNewPost = async (formData, config) => {
   try {
     const response = await axios.post(
-      'http://grupgrup-backend.herokuapp.com/image-upload',
+      'https://grupgrup-backend.herokuapp.com/image-upload',
       formData,
       {
         headers: config
@@ -20,7 +20,7 @@ export const createNewPost = async (formData, config) => {
 export const getAllPosts = async () => {
   try {
     const response = await axios.get(
-      'http://grupgrup-backend.herokuapp.com/api/posts'
+      'https://grupgrup-backend.herokuapp.com/api/posts'
     );
 
     return response.data;
@@ -33,7 +33,7 @@ export const getAllPosts = async () => {
 export const getUserPosts = async (id) => {
   try {
     const response = await axios.get(
-      `http://grupgrup-backend.herokuapp.com/api/users/${id}/posts`
+      `https://grupgrup-backend.herokuapp.com/api/users/${id}/posts`
     );
 
     console.log(response.data);
