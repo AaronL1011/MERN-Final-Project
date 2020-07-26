@@ -1,20 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import Spinner from '../layout/Spinner';
+import EditProfileForm from './EditProfileForm';
 import {
-  Typography,
-  Box,
-  Grid,
-  CircularProgress,
-  TextField,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions
-} from '@material-ui/core';
-import axios from 'axios';
+  getUserProfile,
+  submitProfileUpdate,
+  handleChangePassword,
+  deleteAccount
+} from '../../utils/user';
 import UserContext from '../../context/UserContext';
 
 const EditProfile = () => {
@@ -37,24 +31,18 @@ const EditProfile = () => {
 
   useEffect(() => {
     async function getUserFormValues() {
-      const userFormData = await axios.get(
-        `http://grupgrup-backend.herokuapp.com/api/users/profile/${userData.user.url}`,
-        {
-          headers: {
-            'auth-token': userData.token
-          }
+      const response = await getUserProfile(userData.user.url, userData.token);
+      if (response.username) {
+        setUserFormValues({
+          username: response.username,
+          email: response.email,
+          bio: response.bio
+        });
+        if (response.profilePicture) {
+          setFile(response.profilePicture);
         }
-      );
-      setUserFormValues({
-        username: userFormData.data.username,
-        email: userFormData.data.email,
-        bio: userFormData.data.bio
-      });
-      if (userFormData.data.profilePicture) {
-        const userProfilePicture = userFormData.data.profilePicture;
-        setFile(userProfilePicture);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     if (userData.user) {
       getUserFormValues();
@@ -75,6 +63,10 @@ const EditProfile = () => {
   const onChange = (e) =>
     setUserFormValues({ ...userFormValues, [e.target.name]: e.target.value });
 
+  const handleDialogClick = () => {
+    setOpen(!open);
+  };
+
   const onPasswordChange = (e) =>
     setPasswordFormValues({
       ...passwordFormValues,
@@ -83,423 +75,110 @@ const EditProfile = () => {
 
   const onSubmit = async () => {
     setIsLoading(true);
-    if (profilePic) {
-      let profilePicFormData = new FormData();
-      profilePicFormData.append('image', profilePic);
-      const config = {
-        'Content-Type': 'multipart/form-data',
-        'auth-token': userData.token
-      };
-      await axios
-        .post(
-          'http://grupgrup-backend.herokuapp.com/profile-pic-upload',
-          profilePicFormData,
-          {
-            headers: config
-          }
-        )
-        .then((response) => console.log(response.data))
-        .catch((error) => console.log(error));
-    }
-    try {
-      await axios
-        .put(
-          `http://grupgrup-backend.herokuapp.com/api/users/update`,
-          userFormValues,
-          {
-            headers: {
-              'auth-token': userData.token
-            }
-          }
-        )
-        .then(() => {
-          enqueueSnackbar('Your details have been saved!', {
-            variant: 'success'
-          });
-          history.push(`/profile/${userData.user.url}`);
-        })
-        .catch((error) => {
-          enqueueSnackbar(error.response.data, {
-            variant: 'error'
-          });
-          console.log(error.response.data);
-          setIsLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
+    const config = {
+      'Content-Type': 'multipart/form-data',
+      'auth-token': userData.token
+    };
+    const response = await submitProfileUpdate(
+      userData.token,
+      config,
+      profilePic,
+      userFormValues
+    );
+    if (response.username) {
+      enqueueSnackbar('Your details have been saved!', {
+        variant: 'success'
+      });
+      history.push(`/profile/${userData.user.url}`);
+    } else {
+      enqueueSnackbar(response.msg, {
+        variant: 'error'
+      });
       setIsLoading(false);
     }
   };
 
-  const handleChangePassword = async () => {
+  const onChangePassword = async () => {
     setIsLoading(true);
-    try {
-      if (new_password === confirm_password) {
-        const data = {
-          current_password,
-          new_password
-        };
-        await axios
-          .put(
-            `http://grupgrup-backend.herokuapp.com/api/users/update-password`,
-            data,
-            {
-              headers: {
-                'auth-token': userData.token
-              }
-            }
-          )
-          .then(() => {
-            enqueueSnackbar('Your new password has been saved!', {
-              variant: 'success'
-            });
-            setPasswordFormValues({});
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            enqueueSnackbar(error.response.data, {
-              variant: 'error'
-            });
-            setIsLoading(false);
-          });
+    if (new_password === confirm_password) {
+      const bodyData = {
+        current_password,
+        new_password
+      };
+
+      const response = await handleChangePassword(bodyData, userData.token);
+
+      if (response.username) {
+        enqueueSnackbar('Your new password has been saved!', {
+          variant: 'success'
+        });
+        setPasswordFormValues({});
+        setIsLoading(false);
       } else {
-        enqueueSnackbar(`Please check that your passwords match!`, {
+        enqueueSnackbar(response, {
           variant: 'error'
         });
         setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      enqueueSnackbar(`Please check that your passwords match!`, {
+        variant: 'error'
+      });
       setIsLoading(false);
     }
   };
 
-  const deleteAccount = async () => {
-    try {
-      setIsLoading(true);
-      await axios
-        .delete('http://grupgrup-backend.herokuapp.com/api/users/delete', {
-          headers: { 'auth-token': userData.token }
-        })
-        .then(() => {
-          enqueueSnackbar(
-            `We're sad to see you go. Your account has been deleted.`,
-            {
-              variant: 'info'
-            }
-          );
-          setUserData({
-            token: undefined,
-            user: undefined
-          });
-          localStorage.setItem('jwt', '');
-        })
-        .catch((error) => {
-          enqueueSnackbar(error.message, {
-            variant: 'error'
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const onDelete = async () => {
+    setIsLoading(true);
+    const response = await deleteAccount(userData.token);
 
-  const handleDialogClick = () => {
-    setOpen(!open);
+    if (response.username) {
+      enqueueSnackbar(
+        `We're sad to see you go. Your account has been deleted.`,
+        {
+          variant: 'info'
+        }
+      );
+      setUserData({
+        token: undefined,
+        user: undefined
+      });
+    } else {
+      enqueueSnackbar(response, {
+        variant: 'error'
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
       {!userData.user && <Redirect to='/login' />}
       {isLoading ? (
-        <Box style={styles.spinnerBox}>
-          <CircularProgress />
-        </Box>
+        <Spinner />
       ) : (
-        <Box mt={4} mb={10}>
-          <Dialog open={open} onClose={handleDialogClick}>
-            <DialogTitle>Delete Account</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Are you sure you want to delete your account? This is permanent!
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button autoFocus onClick={handleDialogClick} color='primary'>
-                Cancel
-              </Button>
-              <Button
-                onClick={() => {
-                  handleDialogClick();
-                  deleteAccount();
-                }}
-                color='primary'
-              >
-                Delete
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <Grid container direction='column' alignItems='center' spacing={2}>
-            <Grid item container alignItems='center' direction='column'>
-              <Typography variant='h4'>Edit Profile</Typography>
-              <Button
-                component={Link}
-                color='primary'
-                to={`/profile/${userData.user.url}`}
-                size={'small'}
-              >
-                Return to Profile
-              </Button>
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <img alt='profile preview' src={file} style={styles.profilepic} />
-            </Grid>
-            <Grid
-              item
-              container
-              direction='column'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <Typography variant='subtitle1'>Profile Picture:</Typography>
-              &nbsp;
-              <input
-                type='file'
-                name='profile-picture'
-                id='picture-upload'
-                onChange={(e) => {
-                  handleImage(e.target);
-                  setProfilePic(e.target.files[0]);
-                }}
-              />
-            </Grid>
-            <br />
-            <br />
-            <br />
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                value={username}
-                onChange={onChange}
-                name='username'
-                id='username-field'
-                label='Username'
-                variant='outlined'
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                value={email}
-                onChange={onChange}
-                id='email-field'
-                name='email'
-                label='Email'
-                variant='outlined'
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                value={bio}
-                onChange={onChange}
-                id='bio-field'
-                name='bio'
-                label='Bio'
-                variant='outlined'
-                fullWidth
-                multiline
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <Button
-                onClick={onSubmit}
-                variant='outlined'
-                color='primary'
-                fullWidth
-              >
-                Save Changes
-              </Button>
-            </Grid>
-            <br />
-            <br />
-            <br />
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                value={new_password}
-                onChange={onPasswordChange}
-                id='new-password-field'
-                name='new_password'
-                label='New Password'
-                type='password'
-                variant='outlined'
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                value={confirm_password}
-                onChange={onPasswordChange}
-                id='confirm-password-field'
-                name='confirm_password'
-                label='Confirm New Password'
-                type='password'
-                variant='outlined'
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                value={current_password}
-                onChange={onPasswordChange}
-                id='current-password-field'
-                name='current_password'
-                label='Current Password'
-                type='password'
-                variant='outlined'
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <Button
-                onClick={handleChangePassword}
-                variant='outlined'
-                color='primary'
-                fullWidth
-              >
-                Change Password
-              </Button>
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <Button
-                onClick={handleDialogClick}
-                variant='outlined'
-                color='secondary'
-                fullWidth
-              >
-                Delete Account
-              </Button>
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            ></Grid>
-          </Grid>
-        </Box>
+        <EditProfileForm
+          userUrl={userData.user.url}
+          file={file}
+          setProfilePic={setProfilePic}
+          handleImage={handleImage}
+          email={email}
+          username={username}
+          bio={bio}
+          onChange={onChange}
+          onSubmit={onSubmit}
+          onPasswordChange={onPasswordChange}
+          handleChangePassword={onChangePassword}
+          handleDialogClick={handleDialogClick}
+          open={open}
+          current_password={current_password}
+          new_password={new_password}
+          confirm_password={confirm_password}
+          deleteAccount={onDelete}
+        />
       )}
     </>
   );
-};
-
-const styles = {
-  profilepic: {
-    height: '300px',
-    width: '300px',
-    borderRadius: '50%'
-  },
-  spinnerBox: {
-    display: 'flex',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
 };
 
 export default EditProfile;
