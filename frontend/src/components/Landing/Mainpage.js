@@ -6,22 +6,26 @@ import ToggleDisplayView from './ToggleDisplayView';
 
 const Mainpage = () => {
   return (
-    <Container style={{ paddingTop: '30px' }}>
+    <Container style={{ paddingTop: "30px" }}>
       <Grid
         container
-        direction='column'
-        justify='flex-start'
-        align='center'
-        alignItems='stretch'
+        direction="column"
+        justify="flex-start"
+        align="center"
+        alignItems="stretch"
         spacing={3}
       >
         <Grid item>
+          {/* Toggle only this component so a user's posts or the search results can be toggled */}
           <Searchbar />
         </Grid>
         <Grid item>
           <ToggleDisplayView />
         </Grid>
-        <Grid item>#TODO Display contentcards here</Grid>
+        <Grid item>
+          {/* Display post component that accepts a list of posts and a toggled variable*/}
+          #TODO Display contentcards here
+        </Grid>
       </Grid>
     </Container>
   );

@@ -21,12 +21,14 @@ const postContent = {
   __v: 0,
 };
 
+// Styling
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
   },
 });
 
+// Helper method
 const arrayToChipData = (array) => {
   let output = [];
   array.forEach(function (tagString) {
