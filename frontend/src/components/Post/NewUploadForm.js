@@ -16,7 +16,7 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
-import axios from 'axios';
+import { createNewPost } from '../../utils/post';
 
 const NewUpload = ({ toggleModal }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -40,41 +40,33 @@ const NewUpload = ({ toggleModal }) => {
     }
   };
 
-  const createNewPost = async () => {
+  const attemptCreatePost = async () => {
     setIsPosting(true);
     let postFormData = new FormData();
     postFormData.set('caption', caption);
     postFormData.set('tags', tags);
     postFormData.set('visibility', visibility);
-
     postFormData.append('images', files);
 
     const config = {
       'Content-Type': 'multipart/form-data',
       'auth-token': userData.token
     };
-    axios
-      .post(
-        'http://grupgrup-backend.herokuapp.com/image-upload',
-        postFormData,
-        {
-          headers: config
-        }
-      )
-      .then(function (response) {
-        enqueueSnackbar(`Post successfuly created!`, {
-          variant: 'success'
-        });
-        console.log(response);
-        toggleModal();
-      })
-      .catch(function (response) {
-        enqueueSnackbar(`Something went wrong!`, {
-          variant: 'error'
-        });
-        console.log(response.message);
-        setIsPosting(false);
+
+    const response = await createNewPost(postFormData, config);
+
+    if (response.images) {
+      enqueueSnackbar(`Post successfuly created!`, {
+        variant: 'success'
       });
+      console.log(response);
+      toggleModal();
+    } else {
+      enqueueSnackbar(response, {
+        variant: 'error'
+      });
+      setIsPosting(false);
+    }
   };
 
   return (
@@ -148,7 +140,7 @@ const NewUpload = ({ toggleModal }) => {
           ) : (
             <>
               <Button
-                onClick={() => createNewPost()}
+                onClick={() => attemptCreatePost()}
                 variant='outlined'
                 size='small'
                 color='primary'

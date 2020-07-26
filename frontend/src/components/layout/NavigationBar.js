@@ -24,9 +24,17 @@ const NavigationBar = ({ modalToggle }) => {
     ? `/profile/${userData.user.url}`
     : '/login';
 
-  const handleChange = (event, value) => {
-    if (value !== 'menu' && value !== 'new-upload') {
-      setCurrentPage(value);
+  const handleChange = () => {
+    switch (window.location.pathname) {
+      case '/':
+        setCurrentPage('home');
+        break;
+      case '/profile' || '/editprofile':
+        setCurrentPage('profile');
+        break;
+      default:
+        setCurrentPage(null);
+        break;
     }
   };
 

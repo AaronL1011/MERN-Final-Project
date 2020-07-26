@@ -1,47 +1,34 @@
 import React, { useState, useContext } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import {
-  Box,
-  Grid,
-  CircularProgress,
-  TextField,
-  Button
-} from '@material-ui/core';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import axios from 'axios';
 import UserContext from '../../context/UserContext';
+import Spinner from '../layout/Spinner';
+import LoginForm from './LoginForm';
+import { handleLogin } from '../../utils/auth';
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
-  const handleLogin = async () => {
-    const config = {
-      'Content-Type': 'application/json'
-    };
-    const body = { email, password };
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        'https://grupgrup-backend.herokuapp.com/api/auth/login',
-        body,
-        config
-      );
-
+  const attemptLogin = async () => {
+    setLoading(true);
+    const response = await handleLogin(email, password);
+    if (response.user) {
       enqueueSnackbar(`You're logged in!`, {
         variant: 'success'
       });
       setUserData({
-        token: response.data.token,
-        user: response.data.user
+        token: response.token,
+        user: response.user
       });
-      localStorage.setItem('jwt', response.data.token);
-    } catch (error) {
-      enqueueSnackbar(error.response.data, {
+      history.push(`/profile/${response.user.url}`);
+    } else {
+      console.log(response);
+      enqueueSnackbar(response, {
         variant: 'error'
       });
       setLoading(false);
@@ -50,125 +37,20 @@ const Login = () => {
 
   return (
     <>
-      {userData.user && <Redirect to={`/profile/${userData.user.url}`} />}
+      {/* {userData.user && <Redirect to={`/profile/${userData.user.url}`} />} */}
       {!isLoading ? (
-        <Box height='100%' display='flex' alignItems='center'>
-          <Grid
-            container
-            direction='column'
-            alignItems='center'
-            justify='center'
-            spacing={1}
-          >
-            <Grid item container alignItems='center' direction='column'>
-              <h1>
-                GrupGrup <CameraAltIcon fontSize={'large'} />
-              </h1>
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                id='email-field'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                label='Email'
-                type='email'
-                variant='outlined'
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <TextField
-                id='password-field'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                label='Password'
-                type='password'
-                variant='outlined'
-                fullWidth
-              />
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <Button
-                onClick={() => handleLogin()}
-                variant='outlined'
-                fullWidth
-              >
-                Log In
-              </Button>
-            </Grid>
-            <Grid
-              item
-              container
-              alignItems='center'
-              justify='center'
-              direction='column'
-              xs={11}
-              sm={6}
-              lg={3}
-              xl={2}
-            >
-              <Link to='/signup' style={styles.link}>
-                Create an Account
-              </Link>
-              <br />
-              <Link to='/' style={styles.link}>
-                Return Home
-              </Link>
-            </Grid>
-          </Grid>
-        </Box>
+        <LoginForm
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={attemptLogin}
+        />
       ) : (
-        <Box height='100%' display='flex' alignItems='center'>
-          <Grid
-            container
-            direction='column'
-            alignItems='center'
-            justify='center'
-            spacing={1}
-          >
-            <Grid item padding={0}>
-              <CircularProgress />
-            </Grid>
-          </Grid>
-        </Box>
+        <Spinner />
       )}
     </>
   );
-};
-
-const styles = {
-  link: {
-    color: '#696969',
-    textDecoration: 'none'
-  }
 };
 
 export default Login;
