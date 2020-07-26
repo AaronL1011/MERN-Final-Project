@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../layout/Spinner';
 import ProfileCard from './ProfileCard';
 import ToggleDisplayView from '../layout/ToggleDisplayView';
-import { Container, Grid } from '@material-ui/core';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { getUserPosts } from '../../utils/post';
@@ -28,7 +27,7 @@ const ProfilePage = () => {
 
     const getUserProfile = async () => {
       const userProfileInfo = await axios.get(
-        `http://grupgrup-backend.herokuapp.com/api/users/profile/${profileURL}`
+        `https://grupgrup-backend.herokuapp.com/api/users/profile/${profileURL}`
       );
 
       setUserProfile(userProfileInfo.data);

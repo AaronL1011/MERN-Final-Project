@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import UserContext from '../../context/UserContext';
 import Spinner from '../layout/Spinner';
@@ -12,7 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
   const attemptLogin = async () => {
     setLoading(true);
@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <>
-      {/* {userData.user && <Redirect to={`/profile/${userData.user.url}`} />} */}
+      {userData.user && <Redirect to={`/profile/${userData.user.url}`} />}
       {!isLoading ? (
         <LoginForm
           email={email}

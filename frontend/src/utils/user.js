@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getUserProfile = async (url, token) => {
   try {
     const response = await axios.get(
-      `http://grupgrup-backend.herokuapp.com/api/users/profile/${url}`,
+      `https://grupgrup-backend.herokuapp.com/api/users/profile/${url}`,
       {
         headers: {
           'auth-token': token
@@ -28,7 +28,7 @@ export const submitProfileUpdate = async (
       let profilePicFormData = new FormData();
       profilePicFormData.append('image', profilePic);
       await axios.post(
-        'http://grupgrup-backend.herokuapp.com/profile-pic-upload',
+        'https://grupgrup-backend.herokuapp.com/profile-pic-upload',
         profilePicFormData,
         {
           headers: config
@@ -37,7 +37,7 @@ export const submitProfileUpdate = async (
       console.log('Profile picture updated');
     }
     const response = await axios.put(
-      `http://grupgrup-backend.herokuapp.com/api/users/update`,
+      `https://grupgrup-backend.herokuapp.com/api/users/update`,
       formData,
       {
         headers: {
@@ -56,7 +56,7 @@ export const submitProfileUpdate = async (
 export const handleChangePassword = async (bodyData, token) => {
   try {
     const response = await axios.put(
-      `http://grupgrup-backend.herokuapp.com/api/users/update-password`,
+      `https://grupgrup-backend.herokuapp.com/api/users/update-password`,
       bodyData,
       {
         headers: {
@@ -75,7 +75,7 @@ export const handleChangePassword = async (bodyData, token) => {
 export const deleteAccount = async (token) => {
   try {
     const response = await axios.delete(
-      'http://grupgrup-backend.herokuapp.com/api/users/delete',
+      'https://grupgrup-backend.herokuapp.com/api/users/delete',
       {
         headers: { 'auth-token': token }
       }
