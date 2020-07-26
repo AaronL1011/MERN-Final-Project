@@ -25,7 +25,13 @@ import TagChips from './TagChips';
 const useStyles = makeStyles({
   root: {
     maxWidth: '100%',
-    height: '100%',
+    maxHeight: '80vh'
+  },
+  caption: {
+    maxheight: '30vh',
+    minHeight: '3rem',
+    zIndex: '20',
+    bottomMargin: 0
   }
 });
 
@@ -40,18 +46,20 @@ const arrayToChipData = (array) => {
 
 const PostCardLarge = ({ postContent }) => {
   const classes = useStyles();
-  console.log(postContent.tags);
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia component='img' width='100%' image={postContent.images[0]} />
-        <CardContent>
+        <CardMedia
+          component='img'
+          image={postContent.images[0]}
+          width='100%'
+          style={{ maxHeight: '50vh' }}
+        ></CardMedia>
+        <CardContent className={classes.caption}>
           {postContent.tags && (
             <TagChips tagsArray={arrayToChipData(postContent.tags)} />
           )}
-          <Typography gutterBottom variant='h5' component='h2'>
-            {postContent.username}
-          </Typography>
+          <Typography>{postContent.displayName}</Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
             {postContent.caption}
           </Typography>

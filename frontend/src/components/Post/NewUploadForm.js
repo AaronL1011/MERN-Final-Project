@@ -45,6 +45,8 @@ const NewUpload = ({ toggleModal }) => {
     let postFormData = new FormData();
     if (caption !== '') postFormData.set('caption', caption);
     if (tags !== '') postFormData.set('tags', tags);
+    postFormData.set('displayName', userData.user.username);
+    postFormData.set('authorID', userData.user.id);
     postFormData.set('visibility', visibility);
     postFormData.append('images', files);
 
