@@ -19,7 +19,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import TagChips from './TagChips';
-import Axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { handleNameClick } from './utils/profileUtils';
 
 // Styling
 const useStyles = makeStyles({
@@ -66,6 +67,7 @@ const PostCardLarge = ({
   const { enqueueSnackbar } = useSnackbar();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const { refresh, setRefresh } = useContext(UserContext);
+  let history = useHistory();
 
   const handleDialogClick = () => {
     setOpen(!open);
@@ -147,7 +149,7 @@ const PostCardLarge = ({
           )}
           <Typography
             onClick={(event) => {
-              handleNameClick(event, postContent);
+              handleNameClick(event, history, postContent.authorURL);
             }}
           >
             {postContent.displayName}
