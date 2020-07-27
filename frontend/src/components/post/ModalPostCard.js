@@ -8,6 +8,8 @@ import {
   Typography
 } from '@material-ui/core';
 import TagChips from './TagChips';
+import { useHistory } from "react-router-dom";
+import { handleNameClick } from "./utils/profileUtils";
 
 // Styling
 const useStyles = makeStyles({
@@ -26,6 +28,15 @@ const useStyles = makeStyles({
     minHeight: '3rem',
     zIndex: '20',
     bottomMargin: 0
+  },
+  imageBox: {
+    height: '50vh',
+    backgroundColor: 'black',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  image: {
+    height: '100%'
   }
 });
 
@@ -40,34 +51,29 @@ const arrayToChipData = (array) => {
 
 const ModalPostCard = ({ postContent, handleModalChange }) => {
   const classes = useStyles();
+  let history = useHistory();
+
   return (
     <Box className={classes.container} onClick={handleModalChange}>
       <Card className={classes.root} onclick={(e) => e.preventDefault()}>
         <CardActionArea onclick={(e) => e.preventDefault()}>
-          <Box
-            style={{
-              height: '50vh',
-              backgroundColor: 'black',
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
+          <Box className={classes.imageBox}>
             <img
               src={postContent.images[0]}
-              style={{ height: '100%' }}
+              className={classes.image}
               alt={postContent.caption}
             />
           </Box>
+          </CardActionArea>
           <CardContent className={classes.caption}>
             {postContent.tags && (
               <TagChips tagsArray={arrayToChipData(postContent.tags)} />
             )}
-            <Typography>{postContent.displayName}</Typography>
+            <Typography onClick={event =>{handleNameClick(event, history, postContent.authorURL)}}>{postContent.displayName}</Typography>
             <Typography variant='body2' color='textSecondary' component='p'>
               {postContent.caption}
             </Typography>
           </CardContent>
-        </CardActionArea>
       </Card>
     </Box>
   );

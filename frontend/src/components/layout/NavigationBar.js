@@ -9,11 +9,31 @@ import {
   BottomNavigationAction
 } from '@material-ui/core';
 import { Home, Publish, Person } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Fade from '@material-ui/core/Fade';
 import UserContext from '../../context/UserContext';
 
+// Styles
+const useStyles = makeStyles({
+  navBox: {
+    width: '100%',
+    position: 'fixed',
+    bottom: '30px',
+    zIndex: '10',
+    justifyContent: 'center'
+  },
+  bottomNav: {
+    width: '100%',
+    background: '#f7f7f7',
+    boxShadow: '12px 12px 30px #cfcfcf',
+    borderRadius: '10px',
+    zIndex: '10'
+  }
+});
+
 const NavigationBar = ({ modalToggle }) => {
+  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState('home');
@@ -70,7 +90,7 @@ const NavigationBar = ({ modalToggle }) => {
   };
 
   return (
-    <Grid container style={styles.navBox} justify='center'>
+    <Grid container className={classes.navBox}>
       {userData.user ? (
         <Menu
           id='fade-menu'
@@ -136,7 +156,7 @@ const NavigationBar = ({ modalToggle }) => {
         <BottomNavigation
           value={currentPage}
           onChange={(event, value) => handleChange(event, value)}
-          style={styles.bottomNav}
+          className={classes.bottomNav}
         >
           <BottomNavigationAction
             component={Link}
@@ -168,22 +188,6 @@ const NavigationBar = ({ modalToggle }) => {
       </Grid>
     </Grid>
   );
-};
-
-const styles = {
-  navBox: {
-    width: '100%',
-    position: 'fixed',
-    bottom: '30px',
-    zIndex: '10'
-  },
-  bottomNav: {
-    width: '100%',
-    background: '#f7f7f7',
-    boxShadow: '12px 12px 30px #cfcfcf',
-    borderRadius: '10px',
-    zIndex: '10'
-  }
 };
 
 export default NavigationBar;

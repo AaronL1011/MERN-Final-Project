@@ -1,7 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Grid, TextField, Button, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
+
+const useStyles = makeStyles({
+  boxStyle: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  gridContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  flexCentered: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  link: {
+    color: '#696969',
+    textDecoration: 'none'
+  }
+});
 
 const SignupForm = ({
   username,
@@ -16,16 +38,11 @@ const SignupForm = ({
   setConfirmPassword,
   attemptUserCreate
 }) => {
+  const classes = useStyles();
   return (
-    <Box height='100%' display='flex' alignItems='center'>
-      <Grid
-        container
-        direction='column'
-        alignItems='center'
-        justify='center'
-        spacing={1}
-      >
-        <Grid item container alignItems='center' direction='column'>
+    <Box className={classes.boxStyle}>
+      <Grid container className={classes.gridContainer} spacing={1}>
+        <Grid item container className={classes.flexCentered}>
           <h1>
             GrupGrup <CameraAltIcon fontSize={'large'} />
           </h1>
@@ -33,8 +50,7 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -53,8 +69,7 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -74,8 +89,7 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -97,8 +111,7 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -118,8 +131,7 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -138,8 +150,7 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -156,14 +167,13 @@ const SignupForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
           xl={2}
         >
-          <Link to='/login' style={styles.link}>
+          <Link to='/login' className={classes.link}>
             Have an account? Log In
           </Link>
         </Grid>
@@ -172,10 +182,4 @@ const SignupForm = ({
   );
 };
 
-const styles = {
-  link: {
-    color: '#696969',
-    textDecoration: 'none'
-  }
-};
 export default SignupForm;

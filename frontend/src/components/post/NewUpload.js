@@ -16,9 +16,35 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { createNewPost } from '../../utils/post';
 
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  root: {
+    maxWidth: '345px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '15px'
+  },
+  content: {
+    padding: '0',
+    margin: '0'
+  },
+  media: {
+    height: '200px',
+    paddingTop: '56.25%' // 16:9
+  }
+});
+
 const NewUpload = ({ toggleModal }) => {
+  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { userData, refresh, setRefresh } = useContext(UserContext);
   const placeHolder = require('../../img/placeholder.jpg');
@@ -57,6 +83,7 @@ const NewUpload = ({ toggleModal }) => {
       if (tags !== '') postFormData.set('tags', tags);
       postFormData.set('displayName', userData.user.username);
       postFormData.set('authorID', userData.user.id);
+      postFormData.set('authorURL', userData.user.url);
       postFormData.set('visibility', visibility);
       postFormData.append('images', files);
 
@@ -87,8 +114,8 @@ const NewUpload = ({ toggleModal }) => {
   };
 
   return (
-    <Box style={styles.container}>
-      <Card style={styles.root}>
+    <Box className={classes.container}>
+      <Card className={classes.root}>
         <CardHeader title='New Image Upload'></CardHeader>
         <CardMedia
           id='previewImage'
@@ -100,7 +127,7 @@ const NewUpload = ({ toggleModal }) => {
             paddingBottom: '10px'
           }}
         />
-        <CardContent style={styles.content}>
+        <CardContent className={classes.content}>
           <Grid container spacing={2}>
             <Grid item container>
               <input
@@ -182,34 +209,6 @@ const NewUpload = ({ toggleModal }) => {
       </Card>
     </Box>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  root: {
-    maxWidth: '345px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '15px'
-    // position: 'absolute',
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)'
-  },
-  content: {
-    padding: '0',
-    margin: '0'
-  },
-  media: {
-    height: '200px',
-    paddingTop: '56.25%' // 16:9
-  }
 };
 
 export default NewUpload;

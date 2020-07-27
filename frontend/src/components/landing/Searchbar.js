@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import React from 'react';
+import { Grid, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-const Searchbar = () => {
-  const [searchText, setSearchText] = useState('');
+const useStyles = makeStyles({
+  containerStyle: {
+    paddingTop: '30px'
+  },
+  gridContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  flexCentered: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  link: {
+    color: '#696969',
+    textDecoration: 'none'
+  }
+});
 
-  const runSearch = (text) => {
-    console.log(`Search text: ${text}`);
-  };
-
-  const searchInput = (e) => {
-    if (e.keyCode === 13 && document.activeElement.id === 'searchBarText') {
-      runSearch(searchText);
-    }
-  };
+const Searchbar = ({ searchValue, setSearchValue }) => {
+  // const searchInput = (e) => {
+  //   if (e.keyCode === 13 && document.activeElement.id === 'searchBarText') {
+  //     filterResults();
+  //   }
+  // };
+  const classes = useStyles();
 
   return (
-    <Grid container direction='row' alignItems='center' justify='center'>
+    <Grid container className={classes.gridContainer}>
       <Grid item xs={11} sm={9} md={6}>
         <TextField
           fullWidth
@@ -24,23 +38,20 @@ const Searchbar = () => {
           id='searchBarText'
           label='Search'
           autoComplete='on'
+          value={searchValue}
           onChange={(e) => {
-            setSearchText(e.target.value);
+            setSearchValue(e.target.value);
           }}
-          onKeyUp={(e) => {
-            searchInput(e);
-          }}
+          // onKeyUp={(e) => {
+          //   searchInput(e);
+          // }}
         />
       </Grid>
-      <Grid item sm={1} aligncontent='center'>
-        <Button
-          onClick={(event) => {
-            runSearch(searchText);
-          }}
-        >
+      {/* <Grid item sm={1} aligncontent='center'>
+        <Button onClick={() => filterResults()}>
           <SearchIcon />
         </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

@@ -18,7 +18,7 @@ export const getAllPosts = async () => {
   try {
     const response = await axios.get(apiUrl + `/posts`);
 
-    return response.data;
+    return response.data.reverse();
   } catch (error) {
     console.log(error.res);
     return error;
