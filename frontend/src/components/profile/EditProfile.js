@@ -153,7 +153,7 @@ const EditProfile = () => {
 
   return (
     <>
-      {!userData.user && <Redirect to='/login' />}
+      {!localStorage.getItem('jwt') && <Redirect to='/login' />}
       {isLoading ? (
         <Spinner />
       ) : (
