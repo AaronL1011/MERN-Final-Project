@@ -29,7 +29,7 @@ const Mainpage = () => {
   const classes = useStyles();
   const [posts, setPosts] = useState(null);
   const [postsOriginalState, setPostsOriginalState] = useState(null);
-  const { refresh, setRefresh } = useContext(UserContext);
+  const { refresh } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const Mainpage = () => {
       for (let query of searchQuery) {
         postsOriginalState.map((post) => {
           if (post.tags.includes(query) && !filteredPosts.includes(post)) {
-            filteredPosts.push(post);
+            return filteredPosts.push(post);
           }
         });
       }

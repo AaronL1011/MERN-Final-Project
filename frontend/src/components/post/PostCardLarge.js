@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSnackbar } from 'notistack';
 import { deletePost } from '../../utils/post';
@@ -20,7 +21,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import TagChips from './TagChips';
 import { useHistory } from 'react-router-dom';
-import { handleNameClick } from './utils/profileUtils';
 
 // Styling
 const useStyles = makeStyles({
@@ -97,7 +97,7 @@ const PostCardLarge = ({
     console.log(content);
     const profile = async () => {
       console.log('Sending request...');
-      const info = await Axios.get(
+      const info = await axios.get(
         `https://grupgrup-backend.herokuapp.com/api/users/profile/${content.authorId}`
       );
       console.log(info);
