@@ -3,7 +3,7 @@ import Spinner from '../layout/Spinner';
 import ProfileCard from './ProfileCard';
 import ToggleDisplayView from '../layout/ToggleDisplayView';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { getUserPosts } from '../../utils/post';
 
 // TODO Rev: Profilepage.js move to be helper functions for mainpage
@@ -44,6 +44,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+      {!localStorage.getItem('jwt') && <Redirect to='/login' />}
       {isLoading ? (
         <Spinner />
       ) : (

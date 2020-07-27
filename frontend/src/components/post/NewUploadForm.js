@@ -28,6 +28,7 @@ const NewUpload = ({ toggleModal }) => {
   const [visibility, setVisibility] = useState('1');
   const [files, setFiles] = useState(null);
   const [isPosting, setIsPosting] = useState(false);
+  const isDisabled = localStorage.getItem('jwt') ? false : true;
 
   const getImage = (input) => {
     if (input.files && input.files[0]) {
@@ -89,6 +90,7 @@ const NewUpload = ({ toggleModal }) => {
           <Grid container spacing={2}>
             <Grid item container>
               <input
+                disabled
                 type='file'
                 name='profile-picture'
                 id='picture-upload'
@@ -100,6 +102,7 @@ const NewUpload = ({ toggleModal }) => {
             </Grid>
             <Grid item container>
               <TextField
+                disabled
                 id='caption-field'
                 label='Caption'
                 variant='outlined'
@@ -111,6 +114,7 @@ const NewUpload = ({ toggleModal }) => {
             </Grid>
             <Grid item container>
               <TextField
+                disabled={true}
                 id='tags-field'
                 label='Tags'
                 value={tags}
@@ -123,6 +127,7 @@ const NewUpload = ({ toggleModal }) => {
             <Grid item container>
               <Typography variant='body2'>Who can see your post?</Typography>
               <Select
+                disabled
                 fullWidth
                 variant='outlined'
                 id='visibility-field'
@@ -178,10 +183,6 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '15px'
-    // position: 'absolute',
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)'
   },
   content: {
     padding: '0',
