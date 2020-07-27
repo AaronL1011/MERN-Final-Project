@@ -21,7 +21,7 @@ const Mainpage = () => {
     awaitForPosts();
   }, [refresh]);
 
-  const filterResults = () => {
+  useEffect(() => {
     if (searchValue) {
       let filteredPosts = [];
       let searchQuery = searchValue.toLowerCase().split(' ');
@@ -38,7 +38,7 @@ const Mainpage = () => {
         setPosts(postsOriginalState);
       }
     }
-  };
+  }, [searchValue]); // Run search logic when searchValue changes
 
   return (
     <Container style={{ paddingTop: '30px' }}>
@@ -55,11 +55,17 @@ const Mainpage = () => {
           <Searchbar
             searchValue={searchValue}
             setSearchValue={setSearchValue}
-            filterResults={filterResults}
           />
         </Grid>
         <Grid item>
-          {posts && <ToggleDisplayView posts={posts} defaultView={'single'} />}
+          {posts && (
+            <ToggleDisplayView
+              posts={posts}
+              defaultView={'single'}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>

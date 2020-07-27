@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-const Searchbar = ({ searchValue, setSearchValue, filterResults }) => {
-  const searchInput = (e) => {
-    if (e.keyCode === 13 && document.activeElement.id === 'searchBarText') {
-      filterResults();
-    }
-  };
+const Searchbar = ({ searchValue, setSearchValue }) => {
+  // const searchInput = (e) => {
+  //   if (e.keyCode === 13 && document.activeElement.id === 'searchBarText') {
+  //     filterResults();
+  //   }
+  // };
 
   return (
     <Grid container direction='row' alignItems='center' justify='center'>
@@ -22,16 +22,16 @@ const Searchbar = ({ searchValue, setSearchValue, filterResults }) => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
-          onKeyUp={(e) => {
-            searchInput(e);
-          }}
+          // onKeyUp={(e) => {
+          //   searchInput(e);
+          // }}
         />
       </Grid>
-      <Grid item sm={1} aligncontent='center'>
+      {/* <Grid item sm={1} aligncontent='center'>
         <Button onClick={() => filterResults()}>
           <SearchIcon />
         </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
