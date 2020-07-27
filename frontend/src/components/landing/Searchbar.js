@@ -2,18 +2,12 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-const Searchbar = () => {
-  const [searchText, setSearchText] = useState('');
-
-  const runSearch = (text) => {
-    console.log(`Search text: ${text}`);
-  };
-
-  const searchInput = (e) => {
-    if (e.keyCode === 13 && document.activeElement.id === 'searchBarText') {
-      runSearch(searchText);
-    }
-  };
+const Searchbar = ({ searchValue, setSearchValue }) => {
+  // const searchInput = (e) => {
+  //   if (e.keyCode === 13 && document.activeElement.id === 'searchBarText') {
+  //     filterResults();
+  //   }
+  // };
 
   return (
     <Grid container direction='row' alignItems='center' justify='center'>
@@ -24,23 +18,20 @@ const Searchbar = () => {
           id='searchBarText'
           label='Search'
           autoComplete='on'
+          value={searchValue}
           onChange={(e) => {
-            setSearchText(e.target.value);
+            setSearchValue(e.target.value);
           }}
-          onKeyUp={(e) => {
-            searchInput(e);
-          }}
+          // onKeyUp={(e) => {
+          //   searchInput(e);
+          // }}
         />
       </Grid>
-      <Grid item sm={1} aligncontent='center'>
-        <Button
-          onClick={(event) => {
-            runSearch(searchText);
-          }}
-        >
+      {/* <Grid item sm={1} aligncontent='center'>
+        <Button onClick={() => filterResults()}>
           <SearchIcon />
         </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
