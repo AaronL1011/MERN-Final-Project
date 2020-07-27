@@ -50,7 +50,8 @@ const PostCardLarge = ({
   openModal,
   closeModal,
   searchValue,
-  setSearchValue
+  setSearchValue,
+  tagSearchEnabled
 }) => {
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -150,6 +151,7 @@ const PostCardLarge = ({
           {postContent.tags && (
             <TagChips
               tagsArray={arrayToChipData(postContent.tags)}
+              tagSearchEnabled={tagSearchEnabled}
               setSearchValue={setSearchValue}
               searchValue={searchValue}
             />
