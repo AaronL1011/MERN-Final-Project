@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// TODO Update with tag search query url 
 const handleTagClick = (e, tag) => {
   e.preventDefault();
-  alert(`Tag: '${tag}' clicked`);
+  console.log(`Tag: '${tag}' clicked`);
 }
 
 const TagChips = (props) => {
