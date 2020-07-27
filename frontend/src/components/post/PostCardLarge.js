@@ -23,15 +23,15 @@ import TagChips from './TagChips';
 // Styling
 const useStyles = makeStyles({
   root: {
-    maxWidth: '100%',
-    maxHeight: '80vh'
+    maxWidth: "100%",
+    maxHeight: "80vh",
   },
   caption: {
-    maxheight: '30vh',
-    minHeight: '3rem',
-    zIndex: '20',
-    bottomMargin: 0
-  }
+    maxheight: "30vh",
+    minHeight: "3rem",
+    zIndex: "20",
+    bottomMargin: 0,
+  },
 });
 
 // Helper method
@@ -61,15 +61,20 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
     const response = await deletePost(postContent._id, userData.token);
     if (response.id) {
       enqueueSnackbar(response.message, {
-        variant: 'success'
+        variant: "success",
       });
       setRefresh(!refresh);
       closeModal();
     } else {
-      enqueueSnackbar('Hmmm... Something went wrong!', {
-        variant: 'error'
+      enqueueSnackbar("Hmmm... Something went wrong!", {
+        variant: "error",
       });
     }
+  };
+
+  const handleNameClick = (event, name) => {
+    event.preventDefault();
+    console.log(name);
   };
 
   // const onEdit = async () => {
@@ -102,7 +107,7 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleDialogClick} color='primary'>
+          <Button autoFocus onClick={handleDialogClick} color="primary">
             Cancel
           </Button>
           <Button
@@ -110,7 +115,7 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
               handleDialogClick();
               onDelete();
             }}
-            color='primary'
+            color="primary"
           >
             Delete
           </Button>
@@ -119,45 +124,51 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
       <Card className={classes.root}>
         <CardActionArea onClick={openModal}>
           <CardMedia
-            component='img'
+            component="img"
             image={postContent.images[0]}
-            width='100%'
-            style={{ maxHeight: '50vh' }}
-          ></CardMedia>
-          <CardContent className={classes.caption}>
-            {postContent.tags && (
-              <TagChips tagsArray={arrayToChipData(postContent.tags)} />
-            )}
-            <Typography>{postContent.displayName}</Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {postContent.caption}
-            </Typography>
-            {userData.user && userData.user.id === postContent.authorID && (
-              <Box
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  paddingTop: 10
-                }}
-              >
-                <Button
-                  variant='outlined'
-                  color='secondary'
-                  onClick={handleDialogClick}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant='outlined'
-                  color='primary'
-                  onClick={handleEditModalState}
-                >
-                  Edit
-                </Button>
-              </Box>
-            )}
-          </CardContent>
+            width="100%"
+            style={{ maxHeight: "50vh" }}
+          />
         </CardActionArea>
+        <CardContent className={classes.caption}>
+          {postContent.tags && (
+            <TagChips tagsArray={arrayToChipData(postContent.tags)} />
+          )}
+          <Typography
+            onClick={(event) => {
+              handleNameClick(event, postContent.authorID);
+            }}
+          >
+            {postContent.displayName}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {postContent.caption}
+          </Typography>
+          {userData.user && userData.user.id === postContent.authorID && (
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                paddingTop: 10,
+              }}
+            >
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleDialogClick}
+              >
+                Delete
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleEditModalState}
+              >
+                Edit
+              </Button>
+            </Box>
+          )}
+        </CardContent>
       </Card>
       <EditPostModal
         modalState={editModalOpen}
@@ -166,7 +177,7 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
           id: postContent._id,
           tags: postContent.tags,
           caption: postContent.caption,
-          visibility: postContent.visibility
+          visibility: postContent.visibility,
         }}
       />
     </>
