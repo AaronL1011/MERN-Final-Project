@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { useSnackbar } from "notistack";
-import { deletePost } from "../../utils/post";
+import React, { useState, useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
+import { deletePost } from '../../utils/post';
 import {
   Box,
   Button,
@@ -10,14 +10,15 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-} from "@material-ui/core";
-import EditPostModal from "./EditPostModal";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import TagChips from "./TagChips";
+  DialogTitle
+} from '@material-ui/core';
+import UserContext from '../../context/UserContext';
+import EditPostModal from './EditPostModal';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import TagChips from './TagChips';
 
 // Styling
 const useStyles = makeStyles({
@@ -42,10 +43,11 @@ const arrayToChipData = (array) => {
   return output;
 };
 
-const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
+const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const { refresh, setRefresh } = useContext(UserContext);
 
   const handleDialogClick = () => {
     setOpen(!open);
@@ -61,7 +63,8 @@ const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
       enqueueSnackbar(response.message, {
         variant: "success",
       });
-      handleRefresh();
+      setRefresh(!refresh);
+      closeModal();
     } else {
       enqueueSnackbar("Hmmm... Something went wrong!", {
         variant: "error",
@@ -176,7 +179,6 @@ const PostCardLarge = ({ postContent, userData, handleRefresh, openModal }) => {
           caption: postContent.caption,
           visibility: postContent.visibility,
         }}
-        handleRefresh={handleRefresh}
       />
     </>
   );

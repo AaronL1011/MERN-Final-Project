@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import UserContext from '../../context/UserContext';
 import {
@@ -18,9 +18,9 @@ import {
 } from '@material-ui/core';
 import { createNewPost } from '../../utils/post';
 
-const NewUpload = ({ toggleModal, handleRefresh }) => {
+const NewUpload = ({ toggleModal }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { userData } = useContext(UserContext);
+  const { userData, refresh, setRefresh } = useContext(UserContext);
   const placeHolder = require('../../img/placeholder.jpg');
   const [file, setFile] = useState(placeHolder);
   const [caption, setCaption] = useState('');
@@ -28,6 +28,15 @@ const NewUpload = ({ toggleModal, handleRefresh }) => {
   const [visibility, setVisibility] = useState('1');
   const [files, setFiles] = useState(null);
   const [isPosting, setIsPosting] = useState(false);
+  const isDisabled = localStorage.getItem('jwt') ? false : true;
+
+  useEffect(() => {
+    if (isDisabled) {
+      enqueueSnackbar(`You need to log in to create a post!`, {
+        variant: 'error'
+      });
+    }
+  }, [isDisabled, enqueueSnackbar]);
 
   const getImage = (input) => {
     if (input.files && input.files[0]) {
@@ -62,7 +71,7 @@ const NewUpload = ({ toggleModal, handleRefresh }) => {
         enqueueSnackbar(`Post successfuly created!`, {
           variant: 'success'
         });
-        handleRefresh();
+        setRefresh(!refresh);
         toggleModal();
       } else {
         enqueueSnackbar('Make sure you have an image attached!', {
@@ -102,6 +111,7 @@ const NewUpload = ({ toggleModal, handleRefresh }) => {
                   getImage(e.target);
                   setFiles(e.target.files[0]);
                 }}
+                disabled={isDisabled}
               />
             </Grid>
             <Grid item container>
@@ -113,6 +123,7 @@ const NewUpload = ({ toggleModal, handleRefresh }) => {
                 onChange={(e) => setCaption(e.target.value)}
                 fullWidth
                 multiline
+                disabled={isDisabled}
               />
             </Grid>
             <Grid item container>
@@ -123,6 +134,7 @@ const NewUpload = ({ toggleModal, handleRefresh }) => {
                 onChange={(e) => setTags(e.target.value)}
                 variant='outlined'
                 fullWidth
+                disabled={isDisabled}
               />
               <Typography variant='caption'>Comma seperated tags</Typography>
             </Grid>
@@ -134,6 +146,7 @@ const NewUpload = ({ toggleModal, handleRefresh }) => {
                 id='visibility-field'
                 value={visibility}
                 onChange={(e) => setVisibility(e.target.value)}
+                disabled={isDisabled}
               >
                 <MenuItem value='0'>Anyone</MenuItem>
                 <MenuItem value='1'>Logged In Users</MenuItem>

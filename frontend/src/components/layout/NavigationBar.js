@@ -54,6 +54,10 @@ const NavigationBar = ({ modalToggle }) => {
     history.push('/signup');
   };
 
+  const about = () => {
+    history.push('/about');
+  };
+
   const logout = () => {
     setUserData({
       token: undefined,
@@ -76,7 +80,14 @@ const NavigationBar = ({ modalToggle }) => {
           onClose={menuExit}
           TransitionComponent={Fade}
         >
-          <MenuItem onClick={menuExit}>About</MenuItem>
+          <MenuItem
+            onClick={() => {
+              about();
+              menuExit();
+            }}
+          >
+            About
+          </MenuItem>
           <MenuItem
             onClick={() => {
               logout();
@@ -95,7 +106,14 @@ const NavigationBar = ({ modalToggle }) => {
           onClose={menuExit}
           TransitionComponent={Fade}
         >
-          <MenuItem onClick={menuExit}>About</MenuItem>
+          <MenuItem
+            onClick={() => {
+              about();
+              menuExit();
+            }}
+          >
+            About
+          </MenuItem>
           <MenuItem
             onClick={() => {
               login();
@@ -129,7 +147,7 @@ const NavigationBar = ({ modalToggle }) => {
           />
           <BottomNavigationAction
             onClick={modalToggle}
-            label='New Upload'
+            label='Upload'
             value='new-upload'
             icon={<Publish />}
           />
@@ -162,7 +180,7 @@ const styles = {
   bottomNav: {
     width: '100%',
     background: '#f7f7f7',
-    boxShadow: '12px 12px 30px #cfcfcf, -12px -12px 30px #ffffff',
+    boxShadow: '12px 12px 30px #cfcfcf',
     borderRadius: '10px',
     zIndex: '10'
   }
