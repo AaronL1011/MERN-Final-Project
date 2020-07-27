@@ -19,6 +19,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import TagChips from './TagChips';
+import Axios from 'axios';
 
 // Styling
 const useStyles = makeStyles({
@@ -71,10 +72,18 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
       });
     }
   };
-
-  const handleNameClick = (event, name) => {
+// TODO Update click action with profile url
+  const handleNameClick = (event, content) => {
     event.preventDefault();
-    console.log(name);
+    console.log(content);
+    const profile = async () =>{
+      console.log('Sending request...')
+      const info = await Axios.get(
+        `https://grupgrup-backend.herokuapp.com/api/users/profile/${content.authorId}`
+      );
+      console.log(info)
+    }
+    profile();
   };
 
   // const onEdit = async () => {
@@ -136,7 +145,7 @@ const PostCardLarge = ({ postContent, userData, openModal, closeModal }) => {
           )}
           <Typography
             onClick={(event) => {
-              handleNameClick(event, postContent.authorID);
+              handleNameClick(event, postContent);
             }}
           >
             {postContent.displayName}
