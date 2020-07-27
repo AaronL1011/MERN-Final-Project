@@ -1,18 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Grid, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
+const useStyles = makeStyles({
+  gridContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  flexCentered: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  link: {
+    color: '#696969',
+    textDecoration: 'none'
+  }
+});
+
 const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
+  const classes = useStyles();
+
   return (
     <Box height='100%' display='flex' alignItems='center'>
-      <Grid
-        container
-        direction='column'
-        alignItems='center'
-        justify='center'
-        spacing={1}
-      >
+      <Grid container className={classes.gridContainer} spacing={1}>
         <Grid item container alignItems='center' direction='column'>
           <h1>
             GrupGrup <CameraAltIcon fontSize={'large'} />
@@ -21,8 +34,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -42,8 +54,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -62,8 +73,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -76,19 +86,17 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
-          direction='column'
+          className={classes.gridContainer}
           xs={11}
           sm={6}
           lg={3}
           xl={2}
         >
-          <Link to='/signup' style={styles.link}>
+          <Link to='/signup' className={classes.link}>
             Create an Account
           </Link>
           <br />
-          <Link to='/' style={styles.link}>
+          <Link to='/' className={classes.link}>
             Return Home
           </Link>
         </Grid>
@@ -97,10 +105,4 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
   );
 };
 
-const styles = {
-  link: {
-    color: '#696969',
-    textDecoration: 'none'
-  }
-};
 export default LoginForm;

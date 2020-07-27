@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Box, Grid, Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PostCardLarge from '../post/PostCardLarge';
 import PostCardSmall from '../post/PostCardSmall';
 import PostModal from '../post/PostModal';
@@ -9,6 +10,28 @@ import ViewDayIcon from '@material-ui/icons/ViewDay';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import UserContext from '../../context/UserContext';
 
+const useStyles = makeStyles({
+  mainContainer: {
+    marginBottom: 100
+  },
+  toggleButtonBox: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  largeCardGrid: {
+    justifyContent: 'center'
+  },
+  smallCardBox: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'space-between',
+    flexWrap: 'wrap'
+  }
+});
+
 const ToggleDisplayView = ({
   posts,
   defaultView,
@@ -16,8 +39,7 @@ const ToggleDisplayView = ({
   setSearchValue,
   tagSearchEnabled
 }) => {
-  // TODO Raise state and function of toggle
-  // The state and helper function needs to be raised to a higher level (Mainpage.js) so the toggle state can be passed to other components
+  const classes = useStyles();
   const [displayView, setDisplayView] = useState(defaultView);
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -61,15 +83,8 @@ const ToggleDisplayView = ({
   };
 
   return (
-    <Container style={{ marginBottom: 100 }}>
-      <Box
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          paddingTop: 10,
-          paddingBottom: 10
-        }}
-      >
+    <Container className={classes.mainContainer}>
+      <Box className={classes.toggleButtonBox}>
         <ToggleButtonGroup
           value={displayView}
           exclusive
@@ -97,7 +112,7 @@ const ToggleDisplayView = ({
           modalContent={modalContent}
         />
       )}
-      <Grid item container justify='center' spacing={2}>
+      <Grid item container className={classes.largeCardGrid} spacing={2}>
         {displayView === 'single' ? (
           posts.map((post, index) => {
             if (post.visibility === '0') {
@@ -114,15 +129,7 @@ const ToggleDisplayView = ({
             }
           })
         ) : (
-          <Box
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-evenly',
-              alignItems: 'space-between',
-              flexWrap: 'wrap'
-            }}
-          >
+          <Box className={classes.smallCardBox}>
             {posts.map((post, index) => {
               if (post.visibility === '0') {
                 return smallCard(post, index);

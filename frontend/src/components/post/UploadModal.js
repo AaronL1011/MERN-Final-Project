@@ -9,7 +9,6 @@ const UploadModal = ({ modalState, handleModalChange }) => {
       onClose={handleModalChange}
       aria-labelledby='simple-modal-title'
       aria-describedby='simple-modal-description'
-      // style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
     >
       <NewUpload toggleModal={handleModalChange} />
     </Modal>

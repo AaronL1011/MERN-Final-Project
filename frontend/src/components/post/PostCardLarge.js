@@ -32,6 +32,15 @@ const useStyles = makeStyles({
     minHeight: '3rem',
     zIndex: '20',
     bottomMargin: 0
+  },
+  cardMedia: {
+    width: '100%',
+    maxHeight: '50vh'
+  },
+  buttonBox: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    paddingTop: 10
   }
 });
 
@@ -80,38 +89,19 @@ const PostCardLarge = ({
       });
     }
   };
-// TODO Update click action with profile url
+
   const handleNameClick = (event, content) => {
     event.preventDefault();
     console.log(content);
-    const profile = async () =>{
-      console.log('Sending request...')
+    const profile = async () => {
+      console.log('Sending request...');
       const info = await Axios.get(
         `https://grupgrup-backend.herokuapp.com/api/users/profile/${content.authorId}`
       );
-      console.log(info)
-    }
+      console.log(info);
+    };
     profile();
   };
-
-  // const onEdit = async () => {
-  //   const response = await updatePost(
-  //     postContent._id,
-  //     userData.token,
-  //     postData
-  //   );
-
-  //   if (response._id) {
-  //     enqueueSnackbar(response.message, {
-  //       variant: 'success'
-  //     });
-  //     handleRefresh();
-  //   } else {
-  //     enqueueSnackbar('Hmmm... Something went wrong!', {
-  //       variant: 'error'
-  //     });
-  //   }
-  // };
 
   const classes = useStyles();
   return (
@@ -143,8 +133,7 @@ const PostCardLarge = ({
           <CardMedia
             component='img'
             image={postContent.images[0]}
-            width='100%'
-            style={{ maxHeight: '50vh' }}
+            className={classes.cardMedia}
           />
         </CardActionArea>
         <CardContent className={classes.caption}>
@@ -167,13 +156,7 @@ const PostCardLarge = ({
             {postContent.caption}
           </Typography>
           {userData.user && userData.user.id === postContent.authorID && (
-            <Box
-              style={{
-                display: 'flex',
-                justifyContent: 'space-evenly',
-                paddingTop: 10
-              }}
-            >
+            <Box className={classes.buttonBox}>
               <Button
                 variant='outlined'
                 color='secondary'

@@ -15,7 +15,28 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { updatePost } from '../../utils/post';
+
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  root: {
+    maxWidth: '345px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '15px'
+  },
+  content: {
+    padding: '0',
+    margin: '0'
+  }
+});
 
 const UpdatePostForm = ({
   toggleModal,
@@ -24,6 +45,7 @@ const UpdatePostForm = ({
   current_tags,
   current_visibility
 }) => {
+  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { userData, refresh, setRefresh } = useContext(UserContext);
   const [caption, setCaption] = useState(current_caption);
@@ -67,10 +89,10 @@ const UpdatePostForm = ({
   };
 
   return (
-    <Box style={styles.container}>
-      <Card style={styles.root}>
+    <Box className={classes.container}>
+      <Card className={classes.root}>
         <CardHeader title='Edit Post'></CardHeader>
-        <CardContent style={styles.content}>
+        <CardContent className={classes.content}>
           <Grid container spacing={2}>
             <Grid item container>
               <TextField
@@ -137,34 +159,6 @@ const UpdatePostForm = ({
       </Card>
     </Box>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  root: {
-    maxWidth: '345px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '15px'
-    // position: 'absolute',
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)'
-  },
-  content: {
-    padding: '0',
-    margin: '0'
-  },
-  media: {
-    height: '200px',
-    paddingTop: '56.25%' // 16:9
-  }
 };
 
 export default UpdatePostForm;

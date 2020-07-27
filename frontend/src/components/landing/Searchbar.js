@@ -1,6 +1,25 @@
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { Grid, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  containerStyle: {
+    paddingTop: '30px'
+  },
+  gridContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  flexCentered: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  link: {
+    color: '#696969',
+    textDecoration: 'none'
+  }
+});
 
 const Searchbar = ({ searchValue, setSearchValue }) => {
   // const searchInput = (e) => {
@@ -8,9 +27,10 @@ const Searchbar = ({ searchValue, setSearchValue }) => {
   //     filterResults();
   //   }
   // };
+  const classes = useStyles();
 
   return (
-    <Grid container direction='row' alignItems='center' justify='center'>
+    <Grid container className={classes.gridContainer}>
       <Grid item xs={11} sm={9} md={6}>
         <TextField
           fullWidth

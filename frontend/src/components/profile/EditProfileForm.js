@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Avatar,
   Typography,
   Box,
   Grid,
@@ -11,7 +12,27 @@ import {
   DialogContentText,
   DialogActions
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+
+const useStyles = makeStyles({
+  gridContainer: {
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  flexCentered: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  link: {
+    color: '#696969',
+    textDecoration: 'none'
+  },
+  profilePic: {
+    height: 300,
+    width: 300
+  }
+});
 
 const EditProfileForm = ({
   userUrl,
@@ -32,6 +53,8 @@ const EditProfileForm = ({
   confirm_password,
   deleteAccount
 }) => {
+  const classes = useStyles();
+
   return (
     <Box mt={4} mb={10}>
       <Dialog open={open} onClose={handleDialogClick}>
@@ -56,8 +79,8 @@ const EditProfileForm = ({
           </Button>
         </DialogActions>
       </Dialog>
-      <Grid container direction='column' alignItems='center' spacing={2}>
-        <Grid item container alignItems='center' direction='column'>
+      <Grid container className={classes.gridContainer} spacing={2}>
+        <Grid item container className={classes.gridContainer}>
           <Typography variant='h4'>Edit Profile</Typography>
           <Button
             component={Link}
@@ -71,14 +94,17 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
           xl={2}
         >
-          <img alt='profile preview' src={file} style={styles.profilepic} />
+          <Avatar
+            className={classes.profilePic}
+            alt='profile preview'
+            src={file}
+          />
         </Grid>
         <Grid item container direction='column' xs={11} sm={6} lg={3} xl={2}>
           <Typography variant='subtitle1'>Profile Picture:</Typography>
@@ -99,8 +125,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -119,8 +144,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -139,8 +163,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -160,8 +183,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -182,8 +204,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -203,8 +224,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -224,8 +244,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -245,8 +264,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -264,8 +282,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -283,8 +300,7 @@ const EditProfileForm = ({
         <Grid
           item
           container
-          alignItems='center'
-          justify='center'
+          className={classes.flexCentered}
           xs={11}
           sm={6}
           lg={3}
@@ -293,14 +309,6 @@ const EditProfileForm = ({
       </Grid>
     </Box>
   );
-};
-
-const styles = {
-  profilepic: {
-    height: '300px',
-    width: '300px',
-    borderRadius: '50%'
-  }
 };
 
 export default EditProfileForm;

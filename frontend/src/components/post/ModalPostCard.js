@@ -26,6 +26,15 @@ const useStyles = makeStyles({
     minHeight: '3rem',
     zIndex: '20',
     bottomMargin: 0
+  },
+  imageBox: {
+    height: '50vh',
+    backgroundColor: 'black',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  image: {
+    height: '100%'
   }
 });
 
@@ -44,17 +53,10 @@ const ModalPostCard = ({ postContent, handleModalChange }) => {
     <Box className={classes.container} onClick={handleModalChange}>
       <Card className={classes.root} onclick={(e) => e.preventDefault()}>
         <CardActionArea onclick={(e) => e.preventDefault()}>
-          <Box
-            style={{
-              height: '50vh',
-              backgroundColor: 'black',
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
+          <Box className={classes.imageBox}>
             <img
               src={postContent.images[0]}
-              style={{ height: '100%' }}
+              className={classes.image}
               alt={postContent.caption}
             />
           </Box>
