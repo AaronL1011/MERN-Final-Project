@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const handleTagClick = (e, tag) => {
+  e.preventDefault();
+  alert(`Tag: '${tag}' clicked`);
+}
+
 const TagChips = (props) => {
   const classes = useStyles();
   return (
@@ -23,7 +28,7 @@ const TagChips = (props) => {
       {props.tagsArray.map((data) => {
         return (
           <li key={data.key}>
-            <Chip label={data.label} className={classes.chip} />
+            <Chip label={data.label} className={classes.chip} onClick={event => {handleTagClick(event, data.label)}}/>
           </li>
         );
       })}
