@@ -8,6 +8,8 @@ import {
   Typography
 } from '@material-ui/core';
 import TagChips from './TagChips';
+import { useHistory } from "react-router-dom";
+import { handleNameClick } from "./utils/profileUtils";
 
 // Styling
 const useStyles = makeStyles({
@@ -40,6 +42,8 @@ const arrayToChipData = (array) => {
 
 const ModalPostCard = ({ postContent, handleModalChange }) => {
   const classes = useStyles();
+  let history = useHistory();
+
   return (
     <Box className={classes.container} onClick={handleModalChange}>
       <Card className={classes.root} onclick={(e) => e.preventDefault()}>
@@ -58,16 +62,16 @@ const ModalPostCard = ({ postContent, handleModalChange }) => {
               alt={postContent.caption}
             />
           </Box>
+          </CardActionArea>
           <CardContent className={classes.caption}>
             {postContent.tags && (
               <TagChips tagsArray={arrayToChipData(postContent.tags)} />
             )}
-            <Typography>{postContent.displayName}</Typography>
+            <Typography onClick={event =>{handleNameClick(event, history, postContent.authorURL)}}>{postContent.displayName}</Typography>
             <Typography variant='body2' color='textSecondary' component='p'>
               {postContent.caption}
             </Typography>
           </CardContent>
-        </CardActionArea>
       </Card>
     </Box>
   );
