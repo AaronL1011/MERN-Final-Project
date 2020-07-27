@@ -17,7 +17,9 @@ const App = () => {
     token: undefined,
     user: undefined
   });
+
   const [modalOpen, setModalOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const userLoggedIn = async () => {
@@ -35,7 +37,9 @@ const App = () => {
   return (
     <>
       <Router>
-        <UserContext.Provider value={{ userData, setUserData }}>
+        <UserContext.Provider
+          value={{ userData, setUserData, refresh, setRefresh }}
+        >
           <Switch>
             <Route exact path='/' component={Mainpage} />
             <Route exact path='/about' component={About} />

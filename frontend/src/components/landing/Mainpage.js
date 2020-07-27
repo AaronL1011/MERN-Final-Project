@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import { getAllPosts } from '../../utils/post';
-
+import UserContext from '../../context/UserContext';
 import Searchbar from './Searchbar';
 import ToggleDisplayView from '../layout/ToggleDisplayView';
 
 const Mainpage = () => {
   const [posts, setPosts] = useState(null);
-  const [refresh, setRefresh] = useState(false);
-
-  const handleRefresh = () => {
-    setRefresh(!refresh);
-  };
+  const { refresh } = useContext(UserContext);
 
   useEffect(() => {
     const awaitForPosts = async () => {
@@ -38,13 +34,7 @@ const Mainpage = () => {
           <Searchbar />
         </Grid>
         <Grid item>
-          {posts && (
-            <ToggleDisplayView
-              posts={posts}
-              defaultView={'single'}
-              handleRefresh={handleRefresh}
-            />
-          )}
+          {posts && <ToggleDisplayView posts={posts} defaultView={'single'} />}
         </Grid>
       </Grid>
     </Container>

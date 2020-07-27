@@ -9,7 +9,7 @@ import ViewDayIcon from '@material-ui/icons/ViewDay';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import UserContext from '../../context/UserContext';
 
-const ToggleDisplayView = ({ posts, defaultView, handleRefresh }) => {
+const ToggleDisplayView = ({ posts, defaultView }) => {
   // TODO Raise state and function of toggle
   // The state and helper function needs to be raised to a higher level (Mainpage.js) so the toggle state can be passed to other components
   const [displayView, setDisplayView] = useState(defaultView);
@@ -75,7 +75,6 @@ const ToggleDisplayView = ({ posts, defaultView, handleRefresh }) => {
                     postContent={post}
                     openModal={() => handleModal(post)}
                     userData={userData}
-                    handleRefresh={handleRefresh}
                   />
                 </Grid>
               );
@@ -85,8 +84,8 @@ const ToggleDisplayView = ({ posts, defaultView, handleRefresh }) => {
                   <PostCardLarge
                     postContent={post}
                     openModal={() => handleModal(post)}
+                    closeModal={() => setModalState(!modalState)}
                     userData={userData}
-                    handleRefresh={handleRefresh}
                   />
                 </Grid>
               );
@@ -100,7 +99,6 @@ const ToggleDisplayView = ({ posts, defaultView, handleRefresh }) => {
                     postContent={post}
                     openModal={() => handleModal(post)}
                     userData={userData}
-                    handleRefresh={handleRefresh}
                   />
                 </Grid>
               );

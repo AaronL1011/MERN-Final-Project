@@ -11,10 +11,13 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
     background:
-      'url(https://images.unsplash.com/photo-1595766711576-393e79ec6302?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)'
+      'url(https://images.unsplash.com/photo-1595766711576-393e79ec6302?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center'
   },
   container: {
-    height: '50%',
+    height: '40%',
     width: '100vw',
     padding: 25,
     display: 'flex',
@@ -23,8 +26,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     textAlign: 'center',
     boxShadow: '0 0 20px black',
-    background: '#fff',
-    backgroundPosition: 'center'
+    background: '#fff'
   },
   link: {
     marginTop: 40,
