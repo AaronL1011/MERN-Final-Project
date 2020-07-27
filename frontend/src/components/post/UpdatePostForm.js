@@ -19,14 +19,13 @@ import { updatePost } from '../../utils/post';
 
 const UpdatePostForm = ({
   toggleModal,
-  handleRefresh,
   postId,
   current_caption,
   current_tags,
   current_visibility
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { userData } = useContext(UserContext);
+  const { userData, refresh, setRefresh } = useContext(UserContext);
   const [caption, setCaption] = useState(current_caption);
   const [tags, setTags] = useState(current_tags.join(', '));
   const [visibility, setVisibility] = useState(current_visibility);
@@ -52,7 +51,7 @@ const UpdatePostForm = ({
         enqueueSnackbar(`Post successfuly updated!`, {
           variant: 'success'
         });
-        handleRefresh();
+        setRefresh(!refresh);
         toggleModal();
       } else {
         enqueueSnackbar('Something went wrong, but im not quite sure what!', {

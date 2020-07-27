@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from '../../context/UserContext';
 import Spinner from '../layout/Spinner';
 import ProfileCard from './ProfileCard';
 import ToggleDisplayView from '../layout/ToggleDisplayView';
@@ -21,6 +22,7 @@ const ProfilePage = () => {
   const [userProfile, setUserProfile] = useState({});
   const [userPosts, setUserPosts] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const { refresh } = useContext(UserContext);
 
   useEffect(() => {
     const profileURL = params.profileUrl;
@@ -40,7 +42,7 @@ const ProfilePage = () => {
     if (profileURL) {
       getUserProfile();
     }
-  }, [params.profileUrl]);
+  }, [params.profileUrl, refresh]);
 
   return (
     <div>
