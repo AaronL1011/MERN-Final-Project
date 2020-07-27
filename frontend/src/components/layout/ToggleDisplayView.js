@@ -16,8 +16,6 @@ const ToggleDisplayView = ({
   setSearchValue,
   tagSearchEnabled
 }) => {
-  // TODO Raise state and function of toggle
-  // The state and helper function needs to be raised to a higher level (Mainpage.js) so the toggle state can be passed to other components
   const [displayView, setDisplayView] = useState(defaultView);
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
