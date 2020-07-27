@@ -28,6 +28,7 @@ const NewUpload = ({ toggleModal }) => {
   const [visibility, setVisibility] = useState('1');
   const [files, setFiles] = useState(null);
   const [isPosting, setIsPosting] = useState(false);
+  const isDisabled = userData.user ? false : true
 
   const getImage = (input) => {
     if (input.files && input.files[0]) {
