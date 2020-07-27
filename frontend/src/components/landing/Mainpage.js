@@ -62,6 +62,7 @@ const Mainpage = () => {
             <ToggleDisplayView
               posts={posts}
               defaultView={'single'}
+              tagSearchEnabled={true}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
             />

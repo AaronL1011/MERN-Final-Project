@@ -13,7 +13,8 @@ const ToggleDisplayView = ({
   posts,
   defaultView,
   searchValue,
-  setSearchValue
+  setSearchValue,
+  tagSearchEnabled
 }) => {
   const [displayView, setDisplayView] = useState(defaultView);
   const [modalState, setModalState] = useState(false);
@@ -29,6 +30,32 @@ const ToggleDisplayView = ({
   const handleModal = (post) => {
     setModalContent(post);
     setModalState(!modalState);
+  };
+
+  const largeCard = (post, index) => {
+    return (
+      <Grid key={index} item style={{ width: '100%' }}>
+        <PostCardLarge
+          postContent={post}
+          openModal={() => handleModal(post)}
+          closeModal={() => setModalState(!modalState)}
+          userData={userData}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          tagSearchEnabled={tagSearchEnabled}
+        />
+      </Grid>
+    );
+  };
+
+  const smallCard = (post, index) => {
+    return (
+      <PostCardSmall
+        postContent={post}
+        openModal={() => handleModal(post)}
+        key={index}
+      />
+    );
   };
 
   return (
@@ -72,45 +99,14 @@ const ToggleDisplayView = ({
         {displayView === 'single' ? (
           posts.map((post, index) => {
             if (post.visibility === '0') {
-              return (
-                <Grid key={index} item style={{ width: '100%' }}>
-                  <PostCardLarge
-                    postContent={post}
-                    openModal={() => handleModal(post)}
-                    userData={userData}
-                    setSearchValue={setSearchValue}
-                    searchValue={searchValue}
-                  />
-                </Grid>
-              );
+              return largeCard(post, index);
             } else if (post.visibility === '1' && userData.user) {
-              return (
-                <Grid key={index} item style={{ width: '100%' }}>
-                  <PostCardLarge
-                    postContent={post}
-                    openModal={() => handleModal(post)}
-                    closeModal={() => setModalState(!modalState)}
-                    userData={userData}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                  />
-                </Grid>
-              );
+              return largeCard(post, index);
             } else if (
               post.visibility === '2' &&
               post.authorID === userData.user
             ) {
-              return (
-                <Grid key={index} item style={{ width: '100%' }}>
-                  <PostCardLarge
-                    postContent={post}
-                    openModal={() => handleModal(post)}
-                    userData={userData}
-                    setSearchValue={setSearchValue}
-                    searchValue={searchValue}
-                  />
-                </Grid>
-              );
+              return largeCard(post, index);
             } else {
               return null;
             }
@@ -127,32 +123,14 @@ const ToggleDisplayView = ({
           >
             {posts.map((post, index) => {
               if (post.visibility === '0') {
-                return (
-                  <PostCardSmall
-                    postContent={post}
-                    openModal={() => handleModal(post)}
-                    key={index}
-                  />
-                );
+                return smallCard(post, index);
               } else if (post.visibility === '1' && userData.user) {
-                return (
-                  <PostCardSmall
-                    postContent={post}
-                    openModal={() => handleModal(post)}
-                    key={index}
-                  />
-                );
+                return smallCard(post, index);
               } else if (
                 post.visibility === '2' &&
                 post.authorID === userData.user
               ) {
-                return (
-                  <PostCardSmall
-                    postContent={post}
-                    openModal={() => handleModal(post)}
-                    key={index}
-                  />
-                );
+                return smallCard(post, index);
               } else {
                 return null;
               }

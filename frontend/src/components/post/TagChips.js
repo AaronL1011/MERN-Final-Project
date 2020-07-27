@@ -16,15 +16,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TagChips = ({ searchValue, setSearchValue, tagsArray }) => {
+const TagChips = ({
+  searchValue,
+  setSearchValue,
+  tagsArray,
+  tagSearchEnabled
+}) => {
   const classes = useStyles();
 
   const handleTagClick = (e, tag) => {
-    e.preventDefault();
-    if (tag === searchValue) {
-      setSearchValue('');
-    } else {
-      setSearchValue(tag);
+    if (tagSearchEnabled) {
+      e.preventDefault();
+      if (tag === searchValue) {
+        setSearchValue('');
+      } else {
+        setSearchValue(tag);
+      }
     }
   };
 
