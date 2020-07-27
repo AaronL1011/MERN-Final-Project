@@ -54,7 +54,11 @@ const ProfilePage = () => {
           <ProfileCard userProfile={userProfile} />
 
           {userPosts && (
-            <ToggleDisplayView posts={userPosts} defaultView={'multiple'} />
+            <ToggleDisplayView
+              posts={userPosts}
+              defaultView={'multiple'}
+              tagSearchEnabled={false}
+            />
           )}
         </>
       )}
