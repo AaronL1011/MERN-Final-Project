@@ -79,7 +79,6 @@ const PostCardLarge = ({
 
   const onDelete = async () => {
     const response = await deletePost(postContent._id, userData.token);
-    console.log(postContent._id, userData.token);
     if (response.id) {
       enqueueSnackbar(response.message, {
         variant: 'success'

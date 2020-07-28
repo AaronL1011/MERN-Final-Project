@@ -32,12 +32,21 @@ const useStyles = makeStyles({
   }
 });
 
-const NavigationBar = ({ modalToggle }) => {
+const navbarRoutes = {
+  '/login': 'profile',
+  '/signup': 'profile',
+  '/editprofile': 'profile',
+  '/': 'home'
+};
+
+const NavigationBar = ({ modalToggle, modalOpen }) => {
   const location = useLocation();
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState(
+    navbarRoutes[location.pathname]
+  );
   const [anchorElement, setAnchorElement] = useState('');
   const isOpen = Boolean(anchorElement);
   const history = useHistory();
@@ -45,22 +54,11 @@ const NavigationBar = ({ modalToggle }) => {
     ? `/profile/${userData.user.url}`
     : '/login';
 
-  const profileRegexCheck = /\A(\/profile\/)/;
+  // const profileRegexCheck = /\A(\/profile\/)/;
 
-  const handleChange = () => {
-    console.log(location.pathname);
-    if (location.pathname === '/') {
-      setCurrentPage('home');
-    } else if (
-      location.pathname.match(profileRegexCheck) ||
-      location.pathname === '/editprofile'
-    ) {
-      setCurrentPage('profile');
-    } else if (
-      location.pathname === '/signup' ||
-      location.pathname === '/login'
-    ) {
-      setCurrentPage('menu');
+  const handleChange = (e, v) => {
+    if (v !== 'new-upload') {
+      setCurrentPage(v);
     }
   };
 
@@ -74,14 +72,17 @@ const NavigationBar = ({ modalToggle }) => {
 
   const login = () => {
     history.push('/login');
+    setCurrentPage('profile');
   };
 
   const signup = () => {
     history.push('/signup');
+    setCurrentPage('profile');
   };
 
   const about = () => {
     history.push('/about');
+    setCurrentPage('');
   };
 
   const logout = () => {
@@ -93,6 +94,7 @@ const NavigationBar = ({ modalToggle }) => {
     enqueueSnackbar(`You're logged out!`, {
       variant: 'info'
     });
+    setCurrentPage('profile');
   };
 
   return (
@@ -160,7 +162,7 @@ const NavigationBar = ({ modalToggle }) => {
       )}
       <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
         <BottomNavigation
-          value={currentPage}
+          value={modalOpen ? 'new-upload' : currentPage}
           onChange={(event, value) => handleChange(event, value)}
           className={classes.bottomNav}
         >
