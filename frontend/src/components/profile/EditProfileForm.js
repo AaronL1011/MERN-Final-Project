@@ -219,6 +219,7 @@ const EditProfileForm = ({
             type='password'
             variant='outlined'
             fullWidth
+            required
           />
         </Grid>
         <Grid
@@ -239,6 +240,7 @@ const EditProfileForm = ({
             type='password'
             variant='outlined'
             fullWidth
+            required
           />
         </Grid>
         <Grid
@@ -259,6 +261,7 @@ const EditProfileForm = ({
             type='password'
             variant='outlined'
             fullWidth
+            required
           />
         </Grid>
         <Grid

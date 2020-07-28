@@ -95,10 +95,6 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
           <Link to='/signup' className={classes.link}>
             Create an Account
           </Link>
-          <br />
-          <Link to='/' className={classes.link}>
-            Return Home
-          </Link>
         </Grid>
       </Grid>
     </Box>

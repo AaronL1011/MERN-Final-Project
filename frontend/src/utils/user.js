@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
+// const apiUrl = 'http://localhost:3000/api';
 
 export const getUserProfile = async (url, token) => {
   try {
@@ -9,6 +10,7 @@ export const getUserProfile = async (url, token) => {
         'auth-token': token
       }
     });
+    console.log(response.status);
 
     return response.data;
   } catch (error) {
@@ -47,7 +49,7 @@ export const submitProfileUpdate = async (
 export const handleChangePassword = async (bodyData, token) => {
   try {
     const response = await axios.put(
-      apiUrl + `users/update-password`,
+      apiUrl + `/users/update-password`,
       bodyData,
       {
         headers: {
@@ -58,8 +60,8 @@ export const handleChangePassword = async (bodyData, token) => {
 
     return response.data;
   } catch (error) {
-    console.log(error.response);
-    return error.response.data.statusText;
+    console.log(error.response.data);
+    return error.response.data;
   }
 };
 
@@ -72,7 +74,7 @@ export const deleteAccount = async (token) => {
     localStorage.setItem('jwt', '');
     return response.data;
   } catch (error) {
-    console.log(error.response);
-    return error.response.statusText;
+    console.log(error.response.data);
+    return error.response.data;
   }
 };

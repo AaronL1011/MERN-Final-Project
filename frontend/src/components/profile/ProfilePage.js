@@ -6,6 +6,7 @@ import ToggleDisplayView from '../layout/ToggleDisplayView';
 import axios from 'axios';
 import { useParams, Redirect } from 'react-router-dom';
 import { getUserPosts } from '../../utils/post';
+import { getUserProfile } from '../../utils/user';
 
 const ProfilePage = () => {
   const params = useParams();
@@ -17,20 +18,18 @@ const ProfilePage = () => {
   useEffect(() => {
     const profileURL = params.profileUrl;
 
-    const getUserProfile = async () => {
-      const userProfileInfo = await axios.get(
-        `https://grupgrup-backend.herokuapp.com/api/users/profile/${profileURL}`
-      );
+    const getUserProfilePage = async () => {
+      const userProfileInfo = await getUserProfile(profileURL, null);
 
-      setUserProfile(userProfileInfo.data);
+      setUserProfile(userProfileInfo);
 
-      const userPostsResponse = await getUserPosts(userProfileInfo.data.id);
+      const userPostsResponse = await getUserPosts(userProfileInfo.id);
       setUserPosts(userPostsResponse);
       setIsLoading(false);
     };
 
     if (profileURL) {
-      getUserProfile();
+      getUserProfilePage();
     }
   }, [params.profileUrl, refresh]);
 
