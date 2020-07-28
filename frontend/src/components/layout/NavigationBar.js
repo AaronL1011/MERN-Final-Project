@@ -57,7 +57,7 @@ const NavigationBar = ({ modalToggle, modalOpen }) => {
   // const profileRegexCheck = /\A(\/profile\/)/;
 
   const handleChange = (e, v) => {
-    if (v !== 'new-upload') {
+    if (v !== 'new-upload' && v !== 'menu') {
       setCurrentPage(v);
     }
   };

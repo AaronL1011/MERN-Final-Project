@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
+// const apiUrl = 'http://localhost:3000/api';
 
 export const getUserProfile = async (url, token) => {
   try {
