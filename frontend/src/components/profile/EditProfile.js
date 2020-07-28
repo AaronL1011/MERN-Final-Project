@@ -91,7 +91,7 @@ const EditProfile = () => {
       });
       history.push(`/profile/${userData.user.url}`);
     } else {
-      enqueueSnackbar(response.msg, {
+      enqueueSnackbar(response, {
         variant: 'error'
       });
       setIsLoading(false);

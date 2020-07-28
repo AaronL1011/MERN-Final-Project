@@ -86,6 +86,7 @@ const NavigationBar = ({ modalToggle, modalOpen }) => {
   };
 
   const logout = () => {
+    history.push('/login');
     setUserData({
       token: undefined,
       user: undefined

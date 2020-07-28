@@ -101,7 +101,7 @@ const NewUpload = ({ toggleModal }) => {
         setRefresh(!refresh);
         toggleModal();
       } else {
-        enqueueSnackbar('Make sure you have an image attached!', {
+        enqueueSnackbar(response, {
           variant: 'error'
         });
         setIsPosting(false);
