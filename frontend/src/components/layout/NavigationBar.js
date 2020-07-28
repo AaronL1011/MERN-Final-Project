@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   Menu,
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 });
 
 const NavigationBar = ({ modalToggle }) => {
+  const location = useLocation();
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
@@ -44,17 +45,22 @@ const NavigationBar = ({ modalToggle }) => {
     ? `/profile/${userData.user.url}`
     : '/login';
 
+  const profileRegexCheck = /\A(\/profile\/)/;
+
   const handleChange = () => {
-    switch (window.location.pathname) {
-      case '/':
-        setCurrentPage('home');
-        break;
-      case '/profile' || '/editprofile':
-        setCurrentPage('profile');
-        break;
-      default:
-        setCurrentPage(null);
-        break;
+    console.log(location.pathname);
+    if (location.pathname === '/') {
+      setCurrentPage('home');
+    } else if (
+      location.pathname.match(profileRegexCheck) ||
+      location.pathname === '/editprofile'
+    ) {
+      setCurrentPage('profile');
+    } else if (
+      location.pathname === '/signup' ||
+      location.pathname === '/login'
+    ) {
+      setCurrentPage('menu');
     }
   };
 

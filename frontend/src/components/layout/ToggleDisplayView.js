@@ -120,8 +120,9 @@ const ToggleDisplayView = ({
             } else if (post.visibility === '1' && userData.user) {
               return largeCard(post, index);
             } else if (
+              userData.user &&
               post.visibility === '2' &&
-              post.authorID === userData.user
+              post.authorID === userData.user.id
             ) {
               return largeCard(post, index);
             } else {
@@ -136,8 +137,9 @@ const ToggleDisplayView = ({
               } else if (post.visibility === '1' && userData.user) {
                 return smallCard(post, index);
               } else if (
+                userData.user &&
                 post.visibility === '2' &&
-                post.authorID === userData.user
+                post.authorID === userData.user.id
               ) {
                 return smallCard(post, index);
               } else {
