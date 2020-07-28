@@ -52,7 +52,7 @@ const App = () => {
             modalState={modalOpen}
             handleModalChange={handleModalState}
           />
-          <NavigationBar modalToggle={handleModalState} />
+          <NavigationBar modalToggle={handleModalState} modalOpen={modalOpen} />
         </UserContext.Provider>
       </Router>
     </>

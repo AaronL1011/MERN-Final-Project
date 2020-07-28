@@ -91,7 +91,7 @@ const EditProfile = () => {
       });
       history.push(`/profile/${userData.user.url}`);
     } else {
-      enqueueSnackbar(response.msg, {
+      enqueueSnackbar(response, {
         variant: 'error'
       });
       setIsLoading(false);
@@ -100,14 +100,14 @@ const EditProfile = () => {
 
   const onChangePassword = async () => {
     setIsLoading(true);
-    if (new_password === confirm_password) {
+    if (new_password && current_password && new_password === confirm_password) {
       const bodyData = {
         current_password,
         new_password
       };
 
       const response = await handleChangePassword(bodyData, userData.token);
-
+      console.log(response);
       if (response.username) {
         enqueueSnackbar('Your new password has been saved!', {
           variant: 'success'
@@ -121,7 +121,7 @@ const EditProfile = () => {
         setIsLoading(false);
       }
     } else {
-      enqueueSnackbar(`Please check that your passwords match!`, {
+      enqueueSnackbar(`Please check your passwords and try again!`, {
         variant: 'error'
       });
       setIsLoading(false);

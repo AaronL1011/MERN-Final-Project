@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
+// const apiUrl = 'http://localhost:3000/api';
 
 export const createNewPost = async (formData, config) => {
   try {
@@ -9,19 +10,19 @@ export const createNewPost = async (formData, config) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log(error.response);
+    return error.response.data;
   }
 };
 
 export const getAllPosts = async () => {
   try {
     const response = await axios.get(apiUrl + `/posts`);
-
+    console.log(response.status);
     return response.data.reverse();
   } catch (error) {
-    console.log(error.res);
-    return error;
+    console.log(error.response.data);
+    return error.response.data;
   }
 };
 
@@ -31,8 +32,8 @@ export const getUserPosts = async (id) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log(error.response.data);
+    return error.response.data;
   }
 };
 
@@ -47,8 +48,8 @@ export const deletePost = async (id, token) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log(error.response.data);
+    return error.response.data;
   }
 };
 
@@ -63,7 +64,7 @@ export const updatePost = async (id, token, data) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    return error;
+    console.log(error.response.data);
+    return error.response.data;
   }
 };

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const apiUrl = 'https://grupgrup-backend.herokuapp.com/api';
+// const apiUrl = 'http://localhost:3000/api';
 
 export const checkLoggedIn = async () => {
   let token = localStorage.getItem('jwt');

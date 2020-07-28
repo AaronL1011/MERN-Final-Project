@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   Menu,
@@ -32,11 +32,21 @@ const useStyles = makeStyles({
   }
 });
 
-const NavigationBar = ({ modalToggle }) => {
+const navbarRoutes = {
+  '/login': 'profile',
+  '/signup': 'profile',
+  '/editprofile': 'profile',
+  '/': 'home'
+};
+
+const NavigationBar = ({ modalToggle, modalOpen }) => {
+  const location = useLocation();
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { userData, setUserData } = useContext(UserContext);
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState(
+    navbarRoutes[location.pathname]
+  );
   const [anchorElement, setAnchorElement] = useState('');
   const isOpen = Boolean(anchorElement);
   const history = useHistory();
@@ -44,17 +54,11 @@ const NavigationBar = ({ modalToggle }) => {
     ? `/profile/${userData.user.url}`
     : '/login';
 
-  const handleChange = () => {
-    switch (window.location.pathname) {
-      case '/':
-        setCurrentPage('home');
-        break;
-      case '/profile' || '/editprofile':
-        setCurrentPage('profile');
-        break;
-      default:
-        setCurrentPage(null);
-        break;
+  // const profileRegexCheck = /\A(\/profile\/)/;
+
+  const handleChange = (e, v) => {
+    if (v !== 'new-upload' && v !== 'menu') {
+      setCurrentPage(v);
     }
   };
 
@@ -68,17 +72,21 @@ const NavigationBar = ({ modalToggle }) => {
 
   const login = () => {
     history.push('/login');
+    setCurrentPage('profile');
   };
 
   const signup = () => {
     history.push('/signup');
+    setCurrentPage('profile');
   };
 
   const about = () => {
     history.push('/about');
+    setCurrentPage('');
   };
 
   const logout = () => {
+    history.push('/login');
     setUserData({
       token: undefined,
       user: undefined
@@ -87,6 +95,7 @@ const NavigationBar = ({ modalToggle }) => {
     enqueueSnackbar(`You're logged out!`, {
       variant: 'info'
     });
+    setCurrentPage('profile');
   };
 
   return (
@@ -154,7 +163,7 @@ const NavigationBar = ({ modalToggle }) => {
       )}
       <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
         <BottomNavigation
-          value={currentPage}
+          value={modalOpen ? 'new-upload' : currentPage}
           onChange={(event, value) => handleChange(event, value)}
           className={classes.bottomNav}
         >

@@ -84,7 +84,6 @@ const PostCardLarge = ({
         variant: 'success'
       });
       setRefresh(!refresh);
-      closeModal();
     } else {
       enqueueSnackbar('Hmmm... Something went wrong!', {
         variant: 'error'

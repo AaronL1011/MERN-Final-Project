@@ -37,7 +37,7 @@ const Signup = () => {
         });
         history.push(`/profile/${response.user.url}`);
       } else {
-        console.log(response);
+        // console.log(response);
         enqueueSnackbar(response, {
           variant: 'error'
         });
