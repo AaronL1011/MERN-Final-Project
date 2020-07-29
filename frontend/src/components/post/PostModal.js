@@ -2,7 +2,14 @@ import React from 'react';
 import ModalPostCard from './ModalPostCard';
 import { Modal } from '@material-ui/core';
 
-const PostModal = ({ modalState, handleModalChange, modalContent }) => {
+const PostModal = ({
+  modalState,
+  handleModalChange,
+  modalContent,
+  setSearchValue,
+  searchValue,
+  tagSearchEnabled
+}) => {
   return (
     <Modal
       open={modalState}
@@ -14,6 +21,9 @@ const PostModal = ({ modalState, handleModalChange, modalContent }) => {
       <ModalPostCard
         postContent={modalContent}
         handleModalChange={handleModalChange}
+        tagSearchEnabled={tagSearchEnabled}
+        setSearchValue={setSearchValue}
+        searchValue={searchValue}
       />
     </Modal>
   );

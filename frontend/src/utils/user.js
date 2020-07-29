@@ -10,7 +10,6 @@ export const getUserProfile = async (url, token) => {
         'auth-token': token
       }
     });
-    console.log(response.status);
 
     return response.data;
   } catch (error) {

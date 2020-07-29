@@ -8,8 +8,8 @@ import {
   Typography
 } from '@material-ui/core';
 import TagChips from './TagChips';
-import { useHistory } from "react-router-dom";
-import { handleNameClick } from "./utils/profileUtils";
+import { useHistory } from 'react-router-dom';
+import { handleNameClick } from './utils/profileUtils';
 
 // Styling
 const useStyles = makeStyles({
@@ -49,7 +49,13 @@ const arrayToChipData = (array) => {
   return output;
 };
 
-const ModalPostCard = ({ postContent, handleModalChange }) => {
+const ModalPostCard = ({
+  postContent,
+  handleModalChange,
+  searchValue,
+  setSearchValue,
+  tagSearchEnabled
+}) => {
   const classes = useStyles();
   let history = useHistory();
 
@@ -64,16 +70,27 @@ const ModalPostCard = ({ postContent, handleModalChange }) => {
               alt={postContent.caption}
             />
           </Box>
-          </CardActionArea>
-          <CardContent className={classes.caption}>
-            {postContent.tags && (
-              <TagChips tagsArray={arrayToChipData(postContent.tags)} />
-            )}
-            <Typography onClick={event =>{handleNameClick(event, history, postContent.authorURL)}}>{postContent.displayName}</Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {postContent.caption}
-            </Typography>
-          </CardContent>
+        </CardActionArea>
+        <CardContent className={classes.caption}>
+          {postContent.tags && (
+            <TagChips
+              tagsArray={arrayToChipData(postContent.tags)}
+              tagSearchEnabled={tagSearchEnabled}
+              setSearchValue={setSearchValue}
+              searchValue={searchValue}
+            />
+          )}
+          <Typography
+            onClick={(event) => {
+              handleNameClick(event, history, postContent.authorURL);
+            }}
+          >
+            {postContent.displayName}
+          </Typography>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {postContent.caption}
+          </Typography>
+        </CardContent>
       </Card>
     </Box>
   );

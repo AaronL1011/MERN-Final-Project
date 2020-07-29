@@ -18,7 +18,6 @@ export const createNewPost = async (formData, config) => {
 export const getAllPosts = async () => {
   try {
     const response = await axios.get(apiUrl + `/posts`);
-    console.log(response.status);
     return response.data.reverse();
   } catch (error) {
     console.log(error.response.data);
