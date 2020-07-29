@@ -61,6 +61,7 @@ const SignupForm = ({
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             label='Display Name'
+            placeholder='Jane Doe'
             variant='outlined'
             fullWidth
             required
@@ -80,6 +81,7 @@ const SignupForm = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             label='Email'
+            placeholder='jane@email.com'
             type='email'
             variant='outlined'
             fullWidth
@@ -100,6 +102,7 @@ const SignupForm = ({
             value={profileUrl}
             onChange={(e) => setProfileUrl(e.target.value)}
             label='Username'
+            placeholder='janedoe99'
             variant='outlined'
             fullWidth
             required
