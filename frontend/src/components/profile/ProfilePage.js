@@ -20,16 +20,16 @@ const ProfilePage = () => {
     const profileURL = params.profileUrl;
 
     const getUserProfilePage = async () => {
-      const userProfileInfo = await getUserProfile(profileURL, null);
-      if (userProfileInfo.username) {
-        setUserProfile(userProfileInfo);
+      const response = await getUserProfile(profileURL, null);
+      if (response.username) {
+        setUserProfile(response);
 
-        const userPostsResponse = await getUserPosts(userProfileInfo.id);
+        const userPostsResponse = await getUserPosts(response.id);
         setUserPosts(userPostsResponse);
         setIsLoading(false);
       } else {
         setUserPosts(null);
-        enqueueSnackbar(userProfileInfo, {
+        enqueueSnackbar(response, {
           variant: 'error'
         });
         setIsLoading(false);
