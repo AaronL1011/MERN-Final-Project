@@ -3,7 +3,7 @@ import UserContext from '../../context/UserContext';
 import Spinner from '../layout/Spinner';
 import ProfileCard from './ProfileCard';
 import ToggleDisplayView from '../layout/ToggleDisplayView';
-import axios from 'axios';
+import { useSnackbar } from 'notistack';
 import { useParams, Redirect } from 'react-router-dom';
 import { getUserPosts } from '../../utils/post';
 import { getUserProfile } from '../../utils/user';
@@ -11,27 +11,35 @@ import { getUserProfile } from '../../utils/user';
 const ProfilePage = () => {
   const params = useParams();
   const [userProfile, setUserProfile] = useState({});
-  const [userPosts, setUserPosts] = useState({});
+  const [userPosts, setUserPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { refresh } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const profileURL = params.profileUrl;
 
     const getUserProfilePage = async () => {
-      const userProfileInfo = await getUserProfile(profileURL, null);
+      const response = await getUserProfile(profileURL, null);
+      if (response.username) {
+        setUserProfile(response);
 
-      setUserProfile(userProfileInfo);
-
-      const userPostsResponse = await getUserPosts(userProfileInfo.id);
-      setUserPosts(userPostsResponse);
-      setIsLoading(false);
+        const userPostsResponse = await getUserPosts(response.id);
+        setUserPosts(userPostsResponse);
+        setIsLoading(false);
+      } else {
+        setUserPosts(null);
+        enqueueSnackbar(response, {
+          variant: 'error'
+        });
+        setIsLoading(false);
+      }
     };
 
     if (profileURL) {
       getUserProfilePage();
     }
-  }, [params.profileUrl, refresh]);
+  }, [params.profileUrl, refresh, enqueueSnackbar]);
 
   return (
     <div>

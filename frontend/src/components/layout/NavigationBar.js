@@ -6,7 +6,8 @@ import {
   MenuItem,
   Grid,
   BottomNavigation,
-  BottomNavigationAction
+  BottomNavigationAction,
+  Tooltip
 } from '@material-ui/core';
 import { Home, Publish, Person } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -167,32 +168,40 @@ const NavigationBar = ({ modalToggle, modalOpen }) => {
           onChange={(event, value) => handleChange(event, value)}
           className={classes.bottomNav}
         >
-          <BottomNavigationAction
-            component={Link}
-            to='/'
-            label='Home'
-            value='home'
-            icon={<Home />}
-          />
-          <BottomNavigationAction
-            onClick={modalToggle}
-            label='Upload'
-            value='new-upload'
-            icon={<Publish />}
-          />
-          <BottomNavigationAction
-            component={Link}
-            to={userProfileLink}
-            label='Profile'
-            value='profile'
-            icon={<Person />}
-          />
-          <BottomNavigationAction
-            onClick={onMenuClick}
-            label='Menu'
-            value='menu'
-            icon={<MenuIcon />}
-          />
+          <Tooltip title='Home' value='home'>
+            <BottomNavigationAction
+              component={Link}
+              to='/'
+              label='Home'
+              value='home'
+              icon={<Home />}
+            />
+          </Tooltip>
+          <Tooltip title='Upload' value='new-upload'>
+            <BottomNavigationAction
+              onClick={modalToggle}
+              label='Upload'
+              value='new-upload'
+              icon={<Publish />}
+            />
+          </Tooltip>
+          <Tooltip title='Profile' value='profile'>
+            <BottomNavigationAction
+              component={Link}
+              to={userProfileLink}
+              label='Profile'
+              value='profile'
+              icon={<Person />}
+            />
+          </Tooltip>
+          <Tooltip title='Menu' value='menu'>
+            <BottomNavigationAction
+              onClick={onMenuClick}
+              label='Menu'
+              value='menu'
+              icon={<MenuIcon />}
+            />
+          </Tooltip>
         </BottomNavigation>
       </Grid>
     </Grid>

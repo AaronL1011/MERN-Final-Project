@@ -1,20 +1,8 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSnackbar } from 'notistack';
-import { deletePost } from '../../utils/post';
-import {
-  Box,
-  Button,
-  Card,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from '@material-ui/core';
-import UserContext from '../../context/UserContext';
-import EditPostModal from './EditPostModal';
+
+import { Card } from '@material-ui/core';
+
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -42,7 +30,8 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-evenly',
     paddingTop: 10
-  }
+  },
+  displayNameStyle: { cursor: 'pointer', display: 'inline-block' }
 });
 
 // Helper method
@@ -56,137 +45,50 @@ const arrayToChipData = (array) => {
 
 const PostCardLarge = ({
   postContent,
-  userData,
   openModal,
-  closeModal,
   searchValue,
   setSearchValue,
   tagSearchEnabled
 }) => {
-  const [open, setOpen] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const { refresh, setRefresh } = useContext(UserContext);
-  let history = useHistory();
+  const history = useHistory();
 
-  const handleDialogClick = () => {
-    setOpen(!open);
-  };
-
-  const handleEditModalState = () => {
-    setEditModalOpen(!editModalOpen);
-  };
-
-  const onDelete = async () => {
-    const response = await deletePost(postContent._id, userData.token);
-    if (response.id) {
-      enqueueSnackbar(response.message, {
-        variant: 'success'
-      });
-      setRefresh(!refresh);
-    } else {
-      enqueueSnackbar('Hmmm... Something went wrong!', {
-        variant: 'error'
-      });
-    }
-  };
-
-  const handleNameClick = (event, content) => {
+  const handleNameClick = (event) => {
     event.preventDefault();
-    console.log(content);
-    const profile = async () => {
-      console.log('Sending request...');
-      const info = await axios.get(
-        `https://grupgrup-backend.herokuapp.com/api/users/profile/${content.authorId}`
-      );
-      console.log(info);
-    };
-    profile();
+    history.push(`/profile/${postContent.authorURL}`);
   };
 
   const classes = useStyles();
   return (
-    <>
-      <Dialog open={open} onClose={handleDialogClick}>
-        <DialogTitle>Delete Post</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete this post? This is permanent!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleDialogClick} color='primary'>
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              handleDialogClick();
-              onDelete();
-            }}
-            color='primary'
-          >
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Card className={classes.root}>
-        <CardActionArea onClick={openModal}>
-          <CardMedia
-            component='img'
-            image={postContent.images[0]}
-            className={classes.cardMedia}
+    <Card className={classes.root}>
+      <CardActionArea onClick={openModal}>
+        <CardMedia
+          component='img'
+          image={postContent.images[0]}
+          className={classes.cardMedia}
+        />
+      </CardActionArea>
+      <CardContent className={classes.caption}>
+        {postContent.tags && (
+          <TagChips
+            tagsArray={arrayToChipData(postContent.tags)}
+            tagSearchEnabled={tagSearchEnabled}
+            setSearchValue={setSearchValue}
+            searchValue={searchValue}
           />
-        </CardActionArea>
-        <CardContent className={classes.caption}>
-          {postContent.tags && (
-            <TagChips
-              tagsArray={arrayToChipData(postContent.tags)}
-              tagSearchEnabled={tagSearchEnabled}
-              setSearchValue={setSearchValue}
-              searchValue={searchValue}
-            />
-          )}
-          <Typography
-            onClick={(event) => {
-              handleNameClick(event, history, postContent.authorURL);
-            }}
-          >
-            {postContent.displayName}
-          </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
-            {postContent.caption}
-          </Typography>
-          {userData.user && userData.user.id === postContent.authorID && (
-            <Box className={classes.buttonBox}>
-              <Button
-                variant='outlined'
-                color='secondary'
-                onClick={handleDialogClick}
-              >
-                Delete
-              </Button>
-              <Button
-                variant='outlined'
-                color='primary'
-                onClick={handleEditModalState}
-              >
-                Edit
-              </Button>
-            </Box>
-          )}
-        </CardContent>
-      </Card>
-      <EditPostModal
-        modalState={editModalOpen}
-        handleModalChange={handleEditModalState}
-        currentDetails={{
-          id: postContent._id,
-          tags: postContent.tags,
-          caption: postContent.caption,
-          visibility: postContent.visibility
-        }}
-      />
-    </>
+        )}
+        <Typography
+          onClick={(event) => {
+            handleNameClick(event);
+          }}
+          className={classes.displayNameStyle}
+        >
+          {postContent.displayName}
+        </Typography>
+        <Typography variant='body2' color='textSecondary' component='p'>
+          {postContent.caption}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

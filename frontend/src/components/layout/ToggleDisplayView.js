@@ -110,6 +110,9 @@ const ToggleDisplayView = ({
           modalState={modalState}
           handleModalChange={handleModal}
           modalContent={modalContent}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          tagSearchEnabled={tagSearchEnabled}
         />
       )}
       <Grid item container className={classes.largeCardGrid} spacing={2}>
