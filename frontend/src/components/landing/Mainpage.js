@@ -52,6 +52,7 @@ const Mainpage = () => {
           if (post.tags.includes(query) && !filteredPosts.includes(post)) {
             return filteredPosts.push(post);
           }
+          return null;
         });
       }
       setPosts(filteredPosts);

@@ -18,7 +18,6 @@ export const createNewPost = async (formData, config) => {
 export const getAllPosts = async () => {
   try {
     const response = await axios.get(apiUrl + `/posts`);
-    console.log(response.status);
     return response.data.reverse();
   } catch (error) {
     console.log(error.response.data);
@@ -46,7 +45,7 @@ export const deletePost = async (id, token) => {
   try {
     const response = await axios.delete(apiUrl + `/posts/${id}`, config);
 
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error.response.data);
     return error.response.data;

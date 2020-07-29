@@ -53,7 +53,8 @@ const UpdatePostForm = ({
   const [visibility, setVisibility] = useState(current_visibility);
   const [isLoading, setIsLoading] = useState(false);
 
-  const attemptUpdatePost = async () => {
+  const attemptUpdatePost = async (e) => {
+    if (e) e.stopPropagation();
     if (userData.user) {
       setIsLoading(true);
 
@@ -70,7 +71,7 @@ const UpdatePostForm = ({
       const response = await updatePost(postId, userData.token, data);
 
       if (response._id) {
-        enqueueSnackbar(`Post successfuly updated!`, {
+        enqueueSnackbar(`Post successfully updated!`, {
           variant: 'success'
         });
         setRefresh(!refresh);
@@ -101,6 +102,7 @@ const UpdatePostForm = ({
                 variant='outlined'
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
                 fullWidth
                 multiline
               />
@@ -111,6 +113,7 @@ const UpdatePostForm = ({
                 label='Tags'
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
                 variant='outlined'
                 fullWidth
               />
@@ -124,6 +127,7 @@ const UpdatePostForm = ({
                 id='visibility-field'
                 value={visibility}
                 onChange={(e) => setVisibility(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
               >
                 <MenuItem value='0'>Anyone</MenuItem>
                 <MenuItem value='1'>Logged In Users</MenuItem>
@@ -138,7 +142,7 @@ const UpdatePostForm = ({
           ) : (
             <>
               <Button
-                onClick={attemptUpdatePost}
+                onClick={(e) => attemptUpdatePost(e)}
                 variant='outlined'
                 size='small'
                 color='primary'

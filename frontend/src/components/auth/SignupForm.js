@@ -60,7 +60,7 @@ const SignupForm = ({
             id='username-field'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            label='Username'
+            label='Display Name'
             variant='outlined'
             fullWidth
             required
@@ -99,15 +99,16 @@ const SignupForm = ({
             id='profile-url-field'
             value={profileUrl}
             onChange={(e) => setProfileUrl(e.target.value)}
-            label='Profile URL'
+            label='Username'
             variant='outlined'
             fullWidth
             required
           />
           <Typography variant='caption'>
-            This is permanent! (www.grupgrup.com/profile/'profileURL')
+            This is how people will find your profile!
           </Typography>
         </Grid>
+        <br />
         <Grid
           item
           container
