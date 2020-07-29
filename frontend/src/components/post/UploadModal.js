@@ -7,8 +7,8 @@ const UploadModal = ({ modalState, handleModalChange }) => {
     <Modal
       open={modalState}
       onClose={handleModalChange}
-      aria-labelledby='simple-modal-title'
-      aria-describedby='simple-modal-description'
+      aria-labelledby='New-Upload-Modal'
+      aria-describedby='Form-Modal-For-New-Post'
     >
       <NewUpload toggleModal={handleModalChange} />
     </Modal>

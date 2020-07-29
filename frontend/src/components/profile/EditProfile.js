@@ -74,27 +74,33 @@ const EditProfile = () => {
     });
 
   const onSubmit = async () => {
-    setIsLoading(true);
-    const config = {
-      'Content-Type': 'multipart/form-data',
-      'auth-token': userData.token
-    };
-    const response = await submitProfileUpdate(
-      userData.token,
-      config,
-      profilePic,
-      userFormValues
-    );
-    if (response.username) {
-      enqueueSnackbar('Your details have been saved!', {
-        variant: 'success'
+    if (!username || !email) {
+      enqueueSnackbar('Please check you have a Username and Email!', {
+        variant: 'info'
       });
-      history.push(`/profile/${userData.user.url}`);
     } else {
-      enqueueSnackbar(response, {
-        variant: 'error'
-      });
-      setIsLoading(false);
+      setIsLoading(true);
+      const config = {
+        'Content-Type': 'multipart/form-data',
+        'auth-token': userData.token
+      };
+      const response = await submitProfileUpdate(
+        userData.token,
+        config,
+        profilePic,
+        userFormValues
+      );
+      if (response.username) {
+        enqueueSnackbar('Your details have been saved!', {
+          variant: 'success'
+        });
+        history.push(`/profile/${userData.user.url}`);
+      } else {
+        enqueueSnackbar(response, {
+          variant: 'error'
+        });
+        setIsLoading(false);
+      }
     }
   };
 

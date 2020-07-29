@@ -39,7 +39,7 @@ const ProfilePage = () => {
     if (profileURL) {
       getUserProfilePage();
     }
-  }, [params.profileUrl, refresh]);
+  }, [params.profileUrl, refresh, enqueueSnackbar]);
 
   return (
     <div>

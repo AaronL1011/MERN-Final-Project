@@ -45,7 +45,7 @@ export const deletePost = async (id, token) => {
   try {
     const response = await axios.delete(apiUrl + `/posts/${id}`, config);
 
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error.response.data);
     return error.response.data;
