@@ -231,7 +231,7 @@ describe("Add new user", () => {
     cy.visit(`${protocol}${domain}:${port}/${pageURL}`);
   });
   describe("Information supplied in use by other users already", () => {
-    it.only("User with same email", () => {
+    it("User with same email", () => {
       cy.get("#username-field")
         .type(existingTestUser.username)
         .should("have.value", existingTestUser.username);
@@ -254,7 +254,7 @@ describe("Add new user", () => {
         .contains(`A user with this email already exists`);
     });
 
-    it.only("User with same profile url", () => {
+    it("User with same profile url", () => {
       cy.get("#username-field")
         .type(nonExistingTestUser.username)
         .should("have.value", nonExistingTestUser.username);
@@ -277,7 +277,7 @@ describe("Add new user", () => {
         .contains(`A user with this profile url already exists`);
     });
 
-    it.only("Successful addition of non-existing user", () => {
+    it("Successful addition of non-existing user", () => {
       cy.get("#username-field")
         .type(nonExistingTestUser.username)
         .should("have.value", nonExistingTestUser.username);
