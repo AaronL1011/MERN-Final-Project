@@ -1,28 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Grid, TextField, Button, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Box, Grid, TextField, Button, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
 
 const useStyles = makeStyles({
   boxStyle: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center'
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
   },
   gridContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   flexCentered: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   link: {
-    color: '#696969',
-    textDecoration: 'none'
-  }
+    color: "#696969",
+    textDecoration: "none",
+  },
 });
 
 const SignupForm = ({
@@ -36,7 +36,7 @@ const SignupForm = ({
   setPassword,
   confirmPassword,
   setConfirmPassword,
-  attemptUserCreate
+  attemptUserCreate,
 }) => {
   const classes = useStyles();
   return (
@@ -44,7 +44,7 @@ const SignupForm = ({
       <Grid container className={classes.gridContainer} spacing={1}>
         <Grid item container className={classes.flexCentered}>
           <h1>
-            GrupGrup <CameraAltIcon fontSize={'large'} />
+            GrupGrup <CameraAltIcon fontSize={"large"} />
           </h1>
         </Grid>
         <Grid
@@ -57,12 +57,12 @@ const SignupForm = ({
           xl={2}
         >
           <TextField
-            id='username-field'
+            id="username-field"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            label='Display Name'
-            placeholder='Jane Doe'
-            variant='outlined'
+            label="Display Name"
+            placeholder="Jane Doe"
+            variant="outlined"
             fullWidth
             required
           />
@@ -77,13 +77,13 @@ const SignupForm = ({
           xl={2}
         >
           <TextField
-            id='email-field'
+            id="email-field"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            label='Email'
-            placeholder='jane@email.com'
-            type='email'
-            variant='outlined'
+            label="Email"
+            placeholder="jane@email.com"
+            type="email"
+            variant="outlined"
             fullWidth
             required
           />
@@ -98,16 +98,16 @@ const SignupForm = ({
           xl={2}
         >
           <TextField
-            id='profile-url-field'
+            id="profile-url-field"
             value={profileUrl}
             onChange={(e) => setProfileUrl(e.target.value)}
-            label='Username'
-            placeholder='janedoe99'
-            variant='outlined'
+            label="Username"
+            placeholder="janedoe99"
+            variant="outlined"
             fullWidth
             required
           />
-          <Typography variant='caption'>
+          <Typography variant="caption">
             This is how people will find your profile!
           </Typography>
         </Grid>
@@ -122,12 +122,12 @@ const SignupForm = ({
           xl={2}
         >
           <TextField
-            id='password-field'
+            id="password-field"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            label='Password'
-            type='password'
-            variant='outlined'
+            label="Password"
+            type="password"
+            variant="outlined"
             fullWidth
             required
           />
@@ -142,12 +142,12 @@ const SignupForm = ({
           xl={2}
         >
           <TextField
-            id='confirm-password-field'
+            id="confirm-password-field"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            label='Confirm Password'
-            type='password'
-            variant='outlined'
+            label="Confirm Password"
+            type="password"
+            variant="outlined"
             fullWidth
           />
         </Grid>
@@ -165,8 +165,9 @@ const SignupForm = ({
             <Link to='/terms'>Terms and Conditions</Link>
           </Typography>
           <Button
+            id="createAccountButton"
             onClick={() => attemptUserCreate()}
-            variant='outlined'
+            variant="outlined"
             fullWidth
           >
             Create Account
@@ -181,7 +182,7 @@ const SignupForm = ({
           lg={3}
           xl={2}
         >
-          <Link to='/login' className={classes.link}>
+          <Link to="/login" className={classes.link}>
             Have an account? Log In
           </Link>
         </Grid>

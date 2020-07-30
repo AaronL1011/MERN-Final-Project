@@ -1,34 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Grid, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Box, Grid, TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import CameraAltIcon from "@material-ui/icons/CameraAlt";
 
 const useStyles = makeStyles({
   gridContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   flexCentered: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   link: {
-    color: '#696969',
-    textDecoration: 'none'
-  }
+    color: "#696969",
+    textDecoration: "none",
+  },
 });
 
 const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
   const classes = useStyles();
 
   return (
-    <Box height='100%' display='flex' alignItems='center'>
+    <Box height="100%" display="flex" alignItems="center">
       <Grid container className={classes.gridContainer} spacing={1}>
-        <Grid item container alignItems='center' direction='column'>
+        <Grid item container alignItems="center" direction="column">
           <h1>
-            GrupGrup <CameraAltIcon fontSize={'large'} />
+            GrupGrup <CameraAltIcon fontSize={"large"} />
           </h1>
         </Grid>
         <Grid
@@ -41,12 +41,12 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
           xl={2}
         >
           <TextField
-            id='email-field'
+            id="email-field"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            label='Email'
-            type='email'
-            variant='outlined'
+            label="Email"
+            type="email"
+            variant="outlined"
             fullWidth
             required
           />
@@ -61,12 +61,12 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
           xl={2}
         >
           <TextField
-            id='password-field'
+            id="password-field"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            label='Password'
-            type='password'
-            variant='outlined'
+            label="Password"
+            type="password"
+            variant="outlined"
             fullWidth
           />
         </Grid>
@@ -79,7 +79,12 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
           lg={3}
           xl={2}
         >
-          <Button onClick={() => handleLogin()} variant='outlined' fullWidth>
+          <Button
+            id="loginButton"
+            onClick={() => handleLogin()}
+            variant="outlined"
+            fullWidth
+          >
             Log In
           </Button>
         </Grid>
@@ -92,7 +97,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => {
           lg={3}
           xl={2}
         >
-          <Link to='/signup' className={classes.link}>
+          <Link id="signupLink" to="/signup" className={classes.link}>
             Create an Account
           </Link>
         </Grid>
