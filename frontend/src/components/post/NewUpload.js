@@ -197,6 +197,7 @@ const NewUpload = ({ toggleModal }) => {
           ) : (
             <>
               <Button
+                id='create-post-button'
                 onClick={() => attemptCreatePost()}
                 variant='outlined'
                 size='small'
@@ -205,6 +206,7 @@ const NewUpload = ({ toggleModal }) => {
                 Post!
               </Button>
               <Button
+                id='cancel-post-button'
                 onClick={toggleModal}
                 variant='outlined'
                 size='small'

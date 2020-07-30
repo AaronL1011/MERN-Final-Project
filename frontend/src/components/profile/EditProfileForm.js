@@ -81,7 +81,9 @@ const EditProfileForm = ({
       </Dialog>
       <Grid container className={classes.gridContainer} spacing={2}>
         <Grid item container className={classes.gridContainer}>
-          <Typography variant='h4'>Edit Profile</Typography>
+          <Typography variant='h4' id='edit-profile-title'>
+            Edit Profile
+          </Typography>
           <Button
             component={Link}
             color='primary'
@@ -190,6 +192,7 @@ const EditProfileForm = ({
           xl={2}
         >
           <Button
+            id='update-user-button'
             onClick={onSubmit}
             variant='outlined'
             color='primary'
@@ -274,6 +277,7 @@ const EditProfileForm = ({
           xl={2}
         >
           <Button
+            id='change-password-button'
             onClick={handleChangePassword}
             variant='outlined'
             color='primary'
@@ -292,6 +296,7 @@ const EditProfileForm = ({
           xl={2}
         >
           <Button
+            id='delete-account-button'
             onClick={handleDialogClick}
             variant='outlined'
             color='secondary'
