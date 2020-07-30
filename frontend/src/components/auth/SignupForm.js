@@ -160,6 +160,10 @@ const SignupForm = ({
           lg={3}
           xl={2}
         >
+          <Typography variant='caption'>
+            By creating an account, you hereby agree to our{' '}
+            <Link to='/terms'>Terms and Conditions</Link>
+          </Typography>
           <Button
             id="createAccountButton"
             onClick={() => attemptUserCreate()}

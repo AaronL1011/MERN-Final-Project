@@ -76,11 +76,11 @@ const NewUpload = ({ toggleModal }) => {
   };
 
   const attemptCreatePost = async () => {
-    if (
-      files !== null &&
-      (files.type === 'image/jpeg' || files.type === 'image/png')
-    ) {
-      if (userData.user) {
+    if (userData.user) {
+      if (
+        files !== null &&
+        (files.type === 'image/jpeg' || files.type === 'image/png')
+      ) {
         setIsPosting(true);
         let postFormData = new FormData();
         if (caption !== '') postFormData.set('caption', caption);
@@ -111,13 +111,13 @@ const NewUpload = ({ toggleModal }) => {
           setIsPosting(false);
         }
       } else {
-        enqueueSnackbar(`You need to log in to create a post!`, {
-          variant: 'error'
+        enqueueSnackbar(`Please choose either a JPEG or PNG!`, {
+          variant: 'info'
         });
       }
     } else {
-      enqueueSnackbar(`Please choose either a JPEG or PNG!`, {
-        variant: 'info'
+      enqueueSnackbar(`You need to log in to create a post!`, {
+        variant: 'error'
       });
     }
   };
@@ -130,7 +130,7 @@ const NewUpload = ({ toggleModal }) => {
           id='previewImage'
           image={file}
           component='img'
-          title='salad woman'
+          title='Upload Preview'
           style={{
             height: '300px',
             paddingBottom: '10px'
@@ -197,6 +197,7 @@ const NewUpload = ({ toggleModal }) => {
           ) : (
             <>
               <Button
+                id='create-post-button'
                 onClick={() => attemptCreatePost()}
                 variant='outlined'
                 size='small'
@@ -205,6 +206,7 @@ const NewUpload = ({ toggleModal }) => {
                 Post!
               </Button>
               <Button
+                id='cancel-post-button'
                 onClick={toggleModal}
                 variant='outlined'
                 size='small'
