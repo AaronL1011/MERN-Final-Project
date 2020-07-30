@@ -4,10 +4,13 @@ Created by Evelyn Paplauskas and Aaron Lewis for a Coder Academy final project.
 
 ## Links
 
-Main Development Repo: https://github.com/AaronL1011/MERN-Final-Project
-Front-end Deployed Repo: https://github.com/evey-pea/GrupGrup-Frontend
-Back-end Deployed Repo: https://github.com/AaronL1011/GrupGrup-Backend
-Live Application: https://www.grupgrup.com/
+**Main Development Repo:** https://github.com/AaronL1011/MERN-Final-Project
+
+**Front-end Deployed Repo:** https://github.com/evey-pea/GrupGrup-Frontend
+
+**Back-end Deployed Repo:** https://github.com/AaronL1011/GrupGrup-Backend
+
+**Live Application:** https://www.grupgrup.com/
 
 ## Application Description
 
