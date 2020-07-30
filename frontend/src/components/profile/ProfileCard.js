@@ -51,7 +51,12 @@ const ProfileCard = ({ userProfile }) => {
         <CardContent className={classes.content}>
           <CardActions>
             {userData.user && userData.user.id === userProfile.id ? (
-              <Button color='primary' component={Link} to='/editprofile'>
+              <Button
+                id='edit-profile-button'
+                color='primary'
+                component={Link}
+                to='/editprofile'
+              >
                 Edit Profile
               </Button>
             ) : (

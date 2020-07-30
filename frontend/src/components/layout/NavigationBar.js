@@ -170,6 +170,7 @@ const NavigationBar = ({ modalToggle, modalOpen }) => {
         >
           <Tooltip title='Home' value='home'>
             <BottomNavigationAction
+              id='home-navbar-button'
               component={Link}
               to='/'
               label='Home'
@@ -179,6 +180,7 @@ const NavigationBar = ({ modalToggle, modalOpen }) => {
           </Tooltip>
           <Tooltip title='Upload' value='new-upload'>
             <BottomNavigationAction
+              id='new-upload-navbar-button'
               onClick={modalToggle}
               label='Upload'
               value='new-upload'
@@ -196,6 +198,7 @@ const NavigationBar = ({ modalToggle, modalOpen }) => {
           </Tooltip>
           <Tooltip title='Menu' value='menu'>
             <BottomNavigationAction
+              id='menu-navbar-button'
               onClick={onMenuClick}
               label='Menu'
               value='menu'

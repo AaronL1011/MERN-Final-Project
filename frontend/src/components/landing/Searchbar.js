@@ -35,7 +35,7 @@ const Searchbar = ({ searchValue, setSearchValue }) => {
         <TextField
           fullWidth
           variant='outlined'
-          id='searchBarText'
+          id='search-bar'
           label='Search'
           autoComplete='on'
           value={searchValue}

@@ -58,7 +58,12 @@ const ToggleDisplayView = ({
 
   const largeCard = (post, index) => {
     return (
-      <Grid key={index} item style={{ width: '100%' }}>
+      <Grid
+        key={index}
+        id={`returned-post-${index}`}
+        item
+        style={{ width: '100%' }}
+      >
         <PostCardLarge
           postContent={post}
           openModal={() => handleModal(post)}
@@ -75,6 +80,7 @@ const ToggleDisplayView = ({
   const smallCard = (post, index) => {
     return (
       <PostCardSmall
+        id={`returned-post-${index}`}
         postContent={post}
         openModal={() => handleModal(post)}
         key={index}
@@ -92,12 +98,14 @@ const ToggleDisplayView = ({
           aria-label='display alignment'
         >
           <ToggleButton
+            id='single-view-button'
             value='single'
             aria-label='display results in single column'
           >
             <ViewDayIcon />
           </ToggleButton>
           <ToggleButton
+            id='grid-view-button'
             value='multiple'
             aria-label='display results in multiple columns'
           >
