@@ -15,9 +15,17 @@ router.post('/signup', async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  const userAlreadyExists = await User.findOne({ email: req.body.email });
-  if (userAlreadyExists) {
+  const emailAlreadyExists = await User.findOne({ email: req.body.email });
+  if (emailAlreadyExists) {
     return res.status(400).send('A user with this email already exists');
+  }
+
+  const profileURLAlreadyExists = await User.findOne({
+    profile_url: req.body.profile_url.toLowerCase()
+  });
+
+  if (profileURLAlreadyExists) {
+    return res.status(400).send('A user with this profile url already exists');
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -26,15 +34,25 @@ router.post('/signup', async (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
+    profile_url: req.body.profile_url.toLowerCase().replace(/\s+/g, ''),
     password: hashedPassword
   });
 
   try {
     const savedUser = await user.save();
-    const token = jwt.sign({ _id: savedUser._id }, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).json({ token });
+    const token = jwt.sign({ id: savedUser._id }, process.env.TOKEN_SECRET);
+    return res.json({
+      token,
+      user: {
+        id: savedUser._id,
+        username: savedUser.username,
+        url: savedUser.profile_url
+      }
+    });
   } catch (error) {
-    res.status(400).send(error);
+    return res
+      .status(500)
+      .send('Something went wrong... Refresh and try again!');
   }
 });
 
@@ -57,12 +75,28 @@ router.post('/login', async (req, res) => {
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) {
-    return res.status(400).send('Invalid Password');
+    return res
+      .status(400)
+      .send(
+        'Some details were incorrect, please check email and password and try again.'
+      );
   }
-
-  // Create and assign JWT
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header('auth-token', token).json({ token });
+  try {
+    // Create and assign JWT
+    const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET);
+    return res.json({
+      token,
+      user: {
+        username: user.username,
+        id: user._id,
+        url: user.profile_url
+      }
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .send('Something went wrong... Refresh and try again!');
+  }
 });
 
 module.exports = router;

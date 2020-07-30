@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
       .catch(() => {
         return res
           .status(400)
-          .send('Posts dont exist, please check and try again.');
+          .send('No posts found, please check and try again.');
       });
   } catch (error) {
-    return res.status(500).send('Internal server error.');
+    res.status(500).send('Something went wrong... Refresh and try again!');
   }
 });
 
@@ -29,90 +29,71 @@ router.get('/:id', async (req, res) => {
       })
       .catch(() => {
         return res
-          .status(404)
+          .status(400)
           .send('This post doesnt exist, please check and try again.');
       });
   } catch (error) {
-    return res.status(500).send('Internal server error.');
-  }
-});
-
-// Create a post - PRIVATE ROUTE
-router.post('/', verify, async (req, res) => {
-  const post = new Post({
-    images: req.body.images,
-    caption: req.body.caption,
-    tags: req.body.tags
-  });
-
-  try {
-    const current_user = await User.findById(req.user._id);
-
-    await post
-      .save()
-      .then((post) => {
-        current_user.updateOne({ posts: [post._id, ...current_user.posts] });
-        return post;
-      })
-      .then((post) => {
-        res.status(200).send(post);
-      })
-      .catch((error) => {
-        return res.status(400).send(error.message);
-      });
-  } catch (error) {
-    res.status(500).send('Internal server error.');
+    res.status(500).send('Something went wrong... Refresh and try again!');
   }
 });
 
 // Update post information - PRIVATE ROUTE
 router.put('/:id', verify, async (req, res) => {
-  const current_user = await User.findById(req.user._id);
+  const validPost = await Post.findById(req.params.id);
 
-  if (current_user.posts.includes(req.params.id)) {
-    try {
-      await Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then((post) => {
+  if (validPost) {
+    const current_user = await User.findById(req.user);
+
+    if (current_user.posts.includes(req.params.id)) {
+      try {
+        await Post.findByIdAndUpdate(req.params.id, req.body, {
+          new: true
+        }).then((post) => {
           return res.status(200).json(post);
-        })
-        .catch((error) => {
-          return res.status(400).send(error.message);
         });
-    } catch (error) {
-      return res.status(500).send('Internal server error.');
+      } catch (error) {
+        return res
+          .status(500)
+          .send('Something went wrong... Refresh and try again!');
+      }
+    } else {
+      return res.status(401).send('You are not authorized to edit this post.');
     }
   } else {
-    return res.status(401).send('Unauthorized.');
+    return res
+      .status(400)
+      .send('Post doesnt exist, please check and try again.');
   }
 });
 
 // Delete a post - PRIVATE ROUTE
 router.delete('/:id', verify, async (req, res) => {
-  const current_user = await User.findById(req.user._id);
+  const current_user = await User.findById(req.user);
+
+  let updatedPosts = current_user.posts.filter(
+    (post) => post !== req.params.id
+  );
 
   if (current_user.posts.includes(req.params.id)) {
     try {
       await Post.findByIdAndRemove(req.params.id)
-        .then((post) => {
-          const response = {
-            message: 'Post successfully deleted',
-            id: post._id
-          };
-
-          return res.status(200).json(response);
+        .then(async () => {
+          await current_user.updateOne({ posts: updatedPosts }).then(() => {
+            return res.status(200).send('Post successfully deleted.');
+          });
         })
         .catch(() => {
           return res
-            .status(404)
+            .status(400)
             .send('This post doesnt exist, please check and try again.');
         });
     } catch (error) {
-      res.status(500).send('Internal server error.');
+      return res
+        .status(500)
+        .send('Something went wrong... Refresh and try again!');
     }
   } else {
-    return res
-      .status(401)
-      .send('Either you are not authorized, or this post doesnt exist.');
+    return res.status(400).send('Post not found, please check and try again');
   }
 });
 
