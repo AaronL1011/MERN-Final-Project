@@ -3,6 +3,7 @@
 const nonExistingTestUser = {
   emailAddress: "non-existinguser@text.com",
   password: "dorwssap",
+  profileURL: "nemo",
 };
 
 const existingTestUser = {
