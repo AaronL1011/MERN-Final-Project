@@ -2,19 +2,23 @@
 
 Created by Evelyn Paplauskas and Aaron Lewis for a Coder Academy final project.
 
+## Links
+
+**Main Development Repo:** https://github.com/AaronL1011/MERN-Final-Project
+
+**Front-end Deployed Repo:** https://github.com/evey-pea/GrupGrup-Frontend
+
+**Back-end Deployed Repo:** https://github.com/AaronL1011/GrupGrup-Backend
+
+**Live Application:** https://www.grupgrup.com/
+
 ## Application Description
 
-> R1 - Application Description
-
 ### Purpose
-
-> R1 - Purpose
 
 To provide a platform for users to share their original content (photos). Currently many photo sharing platforms allow for the sharing and re-posting of images of any sort. While this is fine, certain audiences would prefer a platform to share images they have taken themselves (photographers, family-persons, etc.) This application can serve as a platform to achieve this. While theoretically you will still be able to upload any image, the whole idea is to keep uploads exclusively as original content.
 
 ### Functionality and Features
-
-> R1 - Functionality and Features
 
 This application is being designed as a photo sharing platform for use by anyone wishing to upload and distribute their own original photos. Obviously the platform will need functions to support the creation, retrieval, updating and deletion of User Accounts, as well as CRUD operations and a storage solution for the photos being uploaded by each user.
 
@@ -42,17 +46,57 @@ In a general sense, features we would like to implement include:
   - Ability to comment on images publicly and provide feedback privately
   - Reporting of the abuse/violation of Terms of Service
 
-### Target audience
+### Libraries used within the Application
 
-> R1 - Target Audience
+> R1 - Uses appropriate libraries
+
+**Back-end Libraries**
+
+- Joi: A schema description language and data validator for Javascript. This library was utlized to validate incoming data for the Signup and Login functionality of the user model.
+
+- Aws-Sdk: The official AWS SDK for JavaScript. This package was required in order to pass image upload data to our S3 bucket for storage.
+
+- Axios: A HTTP request library for javascript. This package was used extensively throughout both the front and back end of the application. Axios allowed us to make data requests between our client and servers in order to actually display any information to the user.
+
+- BcryptJS: An all in one password encryption package for Javascript. This was used to hash the users passwords upon account creation/updating, as well as verify passwords submitted by users on Login.
+
+- Cors: A very important package allowing for Cross Origin Resource Sharing within our application. Without this, access to all our data from the client application would be blocked due to security concerns.
+
+- Dotenv: A simple javascript package that allows for the dynamic setting of environment variables for use within our application. This package was used to store our AWS S3 Keys, our Database access keys, as well as any secret tokens for data validation.
+
+- Express: A minimialist web framework for node. This package is the backbone of our Node API and is used for handling requests from the front-end client, handling data appropriately, and interacting with our Mongo Atlas database and the S3 image storage.
+
+- JSONWebToken: A simple javascript package for the implementation of JSON Web tokens. This was what our User authentication is based off. When a user signs up or logs in, they are assigned a new token which is then stored in LocalStorage. This token is then used for session storage.
+
+- Mongoose: Mongoose is a package designed for the interaction of MongoDB document databases within a node application. This was used to define schemas of our models (Users and Posts), as well as store and retrieve data between the Node API and our Atlas cloud database.
+
+- Multer/Multer-S3: Multer is a node.js middleware for handling multipart/form-data. This was used for handling the requests for making a new post, as files are most commonly uploaded as Multi-part form data, Multer and Multer-S3 where used to pull the image out of the request, upload it to Amazon S3, and return the url for the newly uploaded image to be included in the new Post object.
+
+- Uuidv4: A simple unique ID generator used for the images uploaded to S3. These images required unique identifiers in order to tie them to a post without causing issues with duplicate file urls.
+
+- Mocha/Chai and Chai-Http: A combination of testing frameworks for the automated testing of all the API endpoints. This suite was made to test all valid request cases, as well as all invalid requests, ensuring the correct responses were returned for each case.
+
+**Front-end Libraries**
+
+- Material UI Core/Icons and Lab: Material Ui is a React UI framework full of pre-built, pre-styled components ready to drop into an application. This greatly reduced the workload for the front-end, allowing us to hone our focus into the functionality of each component. Minor styling changes where implemented by each of us to get the componenets sitting appropriately on the page.
+
+- Axios: A HTTP request library for javascript. This package was used extensively throughout both the front and back end of the application. Axios allowed us to make data requests between our client and servers in order to actually display any information to the user.
+
+- Notistack: An all-in-one notification package for Javascript. This neat little package allowed us to wrap our entire application in the Notistack component, and pass success, info or error messages to the user with ease. The notifications are very customizable, and have in-built logic for the displaying and time-out of notifications.
+
+- React: React is an open-source JavaScript library for building responsive and dynamic user interfaces. The entire front-end of our application is built on top of React, which gave us full control over the rendering of data passed through from the back end.
+
+- React Router: React Router is a package designed for the navigation through components of an application. It reads the path from the URL entered by the user or any clicked links, and will render the component assigned to that path.
+
+- Cypress: An end to end testing framework that runs in the browser. This is what we used to test the UI functionality of our application once deployed. It allows us to automate the validation and testing of each function within the front end and record the results of each test.
+
+### Target audience
 
 The target audience within this application is very broad. Given that _any persons who take their own photos_ are encouraged to be a part of this platform, anyone with a camera of some sorts could be considered part of the target audience.
 
 To ensure a safe environment for all users within this application, it may require some Terms and Conditions to be defined to control the specific type of content allowed to be uploaded. For example, imposing restrictions on NSFW content (photos involving nudity, illicit substances or violence) would be required to ensure that any _minors_ or _those who are easily disturbed_ are safe and comfortable within the application.
 
 ### Tech Stack
-
-> R1 - Tech Stack
 
 This application is planned to be split into two main components. The 'Front end' will be for rendering content to the users and handling user interaction, and the 'Back end' will be used for routing HTTP requests, and retrieving/sending the appropriate data between servers as the user interacts with the appliocation.
 
@@ -71,23 +115,17 @@ In regards to the back end, this requires the use of a few more technologies.
 
 # Dataflow Diagram
 
-> R2 - Dataflow Diagram
-
 Below is a Level 1 Dataflow Diagram outlining the flow of information between components at the core functionality of the application. It shows how requests from the User are handled and how data is stored and retrieved from our application storage.
 
 ![Dataflow Diagram](./docs/DataflowDiagram.png)
 
 # Application Architecture Diagram
 
-> R3 - Application Architecture Diagram
-
 Outlined below is the basic Architecture Diagram of how we plan to structure the application. As you can see, the user will always be interacting with our 'front-end' React application. From there, all data/requests are passed through into our 'back-end' NodeJS API where the proper actions can be executed depending on the request type and route destination. Our Node API interacts with numerous javascript packages to allow for functions such as password encryption, web tokens for authentication and Express for routing requests to the correct files/servers, etc. The included 'mongoose' package is our interface between our NodeAPI/Express routes, and our MongoDB Atlas database described below. Express also handles some data storage by sending and retrieving our users images between Amazon S3 and our server application, for delivery to the user.
 
 ![Architecture Diagram](./docs/Application_Architecture_Diagram.png)
 
 # User Stories
-
-> R4 - User Stories
 
 ## Initial User Stories
 
@@ -180,8 +218,6 @@ _“I am after something simple that lets me share my images and stories as face
 
 # Wireframes
 
-> R5 - Wireframes for multiple standard screen sizes, created using industry standard software
-
 ### Log In
 
 This is the page that users are greeted with upon first visit of the application. Users are required to sign in to their account in order to use certain functions of the application such as posting and commenting.
@@ -234,11 +270,24 @@ Outlined below are the relationships between each page. Most pages can be access
 
 # Planning Screenshots
 
-> R6 - Screenshots of your Trello board demonstrating use throughout the initial stages of the project
-
 Throughout the developement process, we opted to use Kanban progress tracking in the form of a Trello board. This makes it exceedingly simple to visualise the status of each current task, and to follow who is completing each one. As each task is progressed, it moves between columns, once completed, it is marked as such, and a new task can be commenced. Outlined below, you can see the progression of tasks as we worked through the first section of the assignment.
+
+### Planning phase
 
 ![First screenshot of trello board](./docs/screenshots/screenshot-1.png)
 ![Second screenshot of trello board](./docs/screenshots/screenshot-2.png)
 ![Third screenshot of trello board](./docs/screenshots/screenshot-3.png)
 ![Fourth screenshot of trello board](./docs/screenshots/screenshot-4.png)
+
+### Development phase
+
+> R3 - Use a recognised project management methodology
+
+> R4 - Use a recognised task delegation methodology
+
+During the development phase of our project, we made use of a Complexity vs Priority task management system, color coding each card in our Trello board with a label corresponding to the defined key. Tasks where delegated by where we felt our strongest skills fit best, and names where assigned to task cards as we saw fit.
+
+![Fifth screenshot of trello board](./docs/screenshots/screenshot-5.png)
+![Sixth screenshot of trello board](./docs/screenshots/screenshot-6.png)
+![Seventh screenshot of trello board](./docs/screenshots/screenshot-7.png)
+![Eigth screenshot of trello board](./docs/screenshots/screenshot-8.png)

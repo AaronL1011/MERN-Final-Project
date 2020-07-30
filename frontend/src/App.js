@@ -11,6 +11,7 @@ import UserContext from './context/UserContext';
 import UploadModal from './components/post/UploadModal';
 import { checkLoggedIn } from './utils/auth';
 import './App.css';
+import TermsAndConditions from './components/layout/TermsAndContitions';
 
 const App = () => {
   const [userData, setUserData] = useState({
@@ -43,6 +44,7 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={Mainpage} />
             <Route exact path='/about' component={About} />
+            <Route exact path='/terms' component={TermsAndConditions} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/editprofile' component={EditProfile} />
